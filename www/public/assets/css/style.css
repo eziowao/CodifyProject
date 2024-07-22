@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: #101010;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+:root {
+    font-size: 18px;
+}
+
+.custom-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1.0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M1 14h14M1 8h14M1 2h14'/%3E%3C/svg%3E");
+}
+
+.bg-ultra-dark {
+    background-color: #101010;
+}
+
+.bg-dark-grey {
+    background-color: #1D1E22;
+}
+
+.bg_grey {
+    background-color: #202020;
+}
+
+.text-green {
+    color: #7DA15A;
+}
+
+.text-purple {
+    color: #96306A;
+}
+
+.fa-brands,
+.fa-solid,
+.fa-regular {
+    color: #96306A;
+}
+
+.bg-green {
+    background-color: #7DA15A;
+}
+
+.fs-16 {
+    font-size: 16px;
+}
+
+/* ---------------------- modal ---------------------- */
+
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+textarea:hover {
+    box-shadow: 0 0 5px white;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    background-color: #1D1E22;
+}
+
+.btn.bg-green:hover {
+    background-color: #7DA15A;
+}
+
+.dropdown-menu .dropdown-item.text-light:hover,
+.dropdown-menu .dropdown-item.text-light:focus {
+    background-color: transparent;
+}
+
+.classement {
+    background-color: #33353C;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* FAQ */
+
+.accordion-button:not(.collapsed) {
+    background-color: #7DA15A;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    box-shadow: #7DA15A;
+}
+
+.custom-hr {
+    height: 4px;
+    border-radius: 50%;
+    width: 60%;
+    background: linear-gradient(90deg, rgb(143, 30, 77) 0%, rgb(183, 120, 174) 50%, rgb(127, 183, 97) 100%);
+    border: none;
+}
+
+/* .custom-hr-2 {
+    height: 2px;
+    width: 10%;
+    background: linear-gradient(90deg, rgba(108, 213, 246, 1) 0%, rgba(248, 157, 92, 1) 50%, rgba(91, 106, 240, 1) 100%);
+    border: none;
+} */
+
+.accordion-item {
+    border: none;
+}
+
+.accordion {
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e")
+}
+
+/* contact form  */
+
+#nom::placeholder {
+    color: rgb(136, 136, 136);
+    font-style: italic;
+}
+
+#email::placeholder {
+    color: rgb(136, 136, 136);
+    font-style: italic;
+}
+
+#message::placeholder {
+    color: rgb(136, 136, 136);
+    font-style: italic;
+}
+
+/* img  */
+
+.profile-img {
+    height: 220px;
+    width: auto;
+}
+
+/* rankings */
+
+.ranking-content {
+    background-color: rgba(32, 32, 32, 0.5);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px -2px black;
+    color: white;
+}
+
+.rounded-20 {
+    border-radius: 20px;
+}
+
+.bg-grey-ranking {
+    background-color: #33353C;
+}
+
+.bg-dark-ranking {
+    background-color: #0B0A08;
+}
+
+.ranking-btn {
+    cursor: pointer;
+}
+
+.ranking-content:hover {
+    box-shadow: 0px 0px 10px 0px #1a1a1b;
+}
