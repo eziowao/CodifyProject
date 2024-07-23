@@ -2,11 +2,14 @@
 
 require_once './config/db-config.php';
 require_once './models/Database.php';
+
+// exemple de rent my ride 
 require_once './models/BaseModel.php';
 require_once './models/Category.php';
 require_once './models/Vehicle.php';
 require_once './models/Client.php';
 require_once './models/Rent.php';
+
 require_once './models/User.php';
 require_once './models/Challenge.php';
 
@@ -40,6 +43,7 @@ $path = match ($page) {
 
     // gestion challenges
     'admin/dashboard/challenges/list' => 'admin/dashboard/challenges/list',
+    'admin/dashboard/challenges/add' => 'admin/dashboard/challenges/add',
 
 
     'categories/list' => 'dashboard/categories/list',

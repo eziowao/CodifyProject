@@ -8,12 +8,12 @@ if (!isset($_SESSION['password']) || empty($_SESSION['password'])) {
 }
 
 try {
-    $challengeModel = new Challenge($id, $published_at);
-    $users = $userModel->getAllChallenges();
+    $challengeModel = new Challenge();
+    $challenges = $challengeModel->getAllChallenges();
 } catch (\PDOException $ex) {
     echo sprintf('la récupération des catégories a échoué avec le message %s', $ex->getMessage());
     //throw $th;
 }
 
-$title = "Liste des utilisateurs";
-renderView('admin/dashboard/users/list', compact('title', 'users'));
+$title = "Liste des challenges";
+renderView('admin/dashboard/challenges/list', compact('title', 'challenges'));

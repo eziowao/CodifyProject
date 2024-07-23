@@ -53,63 +53,45 @@ ob_start()
 <h1 class="text-center"> <?= $title ?> </h1>
 
 <div class="container mt-5">
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Image d'illustration</th>
-                <th scope="col">Description</th>
-                <th scope="col">Url de téléchargement</th>
-                <th scope="col">Modifier</th>
-                <th scope="col">Supprimer</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($challenges as $challenge) : ?>
-                <tr>
-                    <td><?= $challenge->challenge_id ?></td>
-                    <td><?= $challenge->name ?></td>
-                    <td> <img class="rounded-2" src="./../../../../public/uploads/users/<?= 'test' ?>" height="50px" alt=""></td>
-                    <td><?= $challenge->description  ?></td>
-                    <td><?= $challenge->file_url  ?></td>
-                    <td>
-                        <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= 'test' ?>"><i class="bi bi-pencil"></i></a>
-                    </td>
-                    <td>
-                        <form class="delete-form" action="?page=admin/dashboard/users/delete&id=<?= 'test'  ?>" method="post">
-                            <input type="hidden" name="user_id" value="<?= 'test'  ?>">
-                            <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div>
-
-<div id="delete-modal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content text-black">
-            <div class="modal-header">
-                <h5 class="modal-title">Suppression</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Vous voulez vraiment bannir l'utilisateur ?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-valid="true" class="btn btn-primary">Valider</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-6">
+            <form method="POST" action="" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="mt-2" for="brand">Nom : </label>
+                    <input type="text" class="form-control" id="brand" name="brand" value="<?= $brand ?? '' ?>" required>
+                    <label class="mt-2" for="model">Modèle : </label>
+                    <input type="text" class="form-control" id="model" name="model" value="<?= $model ?? '' ?>" required>
+                    <label class="mt-2" for="registration">Immatriculation : </label>
+                    <input type="text" class="form-control" id="registration" name="registration" value="<?= $registration ?? '' ?>" required>
+                    <label class="mt-2" for="mileage">Kilométrage : </label>
+                    <input type="text" class="form-control" id="mileage" name="mileage" value="<?= $mileage ?? '' ?>" required>
+                    <div class="mb-3">
+                        <label for="picture" class="form-label mt-2">Photo</label>
+                        <input type="file" class="form-control" name="picture" id="picture">
+                    </div>
+                    <select class="form-select mt-4" name="categorie_id" id="categorie_id" required>
+                        <option value=""> Catégorie </option>
+                        <?php foreach ($categories as $category) {
+                        ?>
+                            <option value="<?= $category->categorie_id ?>"><?= $category->name ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="button-27 mt-4">Ajouter</button>
+                </div>
+                <?= $errors['brand'] ?? '' ?>
+            </form>
         </div>
     </div>
 </div>
 
 <?php
 $main = ob_get_clean();
+
+
 
 ob_start()
 ?>

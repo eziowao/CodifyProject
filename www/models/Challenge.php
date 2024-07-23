@@ -4,11 +4,10 @@ class Challenge extends BaseModel
 {
     private ?int $challenge_id;
 
-    private Datetime $published_at;
-
     public function __construct(
-        private ?string $name,
-        private ?string $description,
+        private ?string $name = null,
+        private ?DateTime $published_at = null,
+        private ?string $description = null,
         private ?string $picture = null,
         private ?string $file_url = null,
         private ?int $type_id = null,
@@ -16,7 +15,6 @@ class Challenge extends BaseModel
     ) {
         parent::__construct(); // sans ça, pas de connexion avec la BDD
     }
-
     // Getters and Setters
 
     public function getChallengeId(): ?int
@@ -112,5 +110,22 @@ class Challenge extends BaseModel
         $sql = "SELECT * FROM `challenges`";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function addChallenge(): bool
+    {
+        $sql = "INSERT INTO `challenges` (`name`, `published_at`, `description`, `type_id`, `user_id`, `picture`, `file_url`) 
+            VALUES (:name, :published_at, :description, :type_id, :user_id, :picture, :file_url)";
+        $stmt = $this->db->prepare($sql);
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':name', $this->getName(), PDO::PARAM_STR);
+        $stmt->bindValue(':published_at', $this->getPublished_at()->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $stmt->bindValue(':description', $this->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(':type_id', $this->getType_id(), PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->getUser_id(), PDO::PARAM_INT);
+        $stmt->bindValue(':picture', $this->getPicture(), PDO::PARAM_STR);
+        $stmt->bindValue(':file_url', $this->getFile_url(), PDO::PARAM_STR);
+        return $stmt->execute();
     }
 }

@@ -16,4 +16,4 @@ try {
 }
 
 $title = "Liste des utilisateurs";
-renderView('admin/dashboard/challenges/list', compact('title', 'users'));
+renderView('admin/dashboard/users/list', compact('title', 'users'));
