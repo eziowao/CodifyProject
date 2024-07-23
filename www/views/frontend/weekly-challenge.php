@@ -129,5 +129,12 @@ ob_start()
 </main>
 
 <?php
-$main = ob_get_clean()
+$main = ob_get_clean();
+
+ob_start()
+?>
+
+
+<?php
+$script = ob_get_clean();
 ?>

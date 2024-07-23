@@ -36,5 +36,13 @@ ob_start()
     </div>
 </div>
 <?php
-$main = ob_get_clean()
+$main = ob_get_clean();
+
+ob_start()
+?>
+
+<script src="./public/assets/js/script.js"></script>
+
+<?php
+$script = ob_get_clean();
 ?>

@@ -2,12 +2,13 @@
 
 class User extends BaseModel
 {
-    private ?int $user_id = null;
+    private ?int $user_id;
 
     public function __construct(
         private ?string $pseudo = null,
         private ?string $email = null,
         private ?string $password = null,
+        private ?string $picture = null,
         private ?string $biography = null,
         private ?string $social_networks = null,
         private ?int $classement_id = null,
@@ -60,6 +61,17 @@ class User extends BaseModel
     public function setPassword(?string $password): self
     {
         $this->password = $password;
+        return $this;
+    }
+
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): ?self
+    {
+        $this->picture = $picture;
         return $this;
     }
 
@@ -123,5 +135,38 @@ class User extends BaseModel
         $sql = "SELECT * FROM `users`";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getUserById($user_id)
+    {
+        $sql = "SELECT * FROM `users` WHERE user_id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateUser($id, $pseudo, $email, $biography, $social_networks, $picture)
+    {
+        $sql = "UPDATE `users` SET `pseudo`= :pseudo, `email`= :email,`biography`= :biography,`social_networks`= :social_networks,`picture`= :picture WHERE user_id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':biography', $biography, PDO::PARAM_STR);
+        $stmt->bindValue(':social_networks', $social_networks, PDO::PARAM_STR);
+        $stmt->bindValue(':picture', $picture, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+    public function deleteUser($user_id)
+    {
+        $sql = "DELETE FROM `users` WHERE `user_id` = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

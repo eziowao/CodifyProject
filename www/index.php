@@ -8,6 +8,7 @@ require_once './models/Vehicle.php';
 require_once './models/Client.php';
 require_once './models/Rent.php';
 require_once './models/User.php';
+require_once './models/Challenge.php';
 
 // helpers
 require_once './helpers/http_helper.php';
@@ -30,9 +31,15 @@ $path = match ($page) {
 
     // admin 
 
+    // gestion membres
     'admin' => 'admin/logs/login',
     'logout' => 'admin/logs/logout',
-    'admin/dashboard/list' => 'admin/dashboard/users/list',
+    'admin/dashboard/users/list' => 'admin/dashboard/users/list',
+    'admin/dashboard/users/update' => 'admin/dashboard/users/update',
+    'admin/dashboard/users/delete' => 'admin/dashboard/users/delete',
+
+    // gestion challenges
+    'admin/dashboard/challenges/list' => 'admin/dashboard/challenges/list',
 
 
     'categories/list' => 'dashboard/categories/list',
