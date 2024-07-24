@@ -48,6 +48,19 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Gestion types
+                            </a>
+                            <ul class="dropdown-menu bg-dark-grey">
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/list">Liste des types</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/add">Créer un type</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="?page=logout">Se deconnecter</a>
                         </li>

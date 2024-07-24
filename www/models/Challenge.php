@@ -10,7 +10,6 @@ class Challenge extends BaseModel
         private ?string $description = null,
         private ?string $picture = null,
         private ?string $file_url = null,
-        private ?string $original_file_name = null,
         private ?int $type_id = null,
         private ?int $user_id = null
     ) {
@@ -84,17 +83,6 @@ class Challenge extends BaseModel
         return $this;
     }
 
-    public function getOriginal_file_name(): ?string
-    {
-        return $this->original_file_name;
-    }
-
-    public function setOriginal_file_name(?string $original_file_name): self
-    {
-        $this->original_file_name = $original_file_name;
-        return $this;
-    }
-
     public function getType_id(): ?int
     {
         return $this->type_id;
@@ -126,8 +114,8 @@ class Challenge extends BaseModel
 
     public function addChallenge(): bool
     {
-        $sql = "INSERT INTO `challenges` (`name`, `published_at`, `description`, `type_id`, `user_id`, `picture`, `file_url`, `original_file_name`) 
-                VALUES (:name, :published_at, :description, :type_id, :user_id, :picture, :file_url, :original_file_name)";
+        $sql = "INSERT INTO `challenges` (`name`, `published_at`, `description`, `type_id`, `user_id`, `picture`, `file_url`) 
+                VALUES (:name, :published_at, :description, :type_id, :user_id, :picture, :file_url)";
         $stmt = $this->db->prepare($sql);
 
         $stmt->bindValue(':name', $this->getName(), PDO::PARAM_STR);
@@ -137,7 +125,6 @@ class Challenge extends BaseModel
         $stmt->bindValue(':user_id', $this->getUser_id(), PDO::PARAM_INT);
         $stmt->bindValue(':picture', $this->getPicture(), PDO::PARAM_STR);
         $stmt->bindValue(':file_url', $this->getFile_url(), PDO::PARAM_STR);
-        $stmt->bindValue(':original_file_name', $this->getOriginal_file_name(), PDO::PARAM_STR);
         return $stmt->execute();
     }
 
@@ -149,5 +136,23 @@ class Challenge extends BaseModel
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateChallenge(): bool
+    {
+        $sql = "UPDATE `challenges` SET `name`= :name, `published_at`= :published_at,`description`= :description,`picture`= :picture,`file_url`= :file_url,`type_id`= :type_id, `user_id` = :user_id  WHERE challenge_id = :id";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindValue(':name', $this->getName(), PDO::PARAM_STR);
+        $stmt->bindValue(':published_at', $this->getPublished_at()->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $stmt->bindValue(':description', $this->getDescription(), PDO::PARAM_STR);
+        $stmt->bindValue(':picture', $this->getPicture(), PDO::PARAM_STR);
+        $stmt->bindValue(':file_url', $this->getFile_url(), PDO::PARAM_STR);
+        $stmt->bindValue(':type_id', $this->getType_id(), PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->getUser_id(), PDO::PARAM_INT);
+        $stmt->bindValue(':id', $this->getChallengeId(), PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 }

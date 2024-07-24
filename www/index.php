@@ -39,7 +39,8 @@ $path = match ($page) {
     // gestion challenges
     'admin/dashboard/challenges/list' => 'admin/dashboard/challenges/list',
     'admin/dashboard/challenges/add' => 'admin/dashboard/challenges/add',
-    'admin/dashboard/challenges/download' => 'admin/dashboard/challenges/download',
+    'admin/dashboard/challenges/update' => 'admin/dashboard/challenges/update',
+    'admin/dashboard/challenges/delete' => 'admin/dashboard/challenges/delete',
 
     // gestion types 
     'admin/dashboard/types/list' => 'admin/dashboard/types/list',

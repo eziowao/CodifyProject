@@ -7,7 +7,7 @@ ob_start()
 
 <div class="container mt-5">
     <div class="d-flex justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6 text-light">
             <form method="POST" action="" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Nom du Challenge</label>
@@ -18,17 +18,26 @@ ob_start()
                     <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                 </div>
                 <div class="form-group">
+                    <label for="picture">Image descriptive</label>
+                    <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="file_url">Url de la maquette</label>
+                    <input type="text" class="form-control" id="file_url" name="file_url">
+                </div>
+                <div class="form-group">
                     <label for="published_at">Date de Publication</label>
                     <input type="datetime-local" class="form-control" id="published_at" name="published_at" required>
                 </div>
-                <div class="form-group">
-                    <label for="picture">Image</label>
-                    <input type="file" class="form-control-file" id="picture" name="picture" accept="image/*">
-                </div>
-                <div class="form-group">
-                    <label for="file_url">Fichier</label>
-                    <input type="file" class="form-control-file" id="file_url" name="file_url">
-                </div>
+                <select class="form-select mt-4" name="type_id" id="type_id" required>
+                    <option value=""> Type de challenge </option>
+                    <?php foreach ($types as $type) {
+                    ?>
+                        <option value="<?= $type->type_id ?>"><?= $type->type ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
                 <button type="submit" class="btn btn-primary">Ajouter le Challenge</button>
             </form>
         </div>
