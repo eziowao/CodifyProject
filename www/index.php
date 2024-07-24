@@ -2,16 +2,11 @@
 
 require_once './config/db-config.php';
 require_once './models/Database.php';
-
-// exemple de rent my ride 
 require_once './models/BaseModel.php';
-require_once './models/Category.php';
-require_once './models/Vehicle.php';
-require_once './models/Client.php';
-require_once './models/Rent.php';
 
 require_once './models/User.php';
 require_once './models/Challenge.php';
+require_once './models/Type.php';
 
 // helpers
 require_once './helpers/http_helper.php';
@@ -44,17 +39,14 @@ $path = match ($page) {
     // gestion challenges
     'admin/dashboard/challenges/list' => 'admin/dashboard/challenges/list',
     'admin/dashboard/challenges/add' => 'admin/dashboard/challenges/add',
+    'admin/dashboard/challenges/download' => 'admin/dashboard/challenges/download',
 
+    // gestion types 
+    'admin/dashboard/types/list' => 'admin/dashboard/types/list',
+    'admin/dashboard/types/add' => 'admin/dashboard/types/add',
+    'admin/dashboard/types/update' => 'admin/dashboard/types/update',
+    'admin/dashboard/types/delete' => 'admin/dashboard/types/delete',
 
-    'categories/list' => 'dashboard/categories/list',
-    'categories/add' => 'dashboard/categories/add',
-    'categories/update' => 'dashboard/categories/update',
-    'categories/delete' => 'dashboard/categories/delete',
-    'vehicles/list' => 'dashboard/vehicles/list',
-    'vehicles/add' => 'dashboard/vehicles/add',
-    'vehicles/update' => 'dashboard/vehicles/update',
-    'vehicles/delete' => 'dashboard/vehicles/delete',
-    'vehicles/vehicle' => 'dashboard/vehicles/vehicle',
     default => '404',
 };
 

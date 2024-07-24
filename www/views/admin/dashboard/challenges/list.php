@@ -3,53 +3,6 @@
 ob_start()
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light my-4">
-    <div class="container">
-        <a class="navbar-brand" href="?page=home">
-            <img src="./public/assets/img/logo_v2.png" alt="Logo" height="40">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon custom-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav text-center ml-auto justify-content-center justify-content-lg-end ms-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Gestion utilisateurs
-                    </a>
-                    <ul class="dropdown-menu bg-dark-grey">
-                        <li>
-                            <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/users/list">Liste des utilisateurs</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Gestion challenges
-                    </a>
-                    <ul class="dropdown-menu bg-dark-grey">
-                        <li>
-                            <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/challenges/list">Liste des challenges</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/challenges/add">Créer un challenge</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="?page=logout">Se deconnecter</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<?php
-$navbar = ob_get_clean();
-
-ob_start()
-?>
-
 <h1 class="text-center"> <?= $title ?> </h1>
 
 <div class="container mt-5">
@@ -70,9 +23,16 @@ ob_start()
                 <tr>
                     <td><?= $challenge->challenge_id ?></td>
                     <td><?= $challenge->name ?></td>
-                    <td> <img class="rounded-2" src="./../../../../public/uploads/users/<?= 'test' ?>" height="50px" alt=""></td>
+                    <td> <img class="rounded-2" src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" height="50px" alt="Illustration">
+                    </td>
                     <td><?= $challenge->description  ?></td>
-                    <td><?= $challenge->file_url  ?></td>
+                    <td>
+                        <?php if (!empty($challenge->file_url)) : ?>
+                            <a href="?page=admin/dashboard/challenges/download&id=<?= $challenge->challenge_id ?>" class="btn btn-primary">Télécharger le Fichier</a>
+                        <?php else : ?>
+                            <span>Aucun fichier disponible</span>
+                        <?php endif; ?>
+                    </td>
                     <td>
                         <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= 'test' ?>"><i class="bi bi-pencil"></i></a>
                     </td>
@@ -86,6 +46,18 @@ ob_start()
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php foreach ($challenges as $challenge) : ?>
+        <div class="challenge">
+            <h3><?php echo htmlspecialchars($challenge->name ?? ''); ?></h3>
+            <p><?php echo htmlspecialchars($challenge->description ?? ''); ?></p>
+            <?php if (!empty($challenge->file_url)) : ?>
+                <a href="/uploads/challenges/<?php echo htmlspecialchars($challenge->file_url); ?>" class="btn btn-primary" download>Télécharger le Fichier</a>
+            <?php else : ?>
+                <span>Aucun fichier disponible</span>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
 </div>
 
 <div id="delete-modal" class="modal fade" tabindex="-1">

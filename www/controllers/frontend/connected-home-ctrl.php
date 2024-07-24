@@ -2,4 +2,4 @@
 
 $title = "Bienvenue (pseudo)";
 
-renderView('frontend/connected-home', compact('title'));
+renderView('frontend/connected-home', compact('title'), 'templateLogin');

@@ -13,7 +13,7 @@ if (isset($_POST['valider'])) {
 
         if ($pseudoEntered == $pseudoAdmin and $passwordEntered == $passwordAdmin) {
             $_SESSION['password'] = $pseudoEntered;
-            redirectToRoute('?page=admin/dashboard/list');
+            redirectToRoute('?page=admin/dashboard/challenges/list');
         } else {
             echo 'Identifiants incorrects';
         }
@@ -24,4 +24,4 @@ if (isset($_POST['valider'])) {
 
 
 $title = "Espace administrateur";
-renderView('admin/logs/login', compact('title'));
+renderView('admin/logs/login', compact('title'), 'templateAdminLogout');

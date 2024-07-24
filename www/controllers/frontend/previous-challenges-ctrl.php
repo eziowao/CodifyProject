@@ -2,4 +2,4 @@
 
 $title = "Challenges précédents";
 
-renderView('frontend/previous-challenges', compact('title'));
+renderView('frontend/previous-challenges', compact('title'), 'templateLogin');

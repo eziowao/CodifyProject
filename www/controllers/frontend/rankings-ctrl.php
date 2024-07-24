@@ -2,4 +2,4 @@
 
 $title = "Classements";
 
-renderView('frontend/rankings', compact('title'));
+renderView('frontend/rankings', compact('title'), 'templateLogin');

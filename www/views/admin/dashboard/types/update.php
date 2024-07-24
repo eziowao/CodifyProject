@@ -1,22 +1,25 @@
 <?php
+
 ob_start()
 ?>
 
-<div class="container">
+<h1 class="text-center"> <?= $title ?> </h1>
+
+<div class="container mt-5">
     <div class="d-flex justify-content-center">
         <div class="col-6 ">
 
             <?php if ($success) : ?>
                 <div class="alert alert-success">
-                    La catégorie a été mise à jour avec succès.
+                    Le type a été mise à jour avec succès.
                 </div>
             <?php endif; ?>
 
-            <?php if ($category) : ?>
+            <?php if ($type) : ?>
                 <form action="" method="post">
                     <div class="form-group my-5">
-                        <label class="mb-3" for="name">Nom de la catégorie</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?= ($category['name']); ?>" required>
+                        <label class="mb-3" for="type">Nom de la catégorie</label>
+                        <input type="text" class="form-control" id="type" name="type" value="<?= $type['type'] ?>" required>
                     </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success">Mettre à jour</button>
@@ -24,7 +27,7 @@ ob_start()
                 </form>
             <?php else : ?>
                 <div class="alert alert-warning">
-                    Catégorie non trouvée.
+                    Type non trouvé.
                 </div>
             <?php endif; ?>
         </div>
@@ -32,5 +35,11 @@ ob_start()
 </div>
 
 <?php
-$main = ob_get_clean()
+$main = ob_get_clean();
+
+ob_start()
+?>
+
+<?php
+$script = ob_get_clean();
 ?>

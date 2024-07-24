@@ -52,4 +52,4 @@ if (isset($_GET['id'])) {
 
 $title = "Modifier l'utilisateur";
 
-renderView('admin/dashboard/users/update', compact('title', 'user'));
+renderView('admin/dashboard/users/update', compact('title', 'user'), 'templateAdminLogin');

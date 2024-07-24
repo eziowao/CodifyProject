@@ -3,21 +3,6 @@
 ob_start()
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light my-4">
-    <div class="container">
-        <a class="navbar-brand" href="?page=home">
-            <img src="./public/assets/img/logo_v2.png" alt="Logo" height="40">
-        </a>
-    </div>
-</nav>
-
-<?php
-$navbar = ob_get_clean();
-
-
-ob_start()
-?>
-
 <div class="container d-flex justify-content-center">
     <div class="col-6 my-5">
         <form method="post" action="" align-items-center>

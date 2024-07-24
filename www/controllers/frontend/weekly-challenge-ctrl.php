@@ -2,4 +2,4 @@
 
 $title = "Challenge de la semaine";
 
-renderView('frontend/weekly-challenge', compact('title'));
+renderView('frontend/weekly-challenge', compact('title'), 'templateLogin');

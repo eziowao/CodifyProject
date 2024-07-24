@@ -9,29 +9,23 @@ ob_start()
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Pseudo</th>
-                <th scope="col">Email</th>
-                <th scope="col">Photo de profil</th>
-                <th scope="col">Biographie</th>
-                <th scope="col">Réseaux sociaux</th>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
                 <th scope="col">Modifier</th>
-                <th scope="col">Bannir</th>
+                <th scope="col">Supprimer</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($users as $user) : ?>
+            <?php foreach ($types as $type) : ?>
                 <tr>
-                    <td><?= $user->pseudo ?></td>
-                    <td><?= $user->email ?></td>
-                    <td> <img class="rounded-2" src="./../../../../public/uploads/users/<?= $user->picture ?>" height="50px" alt=""></td>
-                    <td><?= $user->biography ?></td>
-                    <td><?= $user->social_networks ?></td>
+                    <td><?= $type->type_id ?></td>
+                    <td><?= $type->type ?></td>
                     <td>
-                        <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= $user->user_id ?>"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-warning" href="?page=admin/dashboard/types/update&id=<?= $type->type_id ?>"><i class="bi bi-pencil"></i></a>
                     </td>
                     <td>
-                        <form class="delete-form" action="?page=admin/dashboard/users/delete&id=<?= $user->user_id ?>" method="post">
-                            <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
+                        <form class="delete-form" action="?page=admin/dashboard/types/delete&id=<?= $type->type_id ?>" method="post">
+                            <input type="hidden" name="user_id" value="<?= 'test'  ?>">
                             <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
                         </form>
                     </td>
@@ -51,7 +45,7 @@ ob_start()
                 </button>
             </div>
             <div class="modal-body">
-                <p>Vous voulez vraiment bannir l'utilisateur ?</p>
+                <p>Vous voulez vraiment supprimer le type <?= $type->type ?> ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" data-valid="true" class="btn btn-primary">Valider</button>
@@ -68,7 +62,6 @@ ob_start()
 ?>
 
 <script src="./../../public/assets/js/modal.js"></script>
-
 
 <?php
 $script = ob_get_clean();
