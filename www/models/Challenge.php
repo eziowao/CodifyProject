@@ -15,6 +15,7 @@ class Challenge extends BaseModel
     ) {
         parent::__construct(); // sans ça, pas de connexion avec la BDD
     }
+
     // Getters and Setters
 
     public function getChallengeId(): ?int
@@ -140,7 +141,7 @@ class Challenge extends BaseModel
 
     public function updateChallenge(): bool
     {
-        $sql = "UPDATE `challenges` SET `name`= :name, `published_at`= :published_at,`description`= :description,`picture`= :picture,`file_url`= :file_url,`type_id`= :type_id, `user_id` = :user_id  WHERE challenge_id = :id";
+        $sql = "UPDATE `challenges` SET `name`= :name, `published_at`= :published_at, `description`= :description, `picture`= :picture, `file_url`= :file_url, `type_id`= :type_id, `user_id` = :user_id WHERE challenge_id = :id";
 
         $stmt = $this->db->prepare($sql);
 
@@ -152,6 +153,15 @@ class Challenge extends BaseModel
         $stmt->bindValue(':type_id', $this->getType_id(), PDO::PARAM_INT);
         $stmt->bindValue(':user_id', $this->getUser_id(), PDO::PARAM_INT);
         $stmt->bindValue(':id', $this->getChallengeId(), PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function deleteChallenge($id)
+    {
+        $sql = "DELETE FROM `challenges` WHERE challenge_id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         return $stmt->execute();
     }

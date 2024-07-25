@@ -29,7 +29,7 @@ ob_start()
             </form>
         <?php else : ?>
             <div class="alert alert-warning">
-                Catégorie non trouvée.
+                Utilisateur non trouvé.
             </div>
         <?php endif; ?>
     </div>
