@@ -19,7 +19,11 @@ if (isset($_GET['id'])) {
         $pseudo = $_POST['pseudo'] ?? null;
         $email = $_POST['email'] ?? null;
         $biography = $_POST['biography'] ?? null;
-        $social_networks = $_POST['social_networks'] ?? null;
+        $website = $_POST['website'] ?? null;
+        $github = $_POST['github'] ?? null;
+        $twitter = $_POST['twitter'] ?? null;
+        $linkedin = $_POST['linkedin'] ?? null;
+        $discord = $_POST['discord'] ?? null;
         $picture = $_FILES['picture'] ?? null;
 
         // Traitement de l'image
@@ -43,7 +47,7 @@ if (isset($_GET['id'])) {
             $picture = $user['picture'] ?? null; // garde l'ancienne image si aucune nouvelle image n'est envoyée
         }
 
-        if ($userModel->updateUser($id, $pseudo, $email, $biography, $social_networks, $picture)) {
+        if ($userModel->updateUser($id, $pseudo, $email, $biography, $picture, $website, $github, $twitter, $linkedin, $discord)) {
             $success = true;
             redirectToRoute('?page=admin/dashboard/users/list');
         }

@@ -28,10 +28,11 @@ $path = match ($page) {
     'profile' => 'frontend/profile',
 
     // admin 
-
-    // gestion membres
     'admin' => 'admin/logs/login',
     'logout' => 'admin/logs/logout',
+
+    // gestion membres
+    'admin/dashboard/users/add' => 'admin/dashboard/users/add',
     'admin/dashboard/users/list' => 'admin/dashboard/users/list',
     'admin/dashboard/users/update' => 'admin/dashboard/users/update',
     'admin/dashboard/users/delete' => 'admin/dashboard/users/delete',

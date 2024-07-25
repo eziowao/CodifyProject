@@ -10,7 +10,11 @@ class User extends BaseModel
         private ?string $password = null,
         private ?string $picture = null,
         private ?string $biography = null,
-        private ?string $social_networks = null,
+        private ?string $website = null,
+        private ?string $github = null,
+        private ?string $twitter = null,
+        private ?string $linkedin = null,
+        private ?string $discord = null,
         private ?int $classement_id = null,
         private ?int $classement_id_2 = null,
         private ?int $classement_id_3 = null
@@ -86,14 +90,54 @@ class User extends BaseModel
         return $this;
     }
 
-    public function getSocialNetworks(): ?string
+    public function getWebsite(): ?string
     {
-        return $this->social_networks;
+        return $this->website;
     }
 
-    public function setSocialNetworks(?string $social_networks): self
+    public function setWebsite(?string $website): self
     {
-        $this->social_networks = $social_networks;
+        $this->website = $website;
+        return $this;
+    }
+    public function getGithub(): ?string
+    {
+        return $this->github;
+    }
+
+    public function setGithub(?string $github): self
+    {
+        $this->github = $github;
+        return $this;
+    }
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $twitter;
+        return $this;
+    }
+    public function getLinkedin(): ?string
+    {
+        return $this->linkedin;
+    }
+
+    public function setLinkedin(?string $linkedin): self
+    {
+        $this->linkedin = $linkedin;
+        return $this;
+    }
+    public function getDiscord(): ?string
+    {
+        return $this->discord;
+    }
+
+    public function setDiscord(?string $discord): self
+    {
+        $this->discord = $discord;
         return $this;
     }
 
@@ -137,6 +181,18 @@ class User extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function addUser(): bool
+    {
+        $sql = "INSERT INTO `users`(`pseudo`, `email`, `password`) 
+                VALUES (:pseudo, :email, :password)";
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindValue(':pseudo', $this->getPseudo(), PDO::PARAM_STR);
+        $stmt->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
+        $stmt->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
     public function getUserById($user_id)
     {
         $sql = "SELECT * FROM `users` WHERE user_id = :user_id";
@@ -147,17 +203,21 @@ class User extends BaseModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateUser($id, $pseudo, $email, $biography, $social_networks, $picture)
+    public function updateUser($id, $pseudo, $email, $biography, $picture, $website, $github, $twitter, $linkedin, $discord)
     {
-        $sql = "UPDATE `users` SET `pseudo`= :pseudo, `email`= :email,`biography`= :biography,`social_networks`= :social_networks,`picture`= :picture WHERE user_id = :id";
+        $sql = "UPDATE `users` SET `pseudo`= :pseudo, `email`= :email,`biography`= :biography,`picture`= :picture, `website`= :website, `github`= :github, `twitter`= :twitter, `linkedin`= :linkedin, `discord`= :discord WHERE user_id = :id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->bindValue(':biography', $biography, PDO::PARAM_STR);
-        $stmt->bindValue(':social_networks', $social_networks, PDO::PARAM_STR);
         $stmt->bindValue(':picture', $picture, PDO::PARAM_STR);
+        $stmt->bindValue(':website', $website, PDO::PARAM_STR);
+        $stmt->bindValue(':github', $github, PDO::PARAM_STR);
+        $stmt->bindValue(':twitter', $twitter, PDO::PARAM_STR);
+        $stmt->bindValue(':linkedin', $linkedin, PDO::PARAM_STR);
+        $stmt->bindValue(':discord', $discord, PDO::PARAM_STR);
 
         return $stmt->execute();
     }

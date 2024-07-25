@@ -16,8 +16,18 @@ ob_start()
                     <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" required>
                     <label class="mt-2" for="biography">Biographie</label>
                     <input type="text" class="form-control" id="biography" name="biography" value="<?= $user['biography']; ?>">
-                    <label class="mt-2" for="social_networks">Réseaux sociaux</label>
-                    <input type="text" class="form-control" id="social_networks" name="social_networks" value="<?= $user['social_networks']; ?>">
+                    <label class="mt-2" for="website">website</label>
+                    <input type="text" class="form-control" id="website" name="website" value="<?= $user['website']; ?>">
+                    <label class="mt-2" for="website">github</label>
+                    <input type="text" class="form-control" id="github" name="github" value="<?= $user['github']; ?>">
+                    <label class="mt-2" for="twitter">twitter</label>
+                    <input type="text" class="form-control" id="twitter" name="twitter" value="<?= $user['twitter']; ?>">
+                    <label class="mt-2" for="linkedin">linkedin</label>
+                    <input type="text" class="form-control" id="linkedin" name="linkedin" value="<?= $user['linkedin']; ?>">
+                    <label class="mt-2" for="discord">discord</label>
+                    <input type="text" class="form-control" id="discord" name="discord" value="<?= $user['discord']; ?>">
+
+
                     <div class="mb-3">
                         <label for="picture" class="form-label mt-2">Photo</label>
                         <input type="file" class="form-control" name="picture" id="picture">

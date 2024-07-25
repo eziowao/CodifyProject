@@ -25,7 +25,23 @@ ob_start()
                     <td><?= $user->email ?></td>
                     <td> <img class="rounded-2" src="./../../../../public/uploads/users/<?= $user->picture ?>" height="50px" alt=""></td>
                     <td><?= $user->biography ?></td>
-                    <td><?= $user->social_networks ?></td>
+                    <td>
+                        <div>
+                            <a href="<?= $user->website ?>" target="_blank">Website</a>
+                        </div>
+                        <div>
+                            <a href="<?= $user->github ?>" target="_blank">Github</a>
+                        </div>
+                        <div>
+                            <a href="<?= $user->twitter ?>" target="_blank">Twitter</a>
+                        </div>
+                        <div>
+                            <a href="<?= $user->linkedin ?>" target="_blank">Linkedin</a>
+                        </div>
+                        <div>
+                            <a href="<?= $user->discord ?>" target="_blank">Discord</a>
+                        </div>
+                    </td>
                     <td>
                         <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= $user->user_id ?>"><i class="bi bi-pencil"></i></a>
                     </td>
