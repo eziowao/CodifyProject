@@ -33,7 +33,11 @@
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/users/list">Liste des utilisateurs</a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/users/add">Ajouter un utilisateur</a>
+                                </li>
                             </ul>
+
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,6 +62,19 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/add">Créer un type</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Gestion contributions
+                            </a>
+                            <ul class="dropdown-menu bg-dark-grey">
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/contributions/list">Liste des contributions</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/contributions/add">Ajouter une contribution</a>
                                 </li>
                             </ul>
                         </li>

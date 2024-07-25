@@ -2,7 +2,7 @@
 
 class Contribution extends BaseModel
 {
-    private ?int $contribution_id;
+    private ?int $contribution_id = null;
 
     public function __construct(
         private ?string $link = null,
@@ -71,51 +71,51 @@ class Contribution extends BaseModel
 
     public function getAllContributions(): array
     {
-        $sql = "SELECT * FROM `contributions`";
+        $sql = "SELECT * FROM contributions";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function addContribution(): bool
     {
-        $sql = "INSERT INTO `contributions`(`link`, `date`, `user_id`, `challenge_id`) 
-                VALUES (:link, :date, :user_id, challenge_id)";
+        $sql = "INSERT INTO contributions(link, user_id, challenge_id) 
+        VALUES (:link, :user_id, :challenge_id)";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':link', $this->getLink(), PDO::PARAM_STR);
-        $stmt->bindValue(':date', $this->getDate(), PDO::PARAM_STR);
         $stmt->bindValue(':user_id', $this->getUser_id(), PDO::PARAM_STR);
         $stmt->bindValue(':challenge_id', $this->getChallenge_id(), PDO::PARAM_STR);
 
         return $stmt->execute();
     }
 
-    public function getContributionById($contribution_id)
+    public function getContributionById(): ?array
     {
         $sql = "SELECT * FROM `contributions` WHERE contribution_id = :contribution_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':contribution_id', $contribution_id, PDO::PARAM_INT);
+        $stmt->bindValue(':contribution_id', $this->getContributionId(), PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
     public function updateContribution(): bool
     {
-        $sql = "UPDATE `contributions` SET type = :type WHERE contribution_id = :contribution_id";
+        $sql = "UPDATE contributions 
+                SET link = :link, user_id = :user_id, challenge_id = :challenge_id 
+                WHERE contribution_id = :contribution_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $this->getContributionId(), PDO::PARAM_INT);
         $stmt->bindValue(':link', $this->getLink(), PDO::PARAM_STR);
-        $stmt->bindValue(':id', $this->getContributionId(), PDO::PARAM_STR);
-        $stmt->bindValue(':date', $this->getDate()->format('Y-m-d H:i:s'), PDO::PARAM_STR);
         $stmt->bindValue(':user_id', $this->getUser_id(), PDO::PARAM_INT);
         $stmt->bindValue(':challenge_id', $this->getChallenge_id(), PDO::PARAM_INT);
+        $stmt->bindValue(':contribution_id', $this->getContributionId(), PDO::PARAM_INT);
 
         return $stmt->execute();
     }
 
+
     public function deleteContribution(): bool
     {
-        $sql = "DELETE FROM `contributions` WHERE contribution_id = :id";
+        $sql = "DELETE FROM contributions WHERE contribution_id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':id', $this->getContributionId(), PDO::PARAM_INT);
 

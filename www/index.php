@@ -7,6 +7,7 @@ require_once './models/BaseModel.php';
 require_once './models/User.php';
 require_once './models/Challenge.php';
 require_once './models/Type.php';
+require_once './models/Contribution.php';
 
 // helpers
 require_once './helpers/http_helper.php';
@@ -48,6 +49,12 @@ $path = match ($page) {
     'admin/dashboard/types/add' => 'admin/dashboard/types/add',
     'admin/dashboard/types/update' => 'admin/dashboard/types/update',
     'admin/dashboard/types/delete' => 'admin/dashboard/types/delete',
+
+    // gestion contributions 
+    'admin/dashboard/contributions/list' => 'admin/dashboard/contributions/list',
+    'admin/dashboard/contributions/add' => 'admin/dashboard/contributions/add',
+    'admin/dashboard/contributions/update' => 'admin/dashboard/contributions/update',
+    'admin/dashboard/contributions/delete' => 'admin/dashboard/contributions/delete',
 
     default => '404',
 };
