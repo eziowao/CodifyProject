@@ -2,7 +2,7 @@
 
 class User extends BaseModel
 {
-    private ?int $user_id;
+    private ?int $user_id = null;
 
     public function __construct(
         private ?string $pseudo = null,
@@ -68,7 +68,7 @@ class User extends BaseModel
         return $this;
     }
 
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
@@ -193,40 +193,54 @@ class User extends BaseModel
         return $stmt->execute();
     }
 
-    public function getUserById($user_id)
+    public function getUserById(?int $user_id = null): ?array
     {
+        if ($user_id !== null) {
+            $this->setUserId($user_id);
+        }
+
         $sql = "SELECT * FROM `users` WHERE user_id = :user_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->getUserId(), PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateUser($id, $pseudo, $email, $biography, $picture, $website, $github, $twitter, $linkedin, $discord)
+    public function updateUser(): bool
     {
-        $sql = "UPDATE `users` SET `pseudo`= :pseudo, `email`= :email,`biography`= :biography,`picture`= :picture, `website`= :website, `github`= :github, `twitter`= :twitter, `linkedin`= :linkedin, `discord`= :discord WHERE user_id = :id";
+        $sql = "UPDATE `users` SET 
+                `pseudo` = :pseudo, 
+                `email` = :email, 
+                `biography` = :biography, 
+                `picture` = :picture, 
+                `website` = :website, 
+                `github` = :github, 
+                `twitter` = :twitter, 
+                `linkedin` = :linkedin, 
+                `discord` = :discord 
+                WHERE user_id = :id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $stmt->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
-        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-        $stmt->bindValue(':biography', $biography, PDO::PARAM_STR);
-        $stmt->bindValue(':picture', $picture, PDO::PARAM_STR);
-        $stmt->bindValue(':website', $website, PDO::PARAM_STR);
-        $stmt->bindValue(':github', $github, PDO::PARAM_STR);
-        $stmt->bindValue(':twitter', $twitter, PDO::PARAM_STR);
-        $stmt->bindValue(':linkedin', $linkedin, PDO::PARAM_STR);
-        $stmt->bindValue(':discord', $discord, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $this->getUserId(), PDO::PARAM_INT);
+        $stmt->bindValue(':pseudo', $this->getPseudo(), PDO::PARAM_STR);
+        $stmt->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
+        $stmt->bindValue(':biography', $this->getBiography(), PDO::PARAM_STR);
+        $stmt->bindValue(':picture', $this->getPicture(), PDO::PARAM_STR);
+        $stmt->bindValue(':website', $this->getWebsite(), PDO::PARAM_STR);
+        $stmt->bindValue(':github', $this->getGithub(), PDO::PARAM_STR);
+        $stmt->bindValue(':twitter', $this->getTwitter(), PDO::PARAM_STR);
+        $stmt->bindValue(':linkedin', $this->getLinkedin(), PDO::PARAM_STR);
+        $stmt->bindValue(':discord', $this->getDiscord(), PDO::PARAM_STR);
 
         return $stmt->execute();
     }
 
-    public function deleteUser($user_id)
+    public function deleteUser(): bool
     {
         $sql = "DELETE FROM `users` WHERE `user_id` = :user_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $this->getUserId(), PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

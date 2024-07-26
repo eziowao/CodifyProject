@@ -2,7 +2,7 @@
 
 class Contribution extends BaseModel
 {
-    private ?int $contribution_id;
+    private ?int $contribution_id = null;
 
     public function __construct(
         private ?string $link = null,
@@ -88,8 +88,12 @@ class Contribution extends BaseModel
         return $stmt->execute();
     }
 
-    public function getContributionById(): ?array
+    public function getContributionById($contribution_id): ?array
     {
+        if ($contribution_id !== null) {
+            $this->setContributionId($contribution_id);
+        }
+
         $sql = "SELECT * FROM `contributions` WHERE contribution_id = :contribution_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':contribution_id', $this->getContributionId(), PDO::PARAM_INT);
@@ -101,7 +105,7 @@ class Contribution extends BaseModel
     public function updateContribution(): bool
     {
         $sql = "UPDATE contributions 
-                SET link = :link, date = :date, user_id = :user_id, challenge_id = :challenge_id 
+                SET link = :link, user_id = :user_id, challenge_id = :challenge_id 
                 WHERE contribution_id = :contribution_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':link', $this->getLink(), PDO::PARAM_STR);

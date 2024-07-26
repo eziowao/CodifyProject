@@ -22,7 +22,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $contributionModel = new Contribution();
     $contributionModel->setContributionId($id);
-    $contribution = $contributionModel->getContributionById();
+    $contribution = $contributionModel->getContributionById($id);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $link = $_POST['link'];
@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
 
         if ($contributionModel->updateContribution()) {
             $success = true;
-            $contribution = $contributionModel->getContributionById();
+            $contribution = $contributionModel->getContributionById($id);
         }
     }
 }

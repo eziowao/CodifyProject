@@ -11,9 +11,14 @@ $errors = [];
 $success = false;
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = (int)$_GET['id'];
     $userModel = new User();
+    $userModel->setUserId($id);
     $user = $userModel->getUserById($id);
+
+    if (!$user) {
+        $errors[] = "Utilisateur non trouvé.";
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pseudo = $_POST['pseudo'] ?? null;
@@ -27,33 +32,46 @@ if (isset($_GET['id'])) {
         $picture = $_FILES['picture'] ?? null;
 
         // Traitement de l'image
-        if ($picture && $picture['error'] === UPLOAD_ERR_OK) { // vérifie que le téléchargement est ok 
+        if ($picture && $picture['error'] === UPLOAD_ERR_OK) {
             $uploadDir = __DIR__ . '/../../../../public/uploads/users/';
-            $tmp_name = $picture['tmp_name']; // chemin temporaire 
+            $tmp_name = $picture['tmp_name'];
             $oldImage = $user['picture'] ?? null;
 
             if ($oldImage) {
                 $oldImagePath = $uploadDir . $oldImage;
                 if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath); // supprime l'ancienne image 
+                    unlink($oldImagePath);
                 }
             }
 
             $fileExtension = pathinfo($picture['name'], PATHINFO_EXTENSION);
             $fileName = uniqid() . '.' . $fileExtension;
-            move_uploaded_file($tmp_name, $uploadDir . $fileName); //  déplace le fichier téléchargé du répertoire temporaire vers le répertoire de destination
+            move_uploaded_file($tmp_name, $uploadDir . $fileName);
             $picture = $fileName;
         } else {
-            $picture = $user['picture'] ?? null; // garde l'ancienne image si aucune nouvelle image n'est envoyée
+            $picture = $user['picture'] ?? null;
         }
 
-        if ($userModel->updateUser($id, $pseudo, $email, $biography, $picture, $website, $github, $twitter, $linkedin, $discord)) {
+        // Mise à jour des propriétés de l'utilisateur
+        $userModel->setPseudo($pseudo)
+            ->setEmail($email)
+            ->setBiography($biography)
+            ->setWebsite($website)
+            ->setGithub($github)
+            ->setTwitter($twitter)
+            ->setLinkedin($linkedin)
+            ->setDiscord($discord)
+            ->setPicture($picture);
+
+        if ($userModel->updateUser()) {
             $success = true;
-            redirectToRoute('?page=admin/dashboard/users/list');
+            header('Location: ?page=admin/dashboard/users/list');
+            exit;
+        } else {
+            $errors[] = "Erreur lors de la mise à jour de l'utilisateur.";
         }
     }
 }
 
 $title = "Modifier l'utilisateur";
-
-renderView('admin/dashboard/users/update', compact('title', 'user'), 'templateAdminLogin');
+renderView('admin/dashboard/users/update', compact('title', 'user', 'success', 'errors'), 'templateAdminLogin');

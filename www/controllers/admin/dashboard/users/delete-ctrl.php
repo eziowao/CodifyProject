@@ -7,16 +7,12 @@ if (!isset($_SESSION['password']) || empty($_SESSION['password'])) {
     exit;
 }
 
-$success = false;
-
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $userModel = new User();
-    $user = $userModel->getUserById($id);
+    $userModel->setUserId($id);
 
-    if ($userModel->deleteUser($id)) {
-        $success = true;
-        $user = $userModel->getUserById($id);
+    if ($userModel->deleteUser()) {
         redirectToRoute('/?page=admin/dashboard/users/list');
     }
 }
