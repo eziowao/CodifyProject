@@ -101,7 +101,7 @@ class Contribution extends BaseModel
     public function updateContribution(): bool
     {
         $sql = "UPDATE contributions 
-                SET link = :link, user_id = :user_id, challenge_id = :challenge_id 
+                SET link = :link, date = :date, user_id = :user_id, challenge_id = :challenge_id 
                 WHERE contribution_id = :contribution_id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':link', $this->getLink(), PDO::PARAM_STR);
@@ -115,9 +115,14 @@ class Contribution extends BaseModel
 
     public function deleteContribution(): bool
     {
+        $id = $this->getContributionId();
+        if ($id === null) {
+            throw new Exception('Contribution ID is not set.');
+        }
+
         $sql = "DELETE FROM contributions WHERE contribution_id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $this->getContributionId(), PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         return $stmt->execute();
     }

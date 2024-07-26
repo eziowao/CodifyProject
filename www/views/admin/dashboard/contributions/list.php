@@ -46,7 +46,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Vous voulez vraiment supprimer le type <?= $type->type ?> ?</p>
+                <p>Vous voulez vraiment supprimer la <?= $contribution->link ?> ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" data-valid="true" class="btn btn-primary">Valider</button>
