@@ -183,3 +183,32 @@ a {
 .ranking-content:hover {
     box-shadow: 0px 0px 10px 0px #1a1a1b;
 }
+
+#countdown {
+    font-size: 2em;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.countdown-item {
+    background: #33333B;
+    color: #fff;
+    padding: 24px;
+    font-weight: bold;
+    border-radius: 20px;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.countdown-number {
+    font-size: 24px;
+    display: block;
+}
+
+.countdown-label {
+    font-size: 14px;
+    margin-top: 10px;
+}

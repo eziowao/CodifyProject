@@ -3,101 +3,6 @@
 ob_start()
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light my-4">
-    <div class="container">
-        <a class="navbar-brand" href="/">
-            <img src="./public/assets/img/logo_v2.png" alt="Logo" height="40">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon custom-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav text-center ml-auto justify-content-center justify-content-lg-end ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#" data-bs-toggle="modal" data-bs-target="#connexionModal">Inscription / Connexion</a>
-
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Modal de connexion -->
-<div class="modal fade" id="connexionModal" tabindex="-1" aria-labelledby="connexionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content bg-dark-grey">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-light fw-bold my-3 col-11 d-flex justify-content-center" id="connexionModalLabel">Connexion</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="connexionForm">
-                    <div class="mb-3">
-                        <label for="emailConnexion" class="form-label text-white">Email</label>
-                        <input type="email" class="form-control rounded-4 bg-dark-grey text-light" id="emailConnexion" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="motDePasseConnexion" class="form-label text-white">Mot de passe</label>
-                        <input type="password" class="form-control rounded-4 bg-dark-grey text-light" id="motDePasseConnexion" required>
-                    </div>
-                    <a class="text-white fs-16 d-flex justify-content-end text-decoration-none" href="#">Mot de
-                        passe
-                        oublié ?</a>
-                    <div class="modal-footer text-center border-0">
-                        <a href="?page=home" class="btn col- col-lg-4 bg-green text-light border-0 rounded-5 mx-auto">Connexion</a>
-                    </div>
-                </form>
-                <p class="mt-3 text-white text-center fs-16">Vous n'avez pas de compte? <a href="#" class="text-decoration-none text-purple" id="inscriptionLink">Inscrivez-vous
-                        ici</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- Modal d'inscription -->
-<div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="inscriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content bg-dark-grey">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-light fw-bold my-3 col-11 d-flex justify-content-center" id="inscriptionModalLabel">Inscription</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="inscriptionForm">
-                    <div class="mb-3">
-                        <label for="pseudo" class="form-label text-white">Pseudo</label>
-                        <input type="text" class="form-control rounded-4 bg-dark-grey text-light" id="pseudo" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="emailInscription" class="form-label text-white">Email</label>
-                        <input type="email" class="form-control rounded-4 bg-dark-grey text-light" id="emailInscription" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="motDePasseInscription" class="form-label text-white">Mot de passe</label>
-                        <input type="password" class="form-control rounded-4 bg-dark-grey text-light" id="motDePasseInscription" required>
-                    </div>
-                    <div class="modal-footer text-center border-0">
-                        <a href="?page=home" class="btn col- col-lg-4 bg-green text-light border-0 rounded-5 mx-auto">Inscription</a>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer border-0">
-                <p class="text-decoration-none fs-16 text-light">Déjà inscrit ? <a href="#" class="text-decoration-none text-purple" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#connexionModal">Connectez-vous
-                        ici</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php
-$navbar = ob_get_clean();
-
-ob_start()
-?>
-
 <main class="my-5">
     <!-- -------------------------------- hero -------------------------------- -->
 
@@ -180,6 +85,34 @@ ob_start()
             <div class="container col-12 col-md-5 my-5 d-flex align-items-center justify-content-center justify-content-lg-start">
                 <div class="d-flex flex-column align-items-center">
                     <h2 class="col-12 text-light fs-4 text-center mb-4">Prochain challenge</h2>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="countdown-item text-center">
+                                <span id="days" class="countdown-number">00</span>
+                            </div>
+                            <div class="countdown-label text-light text-center">Jours</div>
+                        </div>
+                        <div class="col-3">
+                            <div>
+                                <div class="countdown-item">
+                                    <span id="hours" class="countdown-number text-center">00</span>
+                                </div>
+                            </div>
+                            <div class="countdown-label text-light text-center">Heures</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="countdown-item">
+                                <span id="minutes" class="countdown-number text-center">00</span>
+                            </div>
+                            <div class="countdown-label text-light text-center">Minutes</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="countdown-item">
+                                <span id="seconds" class="countdown-number text-center">00</span>
+                            </div>
+                            <div class="countdown-label text-light text-center">Secondes</div>
+                        </div>
+                    </div>
                     <div>
                         <img src="./public/assets/img/decompte.png" class="img-fluid" alt="">
                     </div>
@@ -328,6 +261,7 @@ ob_start()
 ?>
 
 <script src="./public/assets/js/script.js"></script>
+<script src="./public/assets/js/countdown.js"></script>
 
 <?php
 $script = ob_get_clean();
