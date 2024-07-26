@@ -7,16 +7,12 @@ if (!isset($_SESSION['password']) || empty($_SESSION['password'])) {
     exit;
 }
 
-$success = false;
-
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $typeModel = new Type();
-    $type = $typeModel->getTypeById($id);
+    $typeModel->setTypeId($id);
 
-    if ($typeModel->deleteType($id)) {
-        $success = true;
-        $type = $typeModel->getTypeById($id);
+    if ($typeModel->deleteType()) {
         redirectToRoute('?page=admin/dashboard/types/list');
     }
 }

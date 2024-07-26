@@ -7,6 +7,8 @@ if (!isset($_SESSION['password']) || empty($_SESSION['password'])) {
     exit;
 }
 
+$success = false;
+
 try {
     $challengeModel = new Challenge();
     $challenges = $challengeModel->getAllChallenges();

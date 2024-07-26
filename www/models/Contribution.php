@@ -2,7 +2,7 @@
 
 class Contribution extends BaseModel
 {
-    private ?int $contribution_id = null;
+    private ?int $contribution_id;
 
     public function __construct(
         private ?string $link = null,
@@ -95,7 +95,7 @@ class Contribution extends BaseModel
         $stmt->bindValue(':contribution_id', $this->getContributionId(), PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function updateContribution(): bool
@@ -112,17 +112,12 @@ class Contribution extends BaseModel
         return $stmt->execute();
     }
 
-
     public function deleteContribution(): bool
     {
-        $id = $this->getContributionId();
-        if ($id === null) {
-            throw new Exception('Contribution ID is not set.');
-        }
 
         $sql = "DELETE FROM contributions WHERE contribution_id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $this->getContributionId(), PDO::PARAM_INT);
 
         return $stmt->execute();
     }

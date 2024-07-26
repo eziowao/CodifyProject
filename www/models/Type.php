@@ -2,7 +2,7 @@
 
 class Type extends BaseModel
 {
-    private ?int $type_id;
+    private ?int $type_id = null;
 
     public function __construct(
         private ?string $type = null,
@@ -49,31 +49,36 @@ class Type extends BaseModel
         return $stmt->execute();
     }
 
-    public function getTypeById($type_id)
+    public function getTypeById(?int $type_id = null): ?array
     {
+
+        if ($type_id !== null) {
+            $this->setTypeId($type_id);
+        }
+
         $sql = "SELECT * FROM `types` WHERE type_id = :type_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':type_id', $type_id, PDO::PARAM_INT);
+        $stmt->bindValue(':type_id', $this->getTypeId(), PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateType($id, $type)
+    public function updateType(): bool
     {
         $sql = "UPDATE `types` SET type = :type WHERE type_id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        $stmt->bindValue(':type', $type, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $this->getTypeId(), PDO::PARAM_INT);
+        $stmt->bindValue(':type', $this->getType(), PDO::PARAM_STR);
 
         return $stmt->execute();
     }
 
-    public function deleteType($id)
+    public function deleteType(): bool
     {
         $sql = "DELETE FROM `types` WHERE type_id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $this->getTypeId(), PDO::PARAM_INT);
 
         return $stmt->execute();
     }

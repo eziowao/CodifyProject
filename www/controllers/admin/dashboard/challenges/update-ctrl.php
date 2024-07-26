@@ -49,7 +49,6 @@ if (isset($_GET['id'])) {
             $picture = $challenge['picture'] ?? null; // garde l'ancienne image si aucune nouvelle image n'est envoyée
         }
 
-        // Mettez à jour les propriétés du modèle Challenge
         $challengeModel->setChallengeId($id)
             ->setName($name)
             ->setPublished_at($published_at)

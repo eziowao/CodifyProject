@@ -12,11 +12,10 @@ $success = false;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $challengeModel = new Challenge();
-    $challenge = $challengeModel->getChallengeById($id);
+    $challengeModel->setChallengeId($id);
 
-    if ($challengeModel->deleteChallenge($id)) {
+    if ($challengeModel->deleteChallenge()) {
         $success = true;
-        $challenge = $challengeModel->getChallengeById($id);
         redirectToRoute('?page=admin/dashboard/challenges/list');
     }
 }

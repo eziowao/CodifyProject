@@ -2,7 +2,7 @@
 
 class Challenge extends BaseModel
 {
-    private ?int $challenge_id;
+    private ?int $challenge_id = null;
 
     public function __construct(
         private ?string $name = null,
@@ -129,11 +129,14 @@ class Challenge extends BaseModel
         return $stmt->execute();
     }
 
-    public function getChallengeById($challenge_id)
+    public function getChallengeById(?int $challenge_id = null): ?array
     {
+        if ($challenge_id !== null) {
+            $this->setChallengeId($challenge_id);
+        }
         $sql = "SELECT * FROM `challenges` WHERE challenge_id = :challenge_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
+        $stmt->bindValue(':challenge_id', $this->getChallengeId(), PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -157,11 +160,11 @@ class Challenge extends BaseModel
         return $stmt->execute();
     }
 
-    public function deleteChallenge($id)
+    public function deleteChallenge(): bool
     {
         $sql = "DELETE FROM `challenges` WHERE challenge_id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $this->getChallengeId(), PDO::PARAM_INT);
 
         return $stmt->execute();
     }

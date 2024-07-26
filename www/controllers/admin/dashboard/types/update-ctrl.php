@@ -11,22 +11,34 @@ $errors = [];
 $success = false;
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = (int)$_GET['id'];
     $typeModel = new Type();
+    $typeModel->setTypeId($id);
+
     $type = $typeModel->getTypeById($id);
 
+    if (!$type) {
+        $errors[] = "Type non trouvé.";
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $type = trim($_POST['type']);
+        $typeName = trim($_POST['type']);
 
-        if (empty($type)) {
+        if (empty($typeName)) {
             $errors[] = "Nom du type requis";
-        }
+        } else {
+            $typeModel->setType($typeName);
 
-        if ($typeModel->updateType($id, $type)) {
-            $success = true;
-            $type = $typeModel->getTypeById($id);
+            if ($typeModel->updateType()) {
+                $success = true;
+                $type = $typeModel->getTypeById($id);
+            } else {
+                $errors[] = "Erreur lors de la mise à jour du type.";
+            }
         }
     }
+} else {
+    $errors[] = "ID du type non fourni.";
 }
 
 $title = "Modifier le type de challenge";

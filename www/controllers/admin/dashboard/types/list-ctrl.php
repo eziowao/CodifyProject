@@ -7,6 +7,7 @@ if (!isset($_SESSION['password']) || empty($_SESSION['password'])) {
     exit;
 }
 
+
 try {
     $typeModel = new Type();
     $types = $typeModel->getAllTypes();

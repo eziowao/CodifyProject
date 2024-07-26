@@ -34,5 +34,5 @@ try {
     exit;
 }
 
-$title = "Liste des types de challenges";
+$title = "Liste des contributions";
 renderView('admin/dashboard/contributions/list', compact('title', 'contributions', 'usersById', 'challengesById'), 'templateAdminLogin');
