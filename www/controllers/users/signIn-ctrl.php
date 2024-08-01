@@ -23,11 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!$verified) {
                 throw new Exception('Erreur de mot de passe', 2);
             }
-            redirectToRoute('?page=home');
         }
 
         unset($user->password);
         $_SESSION['user'] = $user;
+        redirectToRoute('?page=home');
     } catch (Exception $ex) {
         addFlash('danger', $ex->getMessage());
     }
@@ -38,4 +38,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $title = 'Connexion';
 
-renderView('users/signIn', compact('title', 'errors'), 'templateAdminLogout');
+renderView('users/signIn', compact('title', 'errors'), 'templateLogin');

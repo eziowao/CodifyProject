@@ -2,4 +2,4 @@
 
 
 $title = 'Accueil';
-renderView('home', compact('title'), 'templateLogout');
+renderView('home', compact('title'), 'templateLogin');

@@ -8,7 +8,7 @@ class User extends BaseModel
         private ?string $pseudo = null,
         private ?string $email = null,
         private ?string $password = null,
-        private ?int $role = null,
+        private ?int $role = 1,
         private ?string $picture = null,
         private ?string $biography = null,
         private ?string $website = null,
@@ -16,9 +16,6 @@ class User extends BaseModel
         private ?string $twitter = null,
         private ?string $linkedin = null,
         private ?string $discord = null,
-        private ?int $classement_id = null,
-        private ?int $classement_id_2 = null,
-        private ?int $classement_id_3 = null
     ) {
         parent::__construct(); // sans ça, pas de connexion avec la BDD
     }
@@ -154,39 +151,6 @@ class User extends BaseModel
         return $this;
     }
 
-    public function getClassementId(): ?int
-    {
-        return $this->classement_id;
-    }
-
-    public function setClassementId(?int $classement_id): self
-    {
-        $this->classement_id = $classement_id;
-        return $this;
-    }
-
-    public function getClassementId2(): ?int
-    {
-        return $this->classement_id_2;
-    }
-
-    public function setClassementId2(?int $classement_id_2): self
-    {
-        $this->classement_id_2 = $classement_id_2;
-        return $this;
-    }
-
-    public function getClassementId3(): ?int
-    {
-        return $this->classement_id_3;
-    }
-
-    public function setClassementId3(?int $classement_id_3): self
-    {
-        $this->classement_id_3 = $classement_id_3;
-        return $this;
-    }
-
     public function getAllUsers(): array
     {
         $sql = "SELECT * FROM `users`;";
@@ -273,5 +237,23 @@ class User extends BaseModel
         $stmt->bindValue(':email', $email);
         $stmt->execute();
         return $stmt->fetch();
+    }
+
+    public static function isAdmin(): bool
+    {
+        if (isset($_SESSION['user']) && $_SESSION['user']->role === 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function isUser(): bool
+    {
+        if (isset($_SESSION['user']) && $_SESSION['user']->role === 2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,13 +1,5 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['password']) || empty($_SESSION['password'])) {
-    header('Location: ?page=admin');
-    exit;
-}
-
-
 try {
     $typeModel = new Type();
     $types = $typeModel->getAllTypes();

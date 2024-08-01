@@ -1,12 +1,5 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['password']) || empty($_SESSION['password'])) {
-    header('Location: ?page=admin');
-    exit;
-}
-
 // pour récupérer les types de challenges 
 
 $typeModel = new Type();

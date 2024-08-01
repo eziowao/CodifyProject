@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['pseudo'] = 'pseudo invalide';
         }
 
-
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         if (!$email) {
             $errors['email'] = 'Email invalide';
@@ -57,4 +56,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $title = 'Inscription';
 
-renderView('users/signUp', compact('title', 'errors'), 'templateAdminLogout');
+renderView('users/signUp', compact('title', 'errors'), 'templateLogin');

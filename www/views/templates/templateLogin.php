@@ -25,27 +25,41 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav text-center ml-auto justify-content-center justify-content-lg-end ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="?page=weekly-challenge">Challenge de la semaine</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="?page=previous-challenges">Challenges précédents</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="?page=rankings">Classements</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {user-name}
-                            </a>
-                            <ul class="dropdown-menu bg-dark-grey">
-                                <li><a class="dropdown-item text-light text-center" href="?page=profile">Mon
-                                        profil</a>
-                                </li>
-                                <li><a class="dropdown-item text-light text-center" href="./index.php">Déconnexion</a>
-                                </li>
-                            </ul>
-                        </li>
+
+                        <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-light <?= $class ?? '' ?>" href="/?page=signUp">Inscription</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-light <?= $class ?? '' ?>" href="/?page=signIn">Connexion</a>
+                            </li>
+
+                        <?php } ?>
+
+                        <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="?page=weekly-challenge">Challenge de la semaine</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="?page=previous-challenges">Challenges précédents</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="?page=rankings">Classements</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {user-name}
+                                </a>
+                                <ul class="dropdown-menu bg-dark-grey">
+                                    <li><a class="dropdown-item text-light text-center" href="?page=profile">Mon
+                                            profil</a>
+                                    </li>
+                                    <li><a class="dropdown-item text-light text-center" href="?page=logout">Déconnexion</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
