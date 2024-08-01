@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $contributionModel = new Contribution();
     $contributionModel->setContributionId($id);
-    $contribution = $contributionModel->getContributionById();
+    $contribution = $contributionModel->getContributionById($id);
 
     if ($contributionModel->deleteContribution()) {
         $success = true;

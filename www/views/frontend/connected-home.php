@@ -85,8 +85,33 @@ ob_start()
             <div class="container col-12 col-md-5 my-5 d-flex align-items-center justify-content-center justify-content-lg-start">
                 <div class="d-flex flex-column align-items-center">
                     <h2 class="col-12 text-light fs-4 text-center mb-4">Prochain challenge</h2>
-                    <div>
-                        <img src="./public/assets/img/decompte.png" class="img-fluid" alt="">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="countdown-item text-center">
+                                <span id="days" class="countdown-number">00</span>
+                            </div>
+                            <div class="countdown-label text-light text-center">Jours</div>
+                        </div>
+                        <div class="col-3">
+                            <div>
+                                <div class="countdown-item">
+                                    <span id="hours" class="countdown-number text-center">00</span>
+                                </div>
+                            </div>
+                            <div class="countdown-label text-light text-center">Heures</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="countdown-item">
+                                <span id="minutes" class="countdown-number text-center">00</span>
+                            </div>
+                            <div class="countdown-label text-light text-center">Minutes</div>
+                        </div>
+                        <div class="col-3">
+                            <div class="countdown-item">
+                                <span id="seconds" class="countdown-number text-center">00</span>
+                            </div>
+                            <div class="countdown-label text-light text-center">Secondes</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -233,6 +258,7 @@ ob_start()
 ?>
 
 <script src="./public/assets/js/script.js"></script>
+<script src="./public/assets/js/countdown.js"></script>
 
 <?php
 $script = ob_get_clean();

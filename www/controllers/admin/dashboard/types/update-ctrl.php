@@ -32,6 +32,7 @@ if (isset($_GET['id'])) {
             if ($typeModel->updateType()) {
                 $success = true;
                 $type = $typeModel->getTypeById($id);
+                redirectToRoute('/?page=admin/dashboard/types/list');
             } else {
                 $errors[] = "Erreur lors de la mise à jour du type.";
             }

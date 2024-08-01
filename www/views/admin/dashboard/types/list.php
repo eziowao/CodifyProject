@@ -25,7 +25,7 @@ ob_start()
                     </td>
                     <td>
                         <form class="delete-form" action="?page=admin/dashboard/types/delete&id=<?= $type->type_id ?>" method="post">
-                            <input type="hidden" name="user_id" value="<?= 'test'  ?>">
+                            <input type="hidden" name="user_id" value="<?= $type->type_id  ?>">
                             <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
                         </form>
                     </td>

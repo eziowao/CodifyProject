@@ -32,6 +32,11 @@ ob_start()
                         <label for="picture" class="form-label mt-2">Photo</label>
                         <input type="file" class="form-control" name="picture" id="picture">
                     </div>
+                    <div>
+                        <?php if ($user['picture']) : ?>
+                            <img src="./../../../../public/uploads/users/<?= $user['picture']; ?>" alt="User Image" style="max-width: 100px;">
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-success mt-4">Mettre à jour</button>

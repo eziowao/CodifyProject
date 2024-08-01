@@ -10,6 +10,7 @@
                 <th scope="col">Lien</th>
                 <th scope="col">User_id</th>
                 <th scope="col">Challenge_id</th>
+                <th scope="col">Nombre de likes</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </tr>
@@ -21,6 +22,7 @@
                     <td> <a href="<?= $contribution->link ?>" target="_blank"><?= $contribution->link ?></a></td>
                     <td><?= $usersById[$contribution->user_id] ?? 'user inconnu' ?> </td>
                     <td><?= $challengesById[$contribution->challenge_id] ?></td>
+                    <td><?= $likesById[$contribution->like_id] ?></td>
                     <td>
                         <a class="btn btn-warning" href="?page=admin/dashboard/contributions/update&id=<?= $contribution->contribution_id ?>"><i class="bi bi-pencil"></i></a>
                     </td>

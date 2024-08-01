@@ -65,7 +65,7 @@ if (isset($_GET['id'])) {
 
         if ($userModel->updateUser()) {
             $success = true;
-            header('Location: ?page=admin/dashboard/users/list');
+            header('Location: ?page=admin/dashboard/users/list'); // changer tous les header location en redirectoroute
             exit;
         } else {
             $errors[] = "Erreur lors de la mise à jour de l'utilisateur.";

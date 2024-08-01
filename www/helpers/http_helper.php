@@ -25,16 +25,6 @@ function redirectToRoute($path)
     exit();
 }
 
-function isExists($name)
-{
-    $categorie = new Category($name);
-    $result = $categorie->exists();
-    if ($result > 0) {
-        return true;
-    }
-    return false;
-}
-
 function addFlash(string $type, string $message)
 {
     $_SESSION['flashes']['type'] = $type;

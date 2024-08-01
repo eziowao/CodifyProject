@@ -45,12 +45,15 @@
                     <div class="modal-body">
                         <form id="connexionForm">
                             <div class="mb-3">
-                                <label for="emailConnexion" class="form-label text-white">Email</label>
-                                <input type="email" class="form-control rounded-4 bg-dark-grey text-light" id="emailConnexion" required>
+                                <label for="email" class="form-label text-white">Email</label>
+                                <input type="email" class="form-control rounded-4 bg-dark-grey text-light" name="email" id="email" required>
+                                <p> <?= isset($errors['email']) && !empty($errors['email']) ? $errors['email'] : '' ?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="motDePasseConnexion" class="form-label text-white">Mot de passe</label>
-                                <input type="password" class="form-control rounded-4 bg-dark-grey text-light" id="motDePasseConnexion" required>
+                                <label for="password" class="form-label text-white">Mot de passe</label>
+                                <input type="password" class="form-control rounded-4 bg-dark-grey text-light" name="password" id="password" required>
+                                <p> <?= isset($errors['password']) && !empty($errors['password']) ? $errors['password'] : '' ?></p>
+                                <p> <?= isset($errors['auth']) && !empty($errors['auth']) ? $errors['auth'] : '' ?></p>
                             </div>
                             <a class="text-white fs-16 d-flex justify-content-end text-decoration-none" href="#">Mot de
                                 passe
@@ -107,6 +110,8 @@
 
     <div class="container flex-grow-1">
         <main>
+            <?php include __DIR__ . './../partials/message.php'; ?>
+
             <!-- <h1 class="text-center my-2 font-cars"> <?= $title ?> </h1> -->
             <?= $main ?>
         </main>

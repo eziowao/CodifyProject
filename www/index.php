@@ -8,12 +8,12 @@ require_once './models/User.php';
 require_once './models/Challenge.php';
 require_once './models/Type.php';
 require_once './models/Contribution.php';
+require_once './models/Like.php';
 
 // helpers
 require_once './helpers/http_helper.php';
 
 // Import des controleurs 
-
 $page = $_GET['page'] ?? '';
 
 $page = filter_var($page, FILTER_SANITIZE_SPECIAL_CHARS);
@@ -27,10 +27,15 @@ $path = match ($page) {
     'previous-challenges' => 'frontend/previous-challenges',
     'rankings' => 'frontend/rankings',
     'profile' => 'frontend/profile',
+    'previous-challenges/challenge' => 'frontend/challenge',
 
     // admin 
     'admin' => 'admin/logs/login',
     'logout' => 'admin/logs/logout',
+
+    // admin 
+    'signIn' => 'users/signIn',
+    'signUp' => 'users/signUp',
 
     // gestion membres
     'admin/dashboard/users/add' => 'admin/dashboard/users/add',

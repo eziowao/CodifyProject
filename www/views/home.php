@@ -17,7 +17,6 @@ ob_start()
         </div>
     </div>
 
-
     <!-- -------------------------------- cards -------------------------------- -->
 
     <div class="container my-5">
@@ -112,9 +111,6 @@ ob_start()
                             </div>
                             <div class="countdown-label text-light text-center">Secondes</div>
                         </div>
-                    </div>
-                    <div>
-                        <img src="./public/assets/img/decompte.png" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>

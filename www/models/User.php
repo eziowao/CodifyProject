@@ -8,6 +8,7 @@ class User extends BaseModel
         private ?string $pseudo = null,
         private ?string $email = null,
         private ?string $password = null,
+        private ?int $role = null,
         private ?string $picture = null,
         private ?string $biography = null,
         private ?string $website = null,
@@ -62,6 +63,18 @@ class User extends BaseModel
         return $this->password;
     }
 
+    public function getRole(): ?int
+    {
+        return $this->role;
+    }
+
+    public function setRole(?int $role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
     public function setPassword(?string $password): self
     {
         $this->password = $password;
@@ -73,7 +86,7 @@ class User extends BaseModel
         return $this->picture;
     }
 
-    public function setPicture(string $picture): ?self
+    public function setPicture(?string $picture): ?self
     {
         $this->picture = $picture;
         return $this;
@@ -176,7 +189,7 @@ class User extends BaseModel
 
     public function getAllUsers(): array
     {
-        $sql = "SELECT * FROM `users`";
+        $sql = "SELECT * FROM `users`;";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -184,12 +197,12 @@ class User extends BaseModel
     public function addUser(): bool
     {
         $sql = "INSERT INTO `users`(`pseudo`, `email`, `password`) 
-                VALUES (:pseudo, :email, :password)";
+                VALUES (:pseudo, :email, :password);";
         $stmt = $this->db->prepare($sql);
 
-        $stmt->bindValue(':pseudo', $this->getPseudo(), PDO::PARAM_STR);
-        $stmt->bindValue(':email', $this->getEmail(), PDO::PARAM_STR);
-        $stmt->bindValue(':password', $this->getPassword(), PDO::PARAM_STR);
+        $stmt->bindValue(':pseudo', $this->pseudo, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $this->password, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
@@ -199,7 +212,7 @@ class User extends BaseModel
             $this->setUserId($user_id);
         }
 
-        $sql = "SELECT * FROM `users` WHERE user_id = :user_id";
+        $sql = "SELECT * FROM `users` WHERE user_id = :user_id;";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $this->getUserId(), PDO::PARAM_INT);
         $stmt->execute();
@@ -219,7 +232,7 @@ class User extends BaseModel
                 `twitter` = :twitter, 
                 `linkedin` = :linkedin, 
                 `discord` = :discord 
-                WHERE user_id = :id";
+                WHERE user_id = :id;";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':id', $this->getUserId(), PDO::PARAM_INT);
@@ -238,9 +251,27 @@ class User extends BaseModel
 
     public function deleteUser(): bool
     {
-        $sql = "DELETE FROM `users` WHERE `user_id` = :user_id";
+        $sql = "DELETE FROM `users` WHERE `user_id` = :user_id;";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $this->getUserId(), PDO::PARAM_INT);
         return $stmt->execute();
+    }
+
+    public static function isMailExist(string $email): bool
+    {
+        $sql = 'SELECT `email` FROM `users` WHERE `email` = :email;';
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch() ? true : false;
+    }
+
+    public static function getUserByEmail(string $email): object|false
+    {
+        $sql = 'SELECT * FROM `users` WHERE `email` = :email;';
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }
