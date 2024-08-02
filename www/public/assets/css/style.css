@@ -151,6 +151,7 @@ a {
 /* img  */
 
 .profile-img {
+    border-radius: 50%;
     height: 220px;
     width: auto;
 }

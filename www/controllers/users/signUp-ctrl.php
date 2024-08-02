@@ -9,9 +9,6 @@ $confirmPassword = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
-        // extract($_POST);
-        // $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-
         $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
         if (!$pseudo) {
             $errors['pseudo'] = 'pseudo invalide';
@@ -20,6 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
         if (!$email) {
             $errors['email'] = 'Email invalide';
+        }
+
+        if (User::isMailExist($email)) {
+            $errors['mail'] = 'Ce mail est déjà attribué';
         }
 
         $password = filter_input(INPUT_POST, 'password');
@@ -46,8 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 email: $email,
                 password: $password
             );
-            $userModel->addUser();
-            redirectToRoute('?page=home');
+            $account = $userModel->addUser();
+            $user = User::getUserByEmail($email);
+
+            if ($account) {
+                $_SESSION['user'] = $user;
+                redirectToRoute('?page=home');
+            }
         }
     } catch (\PDOException $ex) {
         var_dump($ex);

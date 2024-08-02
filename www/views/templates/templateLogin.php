@@ -49,7 +49,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {user-name}
+                                    <?= $_SESSION['user']->pseudo ?>
                                 </a>
                                 <ul class="dropdown-menu bg-dark-grey">
                                     <li><a class="dropdown-item text-light text-center" href="?page=profile">Mon

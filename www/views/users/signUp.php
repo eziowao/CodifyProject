@@ -17,6 +17,7 @@ ob_start()
                     <div class="mb-3">
                         <label for="email" class="form-label mt-4">Email</label>
                         <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        <p> <?= isset($errors['mail']) && !empty($errors['mail']) ? $errors['mail'] : '' ?></p>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label mt-4">Votre mot de passe</label>

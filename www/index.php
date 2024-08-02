@@ -80,8 +80,6 @@ $pathPublic = match ($page) {
 
 $pathUser = match ($page) {
     '', 'home' => 'home',
-
-    // users logs 
     'logout' => 'users/signOut',
     'weekly-challenge' => 'frontend/weekly-challenge',
     'previous-challenges' => 'frontend/previous-challenges',
@@ -93,7 +91,7 @@ $pathUser = match ($page) {
 };
 
 $pathAdmin = match ($page) {
-    // frontend 
+
     '', 'home' => 'home',
     'weekly-challenge' => 'frontend/weekly-challenge',
     'previous-challenges' => 'frontend/previous-challenges',
@@ -101,7 +99,6 @@ $pathAdmin = match ($page) {
     'profile' => 'frontend/profile',
     'previous-challenges/challenge' => 'frontend/challenge',
 
-    // users logs 
     'logout' => 'users/signOut',
 
     // gestion membres
@@ -130,7 +127,6 @@ $pathAdmin = match ($page) {
 
     default => '404'
 };
-
 
 if (User::isAdmin()) {
     $path = $pathAdmin;

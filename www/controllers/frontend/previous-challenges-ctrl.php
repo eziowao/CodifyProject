@@ -1,7 +1,5 @@
 <?php
 
-$success = false;
-
 try {
     $challengeModel = new Challenge();
     $challenges = $challengeModel->getAllChallenges();
