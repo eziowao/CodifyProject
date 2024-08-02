@@ -16,7 +16,6 @@ class BaseModel
     // {
     //     return $this->db->lastInsertId();
     // }
-
     // servait pour le booking 
 
     /**

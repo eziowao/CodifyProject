@@ -60,10 +60,17 @@ ob_start()
                     <div class="col-md-6 px-2 d-flex justify-content-center">
                         <div class="col-10 d-flex justify-content-center">
                             <div class="row">
-                                <img class="contributions-img" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt="">
+                                <div>
+                                    <a href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>">
+                                        <img class="img-fluid" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt="">
+                                    </a>
+                                </div>
+
                                 <div class="row">
-                                    <a class="col-6 py-3" href="<?= htmlspecialchars($contribution->link) ?>" target="_blank"><?= htmlspecialchars($contribution->link) ?></a>
-                                    <div class="col-6 d-flex justify-content-end align-items-center">
+                                    <div class="col-10 py-3">
+                                        <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank"><?= htmlspecialchars($contribution->link) ?></a>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-end align-items-center">
                                         <i class="fa-regular fa-heart fa-xl py-3"></i>
                                     </div>
                                 </div>

@@ -1,21 +1,25 @@
 <?php
 
 try {
+    // Récupérer le challenge de la semaine
     $challengeModel = new Challenge();
-    $challenges = $challengeModel->getAllChallenges();
+    $currentChallenge = $challengeModel->getCurrentChallenge();
 
-    $typeModel = new Type();
-    $types = $typeModel->getAllTypes();
-    $typesById = [];
-    foreach ($types as $type) {
-        $typesById[$type->type_id] = $type->type;
-    }
+    // Récupérer tous les challenges
+    $allChallenges = $challengeModel->getAllChallenges();
+
+    // Filtrer le challenge de la semaine
+    $filteredChallenges = array_filter($allChallenges, function ($challenge) use ($currentChallenge) {
+        return $challenge->challenge_id !== $currentChallenge['challenge_id'];
+    });
+
+    // Réindexer le tableau (optionnel, mais peut être utile pour les boucles)
+    $filteredChallenges = array_values($filteredChallenges);
 } catch (\PDOException $ex) {
-    echo sprintf('La récupération des catégories a échoué avec le message %s', $ex->getMessage());
-    //throw $th;
+    echo sprintf('La récupération des données a échoué avec le message : %s', $ex->getMessage());
 }
 
+$title = "Challenges Précédents";
 
-$title = "Challenges précédents";
-
-renderView('frontend/previous-challenges', compact('title', 'challenges', 'typesById'), 'templateLogin');
+// Passer les données à la vue
+renderView('frontend/previous-challenges', compact('title', 'filteredChallenges'), 'templateLogin');

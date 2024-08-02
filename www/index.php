@@ -79,8 +79,12 @@ $pathPublic = match ($page) {
 };
 
 $pathUser = match ($page) {
-    '', 'home' => 'home',
+
+    // logs
     'logout' => 'users/signOut',
+
+    // frontend
+    '', 'home' => 'home',
     'weekly-challenge' => 'frontend/weekly-challenge',
     'previous-challenges' => 'frontend/previous-challenges',
     'rankings' => 'frontend/rankings',
@@ -92,6 +96,7 @@ $pathUser = match ($page) {
 
 $pathAdmin = match ($page) {
 
+    // frontend
     '', 'home' => 'home',
     'weekly-challenge' => 'frontend/weekly-challenge',
     'previous-challenges' => 'frontend/previous-challenges',
@@ -99,6 +104,7 @@ $pathAdmin = match ($page) {
     'profile' => 'frontend/profile',
     'previous-challenges/challenge' => 'frontend/challenge',
 
+    // logs
     'logout' => 'users/signOut',
 
     // gestion membres

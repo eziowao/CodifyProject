@@ -137,4 +137,16 @@ class Contribution extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function getContributionsByChallengeId(int $challenge_id): array
+    {
+        $sql = "SELECT c.*, u.pseudo 
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            WHERE c.challenge_id = :challenge_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

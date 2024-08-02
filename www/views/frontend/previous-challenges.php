@@ -9,13 +9,16 @@ ob_start()
             <h1 class="m-0 fs-4 py-4 text-center text-light"> <?= $title ?></h1>
         </div>
         <div class="row h-50 py-3">
-            <?php foreach ($challenges as $challenge) : ?>
-                <div class="d-flex justify-content-center col-6">
-                    <a href="?page=previous-challenges/challenge&id=<?= $challenge->challenge_id ?>">
-                        <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" class="col-10 col-md-10 img-fluid rounded-2" alt="">
-                    </a>
-                </div>
-            <?php endforeach; ?>
+            <?php if (count($filteredChallenges) > 0) : ?>
+                <?php foreach ($filteredChallenges as $challenge) : ?> <div class="d-flex justify-content-center col-md-6">
+                        <a href="?page=previous-challenges/challenge&id=<?= $challenge->challenge_id ?>" class="d-flex justify-content-center">
+                            <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" class="col-10 col-md-10 img-fluid" alt="<?= $challenge->name ?>">
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p class="text-center text-light">Aucun challenge précédent trouvé.</p>
+            <?php endif; ?>
         </div>
     </div>
 </main>

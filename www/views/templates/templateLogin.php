@@ -28,13 +28,11 @@
 
                         <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
                             <li class="nav-item">
-                                <a class="nav-link text-light <?= $class ?? '' ?>" href="/?page=signUp">Inscription</a>
+                                <a class="nav-link text-light" href="/?page=signUp">Inscription</a>
                             </li>
-
                             <li class="nav-item">
-                                <a class="nav-link text-light <?= $class ?? '' ?>" href="/?page=signIn">Connexion</a>
+                                <a class="nav-link text-light" href="/?page=signIn">Connexion</a>
                             </li>
-
                         <?php } ?>
 
                         <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
@@ -44,18 +42,16 @@
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="?page=previous-challenges">Challenges précédents</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="?page=rankings">Classements</a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <?= $_SESSION['user']->pseudo ?>
                                 </a>
                                 <ul class="dropdown-menu bg-dark-grey">
-                                    <li><a class="dropdown-item text-light text-center" href="?page=profile">Mon
-                                            profil</a>
+                                    <li>
+                                        <a class="dropdown-item text-light text-center" href="?page=profile">Mon profil</a>
                                     </li>
-                                    <li><a class="dropdown-item text-light text-center" href="?page=logout">Déconnexion</a>
+                                    <li>
+                                        <a class="dropdown-item text-light text-center" href="?page=logout">Déconnexion</a>
                                     </li>
                                 </ul>
                             </li>
@@ -69,7 +65,6 @@
     <div class="container flex-grow-1">
         <main>
             <?php include __DIR__ . './../partials/message.php'; ?>
-
             <!-- <h1 class="text-center my-2 font-cars"> <?= $title ?> </h1> -->
             <?= $main ?>
         </main>

@@ -168,4 +168,14 @@ class Challenge extends BaseModel
 
         return $stmt->execute();
     }
+
+    public function getCurrentChallenge(): ?array
+    {
+        $today = new DateTime();
+        $sql = "SELECT * FROM `challenges` WHERE `published_at` <= :today ORDER BY `published_at` DESC LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':today', $today->format('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
