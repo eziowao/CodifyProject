@@ -115,9 +115,11 @@ ob_start()
                 </div>
             </div>
             <div class="container col-12 col-md-7 my-5">
-                <h2 class="text-light fs-4 text-center mb-4 pb-4">Challenge de la semaine</h2>
+                <h2 class="text-light fs-4 text-center mb-4 pb-4">Challenge de la semaine : <?= $challenge['name']; ?></h2>
                 <div class="d-flex justify-content-end">
-                    <img src="./public/assets/img/project_profile.png" class="img-fluid" halt="">
+                    <a href="?page=weekly-challenge">
+                        <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" halt="">
+                    </a>
                 </div>
             </div>
         </div>
@@ -130,13 +132,17 @@ ob_start()
             <div class="mt-5">
                 <h2 class="text-light fs-4 text-center mb-4 pb-4">Challenges précédents</h2>
             </div>
-            <div class="col-12 col-md-6 mb-5">
-                <img src="./public/assets/img/fnac-home-desktop.png" class="img-fluid" alt="">
-
-            </div>
-            <div class="col-12 col-md-6 mb-5 d-flex justify-content-end">
-                <img src="./public/assets/img/netflix-home-desktop.png" class="img-fluid" alt="">
-            </div>
+            <?php if (count($filteredChallenges) > 0) : ?>
+                <?php foreach ($filteredChallenges as $challenge) : ?>
+                    <div class="d-flex justify-content-center col-12 col-md-6 mb-5">
+                        <a href="?page=previous-challenges/challenge&id=<?= $challenge->challenge_id ?>" class="d-flex justify-content-center">
+                            <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" class="img-fluid" alt="<?= $challenge->name ?>">
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p class="text-center text-light">Aucun challenge précédent trouvé.</p>
+            <?php endif; ?>
 
         </div>
     </div>

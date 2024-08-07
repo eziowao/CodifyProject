@@ -26,4 +26,4 @@ try {
 
 $title = "Challenge de la semaine";
 
-renderView('frontend/weekly-challenge', compact('title', 'challenge', 'contributions'), 'templateLogin');
+renderView('frontend/weekly-challenge', compact('title', 'challenge', 'contributions', 'typesById'), 'templateLogin');
