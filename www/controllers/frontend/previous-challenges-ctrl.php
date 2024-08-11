@@ -1,5 +1,7 @@
 <?php
 
+$filteredChallenges = [];
+
 try {
 
     // GESTION DU CHALLENGE 

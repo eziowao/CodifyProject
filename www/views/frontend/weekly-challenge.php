@@ -50,7 +50,6 @@ ob_start()
             <button class="col-7 col-md-5 p-2 col-lg-3 bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
         </div>
 
-
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -60,15 +59,27 @@ ob_start()
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <form action="" method="POST">
+                            <div class="form-group mb-3">
+                                <label class="mb-3" for="link">Lien de la contribution</label>
+                                <input type="text" class="form-control" id="link" name="link" value="" required>
+                            </div>
+
+
+                            <?= $errors['type'] ?? '' ?>
+                            <?= $errors['auth'] ?? '' ?>
+                            <button type="submit" class="btn bg-green text-light">Ajouter</button>
+
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn bg-green text-light">Ajouter</button>
+                        <button type="submit" class="btn bg-green text-light">Ajouter</button>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </main>
 
