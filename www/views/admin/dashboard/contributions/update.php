@@ -22,22 +22,30 @@ ob_start()
                     <label for="challenge_id">Type de challenge</label>
                     <select class="form-select mt-2" name="challenge_id" id="challenge_id" required>
                         <option value="">Type de challenge</option>
-                        <?php foreach ($challenges as $challenge) : ?>
-                            <option value="<?= $challenge->challenge_id ?>" <?= isset($contribution) && $contribution['challenge_id'] == $challenge->challenge_id ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($challenge->name) ?>
-                            </option>
-                        <?php endforeach; ?>
+                        <?php if (!empty($challenges) && is_array($challenges)): ?>
+                            <?php foreach ($challenges as $challenge) : ?>
+                                <option value="<?= $challenge->challenge_id ?>" <?= isset($contribution) && $contribution['challenge_id'] == $challenge->challenge_id ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($challenge->name) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <option value="">Aucun challenge disponible</option>
+                        <?php endif; ?>
                     </select>
                 </div>
                 <div class="form-group my-5">
                     <label for="user_id">Auteur de la contribution</label>
                     <select class="form-select mt-2" name="user_id" id="user_id" required>
                         <option value="">Utilisateur</option>
-                        <?php foreach ($users as $user) : ?>
-                            <option value="<?= $user->user_id ?>" <?= isset($contribution) && $contribution['user_id'] == $user->user_id ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($user->pseudo) ?>
-                            </option>
-                        <?php endforeach; ?>
+                        <?php if (!empty($users) && is_array($users)): ?>
+                            <?php foreach ($users as $user) : ?>
+                                <option value="<?= $user->user_id ?>" <?= isset($contribution) && $contribution['user_id'] == $user->user_id ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($user->pseudo) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <option value="">Aucun utilisateur disponible</option>
+                        <?php endif; ?>
                     </select>
                 </div>
                 <div class="d-flex justify-content-center">

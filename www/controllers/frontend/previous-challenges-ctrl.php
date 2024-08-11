@@ -1,6 +1,9 @@
 <?php
 
 try {
+
+    // GESTION DU CHALLENGE 
+
     // Récupérer le challenge de la semaine
     $challengeModel = new Challenge();
     $currentChallenge = $challengeModel->getCurrentChallenge();
@@ -20,6 +23,4 @@ try {
 }
 
 $title = "Challenges Précédents";
-
-// Passer les données à la vue
 renderView('frontend/previous-challenges', compact('title', 'filteredChallenges'), 'templateLogin');

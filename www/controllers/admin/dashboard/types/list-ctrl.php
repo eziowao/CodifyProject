@@ -1,10 +1,12 @@
 <?php
 
+$types = [];
+
 try {
     $typeModel = new Type();
     $types = $typeModel->getAllTypes();
 } catch (\PDOException $ex) {
-    echo sprintf('la récupération des catégories a échoué avec le message %s', $ex->getMessage());
+    echo sprintf('la récupération des types a échoué avec le message %s', $ex->getMessage());
     //throw $th;
 }
 

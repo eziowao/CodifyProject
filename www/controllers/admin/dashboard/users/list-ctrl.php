@@ -1,5 +1,7 @@
 <?php
 
+$users = [];
+
 try {
     $userModel = new User();
     $users = $userModel->getAllUsers();

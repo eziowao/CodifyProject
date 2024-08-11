@@ -2,9 +2,16 @@
 
 $errors = [];
 $success = false;
-
 $typeModel = new Type();
-$types = $typeModel->getAllTypes();
+$types = [];
+
+try {
+    $types = $typeModel->getAllTypes();
+} catch (\PDOException $ex) {
+    echo sprintf('Erreur lors de la récupération des types : %s', $ex->getMessage());
+} catch (\Exception $ex) {
+    echo sprintf('Une erreur est survenue : %s', $ex->getMessage());
+}
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

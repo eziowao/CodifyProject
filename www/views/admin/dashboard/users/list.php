@@ -19,40 +19,44 @@ ob_start()
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($users as $user) : ?>
-                <tr>
-                    <td><?= $user->pseudo ?></td>
-                    <td><?= $user->email ?></td>
-                    <td> <img class="rounded-2" src="./../../../../public/uploads/users/<?= $user->picture ?>" height="50px" alt=""></td>
-                    <td><?= $user->biography ?></td>
-                    <td>
-                        <div>
-                            <a href="<?= $user->website ?>" target="_blank">Website</a>
-                        </div>
-                        <div>
-                            <a href="<?= $user->github ?>" target="_blank">Github</a>
-                        </div>
-                        <div>
-                            <a href="<?= $user->twitter ?>" target="_blank">Twitter</a>
-                        </div>
-                        <div>
-                            <a href="<?= $user->linkedin ?>" target="_blank">Linkedin</a>
-                        </div>
-                        <div>
-                            <a href="<?= $user->discord ?>" target="_blank">Discord</a>
-                        </div>
-                    </td>
-                    <td>
-                        <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= $user->user_id ?>"><i class="bi bi-pencil"></i></a>
-                    </td>
-                    <td>
-                        <form class="delete-form" action="?page=admin/dashboard/users/delete&id=<?= $user->user_id ?>" method="post">
-                            <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
-                            <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+            <?php if (!empty($users) && is_array($users)): ?>
+                <?php foreach ($users as $user) : ?>
+                    <tr>
+                        <td><?= $user->pseudo ?></td>
+                        <td><?= $user->email ?></td>
+                        <td> <img class="rounded-2" src="./../../../../public/uploads/users/<?= $user->picture ?>" height="50px" alt=""></td>
+                        <td><?= $user->biography ?></td>
+                        <td>
+                            <div>
+                                <a href="<?= $user->website ?>" target="_blank">Website</a>
+                            </div>
+                            <div>
+                                <a href="<?= $user->github ?>" target="_blank">Github</a>
+                            </div>
+                            <div>
+                                <a href="<?= $user->twitter ?>" target="_blank">Twitter</a>
+                            </div>
+                            <div>
+                                <a href="<?= $user->linkedin ?>" target="_blank">Linkedin</a>
+                            </div>
+                            <div>
+                                <a href="<?= $user->discord ?>" target="_blank">Discord</a>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= $user->user_id ?>"><i class="bi bi-pencil"></i></a>
+                        </td>
+                        <td>
+                            <form class="delete-form" action="?page=admin/dashboard/users/delete&id=<?= $user->user_id ?>" method="post">
+                                <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
+                                <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <option value="">Aucun utilisateur</option>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

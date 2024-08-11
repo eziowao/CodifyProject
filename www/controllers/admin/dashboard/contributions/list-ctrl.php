@@ -1,5 +1,7 @@
 <?php
 
+$contributions = [];
+
 try {
     $contributionModel = new Contribution();
     $contributions = $contributionModel->getAllContributions();

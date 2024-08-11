@@ -4,10 +4,17 @@ $errors = [];
 $success = false;
 
 $userModel = new User();
-$users = $userModel->getAllUsers();
+$users = [];
 
 $challengeModel = new Challenge();
-$challenges = $challengeModel->getAllChallenges();
+$challenges = [];
+
+try {
+    $users = $userModel->getAllUsers();
+    $challenges = $challengeModel->getAllChallenges();
+} catch (\PDOException $ex) {
+    $errors[] = sprintf('Erreur lors de la récupération des données : %s', $ex->getMessage());
+}
 
 $contribution = null;
 

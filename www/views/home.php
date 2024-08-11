@@ -140,7 +140,7 @@ ob_start()
             <div class="mt-5">
                 <h2 class="text-light fs-4 text-center mb-4 pb-4"><a href="?page=previous-challenges">Challenges précédents</a></h2>
             </div>
-            <?php if (count($filteredChallenges) > 0) : ?>
+            <?php if (isset($filteredChallenges) && count($filteredChallenges) > 0) : ?>
                 <?php foreach ($filteredChallenges as $challenge) : ?>
                     <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
                         <div class="d-flex justify-content-center col-12 col-md-6 mb-5">

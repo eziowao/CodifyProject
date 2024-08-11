@@ -1,6 +1,7 @@
 <?php
 
 $success = false;
+$challenge = [];
 
 try {
     $challengeModel = new Challenge();

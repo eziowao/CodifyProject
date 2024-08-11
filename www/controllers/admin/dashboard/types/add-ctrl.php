@@ -5,7 +5,6 @@ $success = false;
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     try {
         $type = $_POST['type'];
         // instance du modèle

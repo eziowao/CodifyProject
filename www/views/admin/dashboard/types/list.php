@@ -16,21 +16,25 @@ ob_start()
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($types as $type) : ?>
-                <tr>
-                    <td><?= $type->type_id ?></td>
-                    <td><?= $type->type ?></td>
-                    <td>
-                        <a class="btn btn-warning" href="?page=admin/dashboard/types/update&id=<?= $type->type_id ?>"><i class="bi bi-pencil"></i></a>
-                    </td>
-                    <td>
-                        <form class="delete-form" action="?page=admin/dashboard/types/delete&id=<?= $type->type_id ?>" method="post">
-                            <input type="hidden" name="user_id" value="<?= $type->type_id  ?>">
-                            <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+            <?php if (!empty($types) && is_array($types)): ?>
+                <?php foreach ($types as $type) : ?>
+                    <tr>
+                        <td><?= $type->type_id ?></td>
+                        <td><?= $type->type ?></td>
+                        <td>
+                            <a class="btn btn-warning" href="?page=admin/dashboard/types/update&id=<?= $type->type_id ?>"><i class="bi bi-pencil"></i></a>
+                        </td>
+                        <td>
+                            <form class="delete-form" action="?page=admin/dashboard/types/delete&id=<?= $type->type_id ?>" method="post">
+                                <input type="hidden" name="user_id" value="<?= $type->type_id  ?>">
+                                <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <option value="">Aucun type trouvé</option>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

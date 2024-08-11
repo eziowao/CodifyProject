@@ -1,5 +1,7 @@
 <?php
 
+$filteredChallenges = [];
+
 try {
     // récupération challenge de la semaine
     $challengeModel = new Challenge();
@@ -24,7 +26,6 @@ try {
 } catch (\PDOException $ex) {
     echo sprintf('La récupération des données a échoué avec le message : %s', $ex->getMessage());
 }
-
 
 $title = 'Accueil';
 renderView('home', compact('title', 'challenge', 'filteredChallenges'), 'templateLogin');

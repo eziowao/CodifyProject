@@ -16,24 +16,30 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($contributions as $contribution) : ?>
-                <tr>
-                    <td><?= $contribution->contribution_id ?></td>
-                    <td> <a href="<?= $contribution->link ?>" target="_blank"><?= $contribution->link ?></a></td>
-                    <td><?= $usersById[$contribution->user_id] ?? 'user inconnu' ?> </td>
-                    <td><?= $challengesById[$contribution->challenge_id] ?></td>
-                    <td><?= $likesById[$contribution->like_id] ?></td>
-                    <td>
-                        <a class="btn btn-warning" href="?page=admin/dashboard/contributions/update&id=<?= $contribution->contribution_id ?>"><i class="bi bi-pencil"></i></a>
-                    </td>
-                    <td>
-                        <form class="delete-form" action="?page=admin/dashboard/contributions/delete&id=<?= $contribution->contribution_id ?>" method="post">
-                            <input type="hidden" name="user_id" value="<?= 'test' ?>">
-                            <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+            <?php if (!empty($contributions) && is_array($contributions)): ?>
+
+                <?php foreach ($contributions as $contribution) : ?>
+                    <tr>
+                        <td><?= $contribution->contribution_id ?></td>
+                        <td> <a href="<?= $contribution->link ?>" target="_blank"><?= $contribution->link ?></a></td>
+                        <td><?= $usersById[$contribution->user_id] ?? 'user inconnu' ?> </td>
+                        <td><?= $challengesById[$contribution->challenge_id] ?></td>
+                        <!-- <td><?= $likesById[$contribution->like_id] ?></td> -->
+                        <td> likes txt remplacement</td>
+                        <td>
+                            <a class="btn btn-warning" href="?page=admin/dashboard/contributions/update&id=<?= $contribution->contribution_id ?>"><i class="bi bi-pencil"></i></a>
+                        </td>
+                        <td>
+                            <form class="delete-form" action="?page=admin/dashboard/contributions/delete&id=<?= $contribution->contribution_id ?>" method="post">
+                                <input type="hidden" name="user_id" value="<?= 'test' ?>">
+                                <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <option value="">Aucune contribution disponible</option>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

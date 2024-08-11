@@ -31,12 +31,13 @@ ob_start()
                 </div>
                 <select class="form-select mt-4" name="type_id" id="type_id" required>
                     <option value=""> Type de challenge </option>
-                    <?php foreach ($types as $type) {
-                    ?>
-                        <option value="<?= $type->type_id ?>"><?= $type->type ?></option>
-                    <?php
-                    }
-                    ?>
+                    <?php if (!empty($types) && is_array($types)): ?>
+                        <?php foreach ($types as $type): ?>
+                            <option value="<?= htmlspecialchars($type->type_id) ?>"><?= htmlspecialchars($type->type) ?></option>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <option value="">Aucun type disponible</option>
+                    <?php endif; ?>
                 </select>
                 <button type="submit" class="btn btn-primary">Ajouter le Challenge</button>
             </form>

@@ -34,11 +34,15 @@ ob_start()
                         <label class="mt-2" for="type_id">Type de challenge</label>
                         <select class="form-select mt-4" name="type_id" id="type_id" required>
                             <option value="">Type de challenge</option>
-                            <?php foreach ($types as $type) : ?>
-                                <option value="<?= $type->type_id ?>" <?= $type->type_id == $challenge['type_id'] ? 'selected' : '' ?>>
-                                    <?= $type->type ?>
-                                </option>
-                            <?php endforeach; ?>
+                            <?php if (!empty($types) && is_array($types)): ?>
+                                <?php foreach ($types as $type) : ?>
+                                    <option value="<?= $type->type_id ?>" <?= $type->type_id == $challenge['type_id'] ? 'selected' : '' ?>>
+                                        <?= $type->type ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <option value="">Aucun type disponible</option>
+                            <?php endif; ?>
                         </select>
                     </div>
                     <div class="d-flex justify-content-center">
