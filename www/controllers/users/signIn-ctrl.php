@@ -33,9 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Super@MDP80
-// elzwo800@gmail.com
-
 $title = 'Connexion';
 
 renderView('users/signIn', compact('title', 'errors'), 'templateLogin');

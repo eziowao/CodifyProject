@@ -1,5 +1,7 @@
 <?php
 
+$errors = [];
+
 try {
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
@@ -29,15 +31,25 @@ try {
                 $userId = $_SESSION['user']->user_id; // Assurez-vous que $_SESSION['user'] est correctement défini
                 $link = filter_var($_POST['link'], FILTER_SANITIZE_URL); // Sécuriser l'URL
 
-                // Ajouter la contribution
-                $contributionModel->setUser_id($userId)
-                    ->setChallenge_id($challenge['challenge_id'])
-                    ->setLink($link)
-                    ->addContribution();
+                // Vérifier que le lien est une URL valide
+                if (!filter_var($link, FILTER_VALIDATE_URL)) {
+                    $errors['link'] = 'Le lien fourni n\'est pas une URL valide.';
+                } else {
+                    $regex = '/^https:\/\/[a-zA-Z0-9_-]+\.github\.io\/[a-zA-Z0-9_-]+\/$/';
 
-                // Rediriger ou afficher un message de succès
-                redirectToRoute('?page=previous-challenges/challenge&id=' . urlencode($id));
-                exit;
+                    if (!preg_match($regex, $link)) {
+                        $errors['link'] = 'Le lien doit être au format "https://VotrePseudoGithub.github.io/NomDeVotreProjet/".';
+                    } else {
+                        // Ajouter la contribution si aucune erreur n'a été trouvée
+                        $contributionModel->setUser_id($userId)
+                            ->setChallenge_id($challenge['challenge_id'])
+                            ->setLink($link)
+                            ->addContribution();
+
+                        redirectToRoute('?page=previous-challenges/challenge&id=' . urlencode($id));
+                        exit;
+                    }
+                }
             } else {
                 $errors['auth'] = 'Vous devez être connecté pour ajouter une contribution.';
             }
@@ -51,4 +63,4 @@ try {
 
 $title = "Challenge";
 
-renderView('frontend/challenge', compact('title', 'challenge', 'typesById', 'contributions'), 'templateLogin');
+renderView('frontend/challenge', compact('title', 'challenge', 'typesById', 'contributions', 'errors'), 'templateLogin');

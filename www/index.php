@@ -89,6 +89,7 @@ $pathUser = match ($page) {
     'previous-challenges' => 'frontend/previous-challenges',
     'rankings' => 'frontend/rankings',
     'profile' => 'frontend/profile',
+    'user' => 'frontend/users-profile',
     'previous-challenges/challenge' => 'frontend/challenge',
 
     default => '404'
@@ -102,6 +103,7 @@ $pathAdmin = match ($page) {
     'previous-challenges' => 'frontend/previous-challenges',
     'rankings' => 'frontend/rankings',
     'profile' => 'frontend/profile',
+    'user' => 'frontend/users-profile',
     'previous-challenges/challenge' => 'frontend/challenge',
 
     // logs

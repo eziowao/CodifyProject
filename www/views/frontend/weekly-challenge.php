@@ -28,15 +28,27 @@ ob_start()
                 <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
             </div>
         </div>
-
         <div class="row text-light">
             <h2 class="m-0 fs-4 pt-5 pb-4 text-center text-light">Contributions délivrées</h2>
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
-                    <div class="col-md-6 d-flex justify-content-center">
-                        <div class="col-md-10 bg_test p-3 my-3">
-                            <h5 class="text-light"><?= htmlspecialchars($contribution->pseudo) ?> <?= htmlspecialchars($contribution->user_id) ?> </h5>
-                            <a href="<?= htmlspecialchars($contribution->link) ?>">Lien du projet</a>
+                    <div class="col-12 col-md-6 d-flex justify-content-center">
+                        <div class="col-12 bg_test p-3 my-3">
+                            <div class="d-flex align-items-center my-3">
+                                <a href="?page=user&id=<?= $contribution->user_id ?>">
+                                    <img src="<?= htmlspecialchars($contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png') ?>"
+                                        alt="Photo de profil"
+                                        class="rounded-circle"
+                                        width="50"
+                                        height="50">
+                                </a>
+                                <h5 class="text-light ms-3">
+                                    <a href="?page=user&id=<?= $contribution->user_id ?>">
+                                        <?= htmlspecialchars($contribution->pseudo) ?>
+                                    </a>
+                                </h5>
+                            </div>
+                            <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Lien du projet</a>
                             <p class="card-text text-end"><img src="./public/assets/img/logo_like 2.png" alt=""></p>
                         </div>
                     </div>
@@ -58,28 +70,21 @@ ob_start()
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter ma contribution</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <form action="" method="POST">
+                    <form action="" method="POST">
+                        <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label class="mb-3" for="link">Lien de la contribution</label>
                                 <input type="text" class="form-control" id="link" name="link" value="" required>
                             </div>
-
-
-                            <?= $errors['type'] ?? '' ?>
-                            <?= $errors['auth'] ?? '' ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                             <button type="submit" class="btn bg-green text-light">Ajouter</button>
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn bg-green text-light">Ajouter</button>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 

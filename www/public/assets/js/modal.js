@@ -1,9 +1,4 @@
-/////////////////////////////////////////////////////////// gestion modal 
-
-console.log('test');
-
 document.addEventListener("DOMContentLoaded", function () {
-    console.log('test');
 
     const forms = document.querySelectorAll(".delete-form");
 
@@ -16,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 let deleteModal = new bootstrap.Modal(deleteModalElement);
                 deleteModal.show();
 
-                // Nettoyage de l'événement click pour éviter les multiples soumissions
                 const validateButton = document.querySelector('[data-valid="true"]');
                 const newButton = validateButton.cloneNode(true);
                 validateButton.replaceWith(newButton);
