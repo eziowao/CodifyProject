@@ -73,9 +73,6 @@
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/contributions/list">Liste des contributions</a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/contributions/add">Ajouter une contribution</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">

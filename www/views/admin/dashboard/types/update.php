@@ -20,6 +20,9 @@ ob_start()
                     <div class="form-group my-5">
                         <label class="mb-3" for="type">Nom de la catégorie</label>
                         <input type="text" class="form-control" id="type" name="type" value="<?= $type['type'] ?>" required>
+                        <?php if (isset($errors['type'])): ?>
+                            <p class=" text-danger"><?= $errors['type'] ?></p>
+                        <?php endif; ?>
                     </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success">Mettre à jour</button>

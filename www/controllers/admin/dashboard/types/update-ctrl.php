@@ -15,10 +15,13 @@ if (isset($_GET['id'])) {
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $typeName = trim($_POST['type']);
+
+        $typeName = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (empty($typeName)) {
-            $errors[] = "Nom du type requis";
+            $errors['type'] = 'Le type de challenge est requis.';
+        } elseif (strlen($typeName) > 30) {
+            $errors['type'] = 'Le type de challenge doit contenir moins de 30 caractères.';
         } else {
             $typeModel->setType($typeName);
 
@@ -36,4 +39,4 @@ if (isset($_GET['id'])) {
 }
 
 $title = "Modifier le type de challenge";
-renderView('admin/dashboard/types/update', compact('title', 'type', 'success'), 'templateAdminLogin');
+renderView('admin/dashboard/types/update', compact('title', 'type', 'success', 'errors'), 'templateAdminLogin');

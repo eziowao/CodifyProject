@@ -3,6 +3,7 @@
 ob_start()
 ?>
 
+
 <h1 class="text-center"> <?= $title ?> </h1>
 
 <div class="container mt-5">
@@ -76,6 +77,7 @@ ob_start()
 ?>
 
 <script src="./../../public/assets/js/modal.js"></script>
+<script src="./../../public/assets/js/cookie.js"></script>
 
 <?php
 $script = ob_get_clean();
