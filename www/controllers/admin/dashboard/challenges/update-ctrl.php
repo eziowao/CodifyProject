@@ -1,9 +1,8 @@
 <?php
 
-$errors = [];
-$success = false;
 $typeModel = new Type();
 $types = [];
+$errors = [];
 
 try {
     $types = $typeModel->getAllTypes();
@@ -19,52 +18,98 @@ if (isset($_GET['id'])) {
     $challenge = $challengeModel->getChallengeById($id);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Récupérer les données du formulaire
-        $name = $_POST['name'];
-        $published_at = new DateTime($_POST['published_at']);
-        $description = $_POST['description'];
-        $type_id = $_POST['type_id'];
-        // $user_id = $_POST['user_id'];
-        $file_url = $_POST['file_url'];
-        $picture = $_FILES['picture'] ?? null;
 
-        // Traitement de l'image
-        if ($picture && $picture['error'] === UPLOAD_ERR_OK) { // vérifie que le téléchargement est ok 
-            $uploadDir = __DIR__ . '/../../../../public/uploads/challenges/';
-            $tmp_name = $picture['tmp_name']; // chemin temporaire 
-            $oldImage = $challenge['picture'] ?? null; // correction ici
-
-            if ($oldImage) {
-                $oldImagePath = $uploadDir . $oldImage;
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath); // supprime l'ancienne image 
-                }
+        try {
+            // name
+            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+            if (empty($name)) {
+                $errors['name'] = 'Le nom du challenge est requis.';
+            } elseif (strlen($name) > 100) {
+                $errors['type'] = 'Le nom du challenge ne doit pas dépasser 100 caractères.';
             }
 
-            $fileExtension = pathinfo($picture['name'], PATHINFO_EXTENSION);
-            $fileName = uniqid() . '.' . $fileExtension;
-            move_uploaded_file($tmp_name, $uploadDir . $fileName); //  déplace le fichier téléchargé du répertoire temporaire vers le répertoire de destination
-            $picture = $fileName;
-        } else {
-            $picture = $challenge['picture'] ?? null; // garde l'ancienne image si aucune nouvelle image n'est envoyée
-        }
+            // description
+            $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
+            if (empty($description)) {
+                $errors['description'] = 'La description du challenge est requise.';
+            }
 
-        $challengeModel->setChallengeId($id)
-            ->setName($name)
-            ->setPublished_at($published_at)
-            ->setDescription($description)
-            ->setType_id($type_id)
-            ->setFile_url($file_url)
-            ->setPicture($picture);
+            // image
+            $picture = $_FILES['picture'] ?? null;
+            if ($picture && $picture['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = __DIR__ . '/../../../../public/uploads/challenges/';
+                $tmp_name = $picture['tmp_name'];
+                $fileName = uniqid() . '.' . strtolower(pathinfo($picture['name'], PATHINFO_EXTENSION));
 
-        if ($challengeModel->updateChallenge()) {
-            $success = true;
-            header('Location: ?page=admin/dashboard/challenges/list');
-            exit;
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+                if (!in_array($fileExtension, $allowedExtensions)) {
+                    $errors['picture'] = 'Format de fichier non autorisé.';
+                }
+
+                if ($picture['size'] > 2 * 1024 * 1024) {
+                    $errors['picture'] = 'Le fichier est trop volumineux.';
+                }
+
+                if (empty($errors)) {
+                    $oldImage = $challenge['picture'] ?? null;
+                    if ($oldImage) {
+                        $oldImagePath = $uploadDir . $oldImage;
+                        if (file_exists($oldImagePath)) {
+                            unlink($oldImagePath);
+                        }
+                    }
+
+                    move_uploaded_file($tmp_name, $uploadDir . $fileName);
+                    $picture = $fileName;
+                } else {
+                    $picture = $challenge['picture'] ?? null;
+                }
+            } else {
+                $picture = $challenge['picture'] ?? null;
+            }
+
+            // url 
+            $file_url = filter_input(INPUT_POST, 'file_url', FILTER_SANITIZE_URL);
+            if (empty($file_url)) {
+                $errors['file_url'] = 'L\'url du challenge est requise.';
+            } elseif ($file_url && !preg_match('/^https:\/\/www\.figma\.com\/.+$/', $file_url)) {
+                $errors['file_url'] = 'L\'URL de la maquette doit commencer par https://www.figma.com/';
+            }
+
+            // date
+            $published_at = filter_input(INPUT_POST, 'published_at', FILTER_SANITIZE_SPECIAL_CHARS);
+            $published_at = new DateTime($published_at);
+            if ($published_at->format('N') != 1) {
+                $errors['published_at'] = 'La date de publication doit être un lundi.';
+            }
+
+            // type de challenge
+            $type_id = filter_input(INPUT_POST, 'type_id', FILTER_VALIDATE_INT);
+            $valid_type_ids = array_column($types, 'type_id');
+            if ($type_id === false || $type_id <= 0 || !in_array($type_id, $valid_type_ids)) {
+                $errors['type_id'] = 'Type de challenge invalide.';
+            }
+
+            if (empty($errors)) {
+                $challengeModel->setChallengeId($id)
+                    ->setName($name)
+                    ->setPublished_at($published_at)
+                    ->setDescription($description)
+                    ->setType_id($type_id)
+                    ->setFile_url($file_url)
+                    ->setPicture($picture);
+                $challengeModel->updateChallenge();
+                redirectToRoute('/?page=admin/dashboard/challenges/list');
+            }
+        } catch (\PDOException $ex) {
+            echo sprintf('La mise à jour du challenge a échoué avec le message %s', $ex->getMessage());
+        } catch (\Exception $ex) {
+            echo sprintf('Une erreur est survenue : %s', $ex->getMessage());
         }
     }
 }
 
 $title = "Modifier le challenge";
 
-renderView('admin/dashboard/challenges/update', compact('title', 'challenge', 'types'), 'templateAdminLogin');
+renderView('admin/dashboard/challenges/update', compact('title', 'challenge', 'types', 'errors'), 'templateAdminLogin');

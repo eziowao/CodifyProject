@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // date
         $published_at = filter_input(INPUT_POST, 'published_at', FILTER_SANITIZE_SPECIAL_CHARS);
         $published_at = new DateTime($published_at);
-        if ($published_at->format('N') != 1) { // Vérifie si c'est un lundi
+        if ($published_at->format('N') != 1) {
             $errors['published_at'] = 'La date de publication doit être un lundi.';
         }
 
