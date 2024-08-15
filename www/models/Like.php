@@ -4,6 +4,9 @@ class Like extends BaseModel
 {
     private ?int $like_id = null;
 
+    private ?string $created_at = null;
+
+
     public function __construct(
         private ?int $like_count = 1,
         private ?int $contribution_id = null,
@@ -80,6 +83,18 @@ class Like extends BaseModel
     public function setUserId(?int $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?string $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

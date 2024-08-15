@@ -4,6 +4,9 @@ class Challenge extends BaseModel
 {
     private ?int $challenge_id = null;
 
+    private ?string $created_at = null;
+    private ?string $updated_at = null;
+
     public function __construct(
         private ?string $name = null,
         private ?DateTime $published_at = null,
@@ -103,6 +106,30 @@ class Challenge extends BaseModel
     public function setUser_id(?int $user_id): self
     {
         $this->user_id = $user_id;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?string $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?string $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
         return $this;
     }
 

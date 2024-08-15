@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (!$errors) {
+
             $password = password_hash($password, PASSWORD_DEFAULT);
 
             $userModel = new User(

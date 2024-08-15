@@ -4,6 +4,9 @@ class Contribution extends BaseModel
 {
     private ?int $contribution_id = null;
 
+    private ?string $created_at = null;
+    private ?string $updated_at = null;
+
     public function __construct(
         private ?string $link = null,
         private ?DateTime $date = null,
@@ -66,6 +69,30 @@ class Contribution extends BaseModel
     public function setChallenge_id(?int $challenge_id): self
     {
         $this->challenge_id = $challenge_id;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?string $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?string $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
         return $this;
     }
 

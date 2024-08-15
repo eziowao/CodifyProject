@@ -4,6 +4,9 @@ class Type extends BaseModel
 {
     private ?int $type_id = null;
 
+    private ?string $created_at = null;
+    private ?string $updated_at = null;
+
     public function __construct(
         private ?string $type = null,
     ) {
@@ -30,6 +33,30 @@ class Type extends BaseModel
     public function setType(?string $type): self
     {
         $this->type = $type;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?string
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?string $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?string $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
         return $this;
     }
 
