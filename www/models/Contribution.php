@@ -176,4 +176,17 @@ class Contribution extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function isOwnedByUser(int $user_id): bool
+    {
+        $sql = "SELECT COUNT(*) FROM contributions WHERE contribution_id = :contribution_id AND user_id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':contribution_id', $this->getContributionId(), PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $count = $stmt->fetchColumn();
+
+        return $count > 0;
+    }
 }

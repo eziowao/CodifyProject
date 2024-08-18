@@ -4,7 +4,6 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $userModel = new User();
     $userModel->setUserId($id);
-
     $user = $userModel->getUserById($id);
 
     if ($user && !empty($user['picture'])) {

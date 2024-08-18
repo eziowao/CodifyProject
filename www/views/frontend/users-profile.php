@@ -60,6 +60,9 @@ ob_start()
                     <div class="col-md-6 px-2 d-flex justify-content-center">
                         <div class="col-10 d-flex justify-content-center">
                             <div class="row">
+                                <p>
+                                    <?= $contribution->contribution_id ?>
+                                </p>
                                 <div>
                                     <a href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>">
                                         <img class="img-fluid" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt="">

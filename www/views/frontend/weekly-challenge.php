@@ -70,11 +70,12 @@ ob_start()
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter ma contribution</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="" method="POST">
+                    <form id="contributionForm" action="" method="POST">
                         <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label class="mb-3" for="link">Lien de la contribution</label>
                                 <input type="text" class="form-control" id="link" name="link" value="" required>
+                                <div class="invalid-feedback" id="linkError"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -93,6 +94,8 @@ $main = ob_get_clean();
 
 ob_start()
 ?>
+
+<script src="./public/assets/js/frontend/linkModal.js"></script>
 
 <?php
 $script = ob_get_clean();

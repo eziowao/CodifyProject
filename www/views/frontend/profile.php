@@ -13,7 +13,7 @@ ob_start()
                             <h1 class="fs-4"><?= $_SESSION['user']->pseudo ?></h1>
                         </div>
                         <div class="col-1">
-                            <button class="bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa-solid fa-pen-to-square"></i>
+                            <button class="bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#editModal"> <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                         </div>
                     </div>
@@ -71,6 +71,15 @@ ob_start()
                         <div class="col-10 d-flex justify-content-center">
                             <div class="row">
                                 <div>
+                                    <form class="delete-form" action="?page=profile/delete&id=<?= $contribution->contribution_id ?>" method="post">
+                                        <input type="hidden" name="user_id" value="<?= 'test' ?>">
+                                        <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </div>
+                                <div>
+                                    <a class="btn btn-warning" href="?page=profile/contribution&id=<?= $contribution->contribution_id ?>"><i class="bi bi-pencil"></i></a>
+                                </div>
+                                <div>
                                     <a href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>">
                                         <img class="img-fluid" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt="">
                                     </a>
@@ -94,68 +103,64 @@ ob_start()
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editProfileModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mettre à jour mes informations</h1>
+                    <h1 class="modal-title fs-5" id="editProfileModal">Mettre à jour mes informations</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        <label class="mt-2" for="pseudo">Pseudo</label>
-                        <input type="text" class="form-control" id="pseudo" name="pseudo" value="<?= htmlspecialchars($_SESSION['user']->pseudo) ?>">
-                        <?php if (isset($errors['pseudo'])): ?>
-                            <p class=" text-danger"><?= $errors['pseudo'] ?></p>
-                        <?php endif; ?>
+                    <form id="contributionForm" action="" method="POST" enctype="multipart/form-data">
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="pseudo">Pseudo</label>
+                            <input type="text" class="form-control" id="pseudo" name="pseudo" value="<?= htmlspecialchars($_SESSION['user']->pseudo) ?>">
+                            <div class="invalid-feedback" id="pseudoError"></div>
+                        </div>
 
-                        <label class="mt-2" for="biography">Biographie</label>
-                        <textarea class="form-control" id="biography" name="biography"><?= htmlspecialchars($_SESSION['user']->biography) ?></textarea>
-                        <?php if (isset($errors['biography'])): ?>
-                            <p class=" text-danger"><?= $errors['biography'] ?></p>
-                        <?php endif; ?>
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="biography">Biographie</label>
+                            <textarea class="form-control" id="biography" name="biography" rows="6"><?= htmlspecialchars(html_entity_decode($_SESSION['user']->biography)) ?></textarea>
+                        </div>
 
-                        <label class="mt-2" for="website">Website</label>
-                        <input type="text" class="form-control" id="website" name="website" value="<?= htmlspecialchars($_SESSION['user']->website) ?>">
-                        <?php if (isset($errors['website'])): ?>
-                            <p class=" text-danger"><?= $errors['website'] ?></p>
-                        <?php endif; ?>
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="website">Website</label>
+                            <input type="text" class="form-control" id="website" name="website" value="<?= htmlspecialchars($_SESSION['user']->website) ?>">
+                        </div>
 
-                        <label class="mt-2" for="github">Github</label>
-                        <input type="text" class="form-control" id="github" name="github" value="<?= htmlspecialchars($_SESSION['user']->github) ?>">
-                        <?php if (isset($errors['github'])): ?>
-                            <p class=" text-danger"><?= $errors['github'] ?></p>
-                        <?php endif; ?>
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="github">Github</label>
+                            <input type="text" class="form-control" id="github" name="github" value="<?= htmlspecialchars($_SESSION['user']->github) ?>">
+                            <div class="invalid-feedback" id="githubError"></div>
+                        </div>
 
-                        <label class="mt-2" for="twitter">Twitter</label>
-                        <input type="text" class="form-control" id="twitter" name="twitter" value="<?= htmlspecialchars($_SESSION['user']->twitter) ?>">
-                        <?php if (isset($errors['twitter'])): ?>
-                            <p class=" text-danger"><?= $errors['twitter'] ?></p>
-                        <?php endif; ?>
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="twitter">Twitter</label>
+                            <input type="text" class="form-control" id="twitter" name="twitter" value="<?= htmlspecialchars($_SESSION['user']->twitter) ?>">
+                            <div class="invalid-feedback" id="twitterError"></div>
+                        </div>
 
-                        <label class="mt-2" for="linkedin">LinkedIn</label>
-                        <input type="text" class="form-control" id="linkedin" name="linkedin" value="<?= htmlspecialchars($_SESSION['user']->linkedin) ?>">
-                        <?php if (isset($errors['linkedin'])): ?>
-                            <p class=" text-danger"><?= $errors['linkedin'] ?></p>
-                        <?php endif; ?>
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="linkedin">LinkedIn</label>
+                            <input type="text" class="form-control" id="linkedin" name="linkedin" value="<?= htmlspecialchars($_SESSION['user']->linkedin) ?>">
+                            <div class="invalid-feedback" id="linkedinError"></div>
+                        </div>
 
-                        <label class="mt-2" for="discord">Discord</label>
-                        <input type="text" class="form-control" id="discord" name="discord" value="<?= htmlspecialchars($_SESSION['user']->discord) ?>">
-                        <?php if (isset($errors['discord'])): ?>
-                            <p class=" text-danger"><?= $errors['discord'] ?></p>
-                        <?php endif; ?>
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="discord">Discord</label>
+                            <input type="text" class="form-control" id="discord" name="discord" value="<?= htmlspecialchars($_SESSION['user']->discord) ?>">
+                        </div>
 
-                        <label class="mt-2" for="picture">Photo de profil</label>
-                        <input type="file" class="form-control" id="picture" name="picture">
-                        <?php if (isset($errors['picture'])): ?>
-                            <p class=" text-danger"><?= $errors['picture'] ?></p>
-                        <?php endif; ?>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn bg-green text-light">Mettre à jour</button>
+                        <div class="form-group mb-3">
+                            <label class="mt-2" for="picture">Photo de profil</label>
+                            <input type="file" class="form-control" id="picture" name="picture">
+                            <div class="invalid-feedback" id="pictureError"></div>
                         </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn bg-green text-light" form="contributionForm">Mettre à jour</button>
                 </div>
             </div>
         </div>
@@ -168,7 +173,7 @@ $main = ob_get_clean();
 ob_start()
 ?>
 
-<script src="./public/assets/js/frontend/modal.js"></script>
+<script src="./public/assets/js/frontend/profileModal.js"></script>
 
 <?php
 $script = ob_get_clean();

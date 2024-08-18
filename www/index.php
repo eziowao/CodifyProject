@@ -88,9 +88,12 @@ $pathUser = match ($page) {
     'weekly-challenge' => 'frontend/weekly-challenge',
     'previous-challenges' => 'frontend/previous-challenges',
     'rankings' => 'frontend/rankings',
-    'profile' => 'frontend/profile',
     'user' => 'frontend/users-profile',
     'previous-challenges/challenge' => 'frontend/challenge',
+    'profile' => 'frontend/profile',
+    'profile/delete' => 'frontend/profile',
+    'profile/update' => 'frontend/profile',
+    'profile/contribution' => 'frontend/edit-contribution',
 
     default => '404'
 };
@@ -102,9 +105,12 @@ $pathAdmin = match ($page) {
     'weekly-challenge' => 'frontend/weekly-challenge',
     'previous-challenges' => 'frontend/previous-challenges',
     'rankings' => 'frontend/rankings',
-    'profile' => 'frontend/profile',
     'user' => 'frontend/users-profile',
     'previous-challenges/challenge' => 'frontend/challenge',
+    'profile' => 'frontend/profile',
+    'profile/delete' => 'frontend/profile',
+    'profile/update' => 'frontend/profile',
+    'profile/contribution' => 'frontend/edit-contribution',
 
     // logs
     'logout' => 'users/signOut',
@@ -132,6 +138,7 @@ $pathAdmin = match ($page) {
     'admin/dashboard/contributions/add' => 'admin/dashboard/contributions/add',
     'admin/dashboard/contributions/update' => 'admin/dashboard/contributions/update',
     'admin/dashboard/contributions/delete' => 'admin/dashboard/contributions/delete',
+
 
     default => '404'
 };

@@ -99,7 +99,7 @@ $main = ob_get_clean();
 ob_start()
 ?>
 
-<script src="./public/assets/js/frontend/modal.js"></script>
+<script src="./public/assets/js/frontend/linkModal.js"></script>
 
 <?php
 $script = ob_get_clean();

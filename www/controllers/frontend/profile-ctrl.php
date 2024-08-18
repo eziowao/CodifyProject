@@ -3,12 +3,34 @@
 $errors = [];
 
 try {
-    $contribution = new Contribution();
-
+    // recupération des infos user pour l'affichage 
     $current_user = $_SESSION['user'];
     $user_id = $current_user->user_id;
 
+    // affichage des contributions
+    $contribution = new Contribution();
     $contributions = $contribution->getContributionsWithChallengeByUserId($user_id);
+
+    // Suppression des contributions
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $contributionModel = new Contribution();
+        $contributionModel->setContributionId($id);
+
+        $user_id = $_SESSION['user']->user_id;
+
+        if ($contributionModel->isOwnedByUser($user_id)) {
+            if ($contributionModel->deleteContribution()) {
+                redirectToRoute('?page=profile');
+            } else {
+                $errors[] = "Erreur lors de la suppression de la contribution.";
+            }
+        } else {
+            $errors[] = "Vous n'êtes pas autorisé à supprimer cette contribution.";
+        }
+    }
+
+    $user = new User();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -24,6 +46,7 @@ try {
         $website = filter_input(INPUT_POST, 'website', FILTER_SANITIZE_URL);
 
         $github = filter_input(INPUT_POST, 'github', FILTER_SANITIZE_URL);
+
         if (!empty($github) && !preg_match('/^https:\/\/github\.com\//', $github)) {
             $errors['github'] = "L'URL GitHub doit commencer par 'https://github.com/'.";
         }
@@ -40,8 +63,43 @@ try {
 
         $discord = filter_input(INPUT_POST, 'discord', FILTER_SANITIZE_URL);
 
+        //picture 
+        if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/../../public/uploads/users/';
+            $picture = $_FILES['picture'];
+            $tmp_name = $picture['tmp_name'];
+            $oldImage = $current_user->picture ?? null;
+
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            $fileExtension = strtolower(pathinfo($picture['name'], PATHINFO_EXTENSION));
+            if (!in_array($fileExtension, $allowedExtensions)) {
+                $errors['picture'] = 'Format de fichier non autorisé. Les formats acceptés sont : jpg, jpeg, png, gif.';
+            }
+
+            if ($picture['size'] > 2 * 1024 * 1024) {
+                $errors['picture'] = 'Le fichier est trop volumineux. La taille maximale autorisée est de 2 Mo.';
+            }
+
+            if (empty($errors)) {
+                if ($oldImage) {
+                    $oldImagePath = $uploadDir . $oldImage;
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
+                }
+
+                $fileName = uniqid() . '.' . $fileExtension;
+                if (move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
+                    $user->setPicture($fileName);
+                } else {
+                    $errors['picture'] = "Échec du téléchargement de l'image.";
+                }
+            }
+        } else {
+            $user->setPicture($current_user->picture);
+        }
+
         if (empty($errors)) {
-            $user = new User();
             $user->setUserId($user_id)
                 ->setPseudo($pseudo)
                 ->setBiography($biography)
@@ -52,32 +110,7 @@ try {
                 ->setDiscord($discord)
                 ->setEmail($current_user->email);
 
-            if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = __DIR__ . '/../../public/uploads/users/';
-                $picture = $_FILES['picture'];
-                $tmp_name = $picture['tmp_name'];
-                $oldImage = $current_user->picture ?? null;
-
-                if ($oldImage) {
-                    $oldImagePath = $uploadDir . $oldImage;
-                    if (file_exists($oldImagePath)) {
-                        unlink($oldImagePath);
-                    }
-                }
-
-                $fileExtension = pathinfo($picture['name'], PATHINFO_EXTENSION);
-                $fileName = uniqid() . '.' . $fileExtension;
-
-                if (move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
-                    $user->setPicture($fileName);
-                } else {
-                    $errors['picture'] = "Échec du téléchargement de l'image.";
-                }
-            } else {
-                $user->setPicture($current_user->picture);
-            }
-
-            if (empty($errors) && $user->updateUser()) {
+            if ($user->updateUser()) {
                 $_SESSION['user'] = (object) array_merge((array) $_SESSION['user'], [
                     'pseudo' => $user->getPseudo(),
                     'biography' => $user->getBiography(),
@@ -93,7 +126,7 @@ try {
                 redirectToRoute('/?page=profile');
                 exit;
             } else {
-                $errorMessage = !empty($errors) ? implode('<br>', $errors) : "La mise à jour des informations a échoué.";
+                $errorMessage = "La mise à jour des informations a échoué.";
                 throw new Exception($errorMessage);
             }
         }

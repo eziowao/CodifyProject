@@ -1,13 +1,9 @@
 <?php
 
-
-$success = false;
-
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $challengeModel = new Challenge();
     $challengeModel->setChallengeId($id);
-
     $challenge = $challengeModel->getChallengeById($id);
 
     if ($challenge && !empty($challenge['picture'])) {
@@ -19,7 +15,6 @@ if (isset($_GET['id'])) {
     }
 
     if ($challengeModel->deleteChallenge()) {
-        $success = true;
         redirectToRoute('?page=admin/dashboard/challenges/list');
     }
 }
