@@ -30,6 +30,10 @@ ob_start()
             </div>
         </div>
 
+        <div class="row py-4 d-flex justify-content-center">
+            <button class="col-7 col-md-5 p-2 col-lg-3 bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
+        </div>
+
         <div class="row text-light">
             <h2 class="m-0 fs-4 pt-5 pb-4 text-center text-light">Contributions délivrées</h2>
             <?php if (!empty($contributions)) : ?>
@@ -49,20 +53,25 @@ ob_start()
                                         <?= htmlspecialchars($contribution->pseudo) ?>
                                     </a>
                                 </h5>
+                                <p> <?= $contribution->created_at ?> <!-- Affiche la date de création -->
+                                </p>
                             </div>
                             <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Lien du projet</a>
-                            <p class="card-text text-end"><img src="./public/assets/img/logo_like 2.png" alt=""></p>
+
+                            <form action="" method="POST" class="d-flex justify-content-end align-items-center">
+                                <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
+                                <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
+                                    <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
+                                </button>
+                                <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
+                            </form>
+
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>
                 <p class="text-light text-center">Aucune contribution pour le moment.</p>
             <?php endif; ?>
-        </div>
-
-        <div class="row py-4 d-flex justify-content-center">
-            <button class="col-7 col-md-5 p-2 col-lg-3 bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
-
         </div>
         <div class="d-flex justify-content-center">
             <?php if (isset($errors['contribution'])) : ?>
@@ -71,7 +80,6 @@ ob_start()
                 </div>
             <?php endif; ?>
         </div>
-
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -108,6 +116,7 @@ ob_start()
 ?>
 
 <script src="./public/assets/js/frontend/linkModal.js"></script>
+<script src="./public/assets/js/frontend/likes.js"></script>
 
 <?php
 $script = ob_get_clean();

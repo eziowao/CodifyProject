@@ -219,3 +219,30 @@ a {
     border: 1px solid rgb(78, 78, 78);
     border-radius: 20px;
 }
+
+/* likes */
+
+.like-button.pulsate {
+    animation: pulsate 0.6s ease;
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.like-icon {
+    transition: color 0.3s ease;
+}

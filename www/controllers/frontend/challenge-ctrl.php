@@ -3,7 +3,6 @@
 $errors = [];
 
 try {
-
     $current_user = $_SESSION['user'];
     $currentUserId = $current_user->user_id;
 
@@ -27,11 +26,18 @@ try {
         $contributionModel = new Contribution();
         $contributions = $contributionModel->getContributionsByChallengeId($id);
 
+        // ajoute l'état du like pour chaque contribution
+        $likeModel = new Like();
+        foreach ($contributions as &$contribution) {
+            $contribution->liked = $likeModel->hasUserLikedContribution($currentUserId, $contribution->contribution_id);
+        }
+
+
+        // formulaire pour l'ajout d'une contribution
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['link'])) {
             if (isset($_SESSION['user'])) {
                 $userId = $_SESSION['user']->user_id;
 
-                // Vérification si l'utilisateur a déjà contribué à ce challenge
                 if ($contributionModel->hasUserContributedToChallenge($userId, $challenge['challenge_id'])) {
                     $errors['contribution'] = 'Vous avez déjà soumis une contribution pour ce challenge.';
                 } else {
@@ -59,13 +65,43 @@ try {
                 $errors['auth'] = 'Vous devez être connecté pour ajouter une contribution.';
             }
         }
+
+        // formulaire gestion de like
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contribution_id'])) {
+            if (isset($_SESSION['user'])) {
+                $userId = $_SESSION['user']->user_id;
+                $contributionId = $_POST['contribution_id'];
+
+                $likeModel = new Like();
+
+                $hasLiked = $likeModel->hasUserLikedContribution($userId, $contributionId);
+
+                if ($hasLiked) {
+                    $likeModel->removeLike($userId, $contributionId);
+                } else {
+                    $likeModel->addLike($userId, $contributionId);
+                }
+
+                $newLikeCount = $likeModel->countLikesForContribution($contributionId);
+
+                // Renvoi de la réponse JSON
+                echo json_encode([
+                    'success' => true,
+                    'new_like_count' => $newLikeCount,
+                    'liked' => !$hasLiked // état inversé du like
+                ]);
+                exit();
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Vous devez être connecté pour liker une contribution.']);
+                exit();
+            }
+        }
     } else {
         throw new Exception('ID de challenge non trouvée');
     }
 } catch (PDOException $ex) {
     echo sprintf('La récupération des données a échoué avec le message : %s', $ex->getMessage());
 }
-
 
 $title = "Challenge";
 

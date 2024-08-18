@@ -106,6 +106,35 @@ class Like extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function addLike(int $userId, int $contributionId): bool
+    {
+        $sql = "INSERT INTO likes (user_id, contribution_id) VALUES (:user_id, :contribution_id)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindValue(':contribution_id', $contributionId, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function updateLike($contributionId)
+    {
+        $sql = "UPDATE contributions SET like_count = like_count + 1 WHERE contribution_id = :contribution_id";
+        $stmt = $this->db->query($sql);
+
+        $stmt->bindParam(':contribution_id', $contributionId);
+        $stmt->execute();
+    }
+
+    public function removeLike(int $userId, int $contributionId): bool
+    {
+        $sql = "DELETE FROM likes WHERE user_id = :user_id AND contribution_id = :contribution_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindValue(':contribution_id', $contributionId, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
     // récuperer l'ID d'une contribution en particulier 
 
     //     SELECT 
@@ -115,4 +144,22 @@ class Like extends BaseModel
     // WHERE 
     //     l.contribution_id = 5;
 
+    public function hasUserLikedContribution($userId, $contributionId)
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM likes WHERE user_id = :user_id AND contribution_id = :contribution_id");
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->bindParam(':contribution_id', $contributionId);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    public function countLikesForContribution(int $contributionId): int
+    {
+        $sql = "SELECT COUNT(*) FROM likes WHERE contribution_id = :contribution_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':contribution_id', $contributionId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return (int) $stmt->fetchColumn();
+    }
 }
