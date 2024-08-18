@@ -25,7 +25,7 @@ ob_start()
                 </div>
                 <div class="form-group">
                     <label for="picture">Image descriptive</label>
-                    <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
+                    <input type="file" class="form-control" id="picture" name="picture" accept=".jpg, .jpeg, .png, .gif">
                     <?php if (isset($errors['picture'])): ?>
                         <p class=" text-danger"><?= $errors['picture'] ?></p>
                     <?php endif; ?>

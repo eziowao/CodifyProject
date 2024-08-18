@@ -10,6 +10,7 @@ try {
     // affichage des contributions
     $contribution = new Contribution();
     $contributions = $contribution->getContributionsWithChallengeByUserId($user_id);
+    $contributionCount = count($contributions);
 
     // Suppression des contributions
     if (isset($_GET['id'])) {
@@ -139,4 +140,4 @@ try {
 
 $title = "Profil perso";
 
-renderView('frontend/profile', compact('title', 'contribution', 'contributions', 'errors'), 'templateLogin');
+renderView('frontend/profile', compact('title', 'contribution', 'contributions', 'errors', 'contributionCount'), 'templateLogin');

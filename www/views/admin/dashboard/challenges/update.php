@@ -27,7 +27,7 @@ ob_start()
                         </div>
                         <div class="form-group">
                             <label class="mt-2" for="picture">Image descriptive</label>
-                            <input type="file" class="form-control" id="picture" name="picture">
+                            <input type="file" class="form-control" id="picture" name="picture" accept=".jpg, .jpeg, .png, .gif">
                             <div>
                                 <?php if ($challenge['picture']) : ?>
                                     <img src="./../../../../public/uploads/challenges/<?= $challenge['picture']; ?>" alt="Challenge Image" style="max-width: 100px;">

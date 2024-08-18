@@ -37,7 +37,7 @@ ob_start()
                     <div class="col-12 col-md-6 d-flex justify-content-center">
                         <div class="col-12 bg_test p-3 my-3">
                             <div class="d-flex align-items-center my-3">
-                                <a href="?page=user&id=<?= $contribution->user_id ?>">
+                                <a href="<?= htmlspecialchars($userLink = ($contribution->user_id == $currentUserId) ? '?page=profile' : "?page=user&id={$contribution->user_id}") ?>">
                                     <img src="<?= htmlspecialchars($contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png') ?>"
                                         alt="Photo de profil"
                                         class="rounded-circle"
@@ -45,7 +45,7 @@ ob_start()
                                         height="50">
                                 </a>
                                 <h5 class="text-light ms-3">
-                                    <a href="?page=user&id=<?= $contribution->user_id ?>">
+                                    <a href="<?= htmlspecialchars($userLink) ?>">
                                         <?= htmlspecialchars($contribution->pseudo) ?>
                                     </a>
                                 </h5>
@@ -60,10 +60,18 @@ ob_start()
             <?php endif; ?>
         </div>
 
-
         <div class="row py-4 d-flex justify-content-center">
             <button class="col-7 col-md-5 p-2 col-lg-3 bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
+
         </div>
+        <div class="d-flex justify-content-center">
+            <?php if (isset($errors['contribution'])) : ?>
+                <div class="alert alert-danger col-8 text-center">
+                    <?= htmlspecialchars($errors['contribution']) ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -61,6 +61,13 @@ ob_start()
         <div class="row py-4 d-flex justify-content-center">
             <button class="col-7 col-md-5 p-2 col-lg-3 bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
         </div>
+        <div class="d-flex justify-content-center">
+            <?php if (isset($errors['contribution'])) : ?>
+                <div class="alert alert-danger col-8 text-center">
+                    <?= htmlspecialchars($errors['contribution']) ?>
+                </div>
+            <?php endif; ?>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

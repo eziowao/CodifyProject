@@ -189,4 +189,17 @@ class Contribution extends BaseModel
 
         return $count > 0;
     }
+
+    public function hasUserContributedToChallenge(int $user_id, int $challenge_id): bool
+    {
+        $sql = "SELECT COUNT(*) FROM contributions WHERE user_id = :user_id AND challenge_id = :challenge_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $count = $stmt->fetchColumn();
+
+        return $count > 0;
+    }
 }

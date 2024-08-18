@@ -64,7 +64,7 @@ ob_start()
             </div>
         </div>
         <div class="row d-flex justify-content-center mb-5 pb-5">
-            <h2 class="text-light fs-5 text-center my-5">Mes contributions</h2>
+            <h2 class="text-light fs-5 text-center my-5">Mes contributions (<?= htmlspecialchars($contributionCount) ?>)</h2>
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
                     <div class="col-md-6 px-2 d-flex justify-content-center">
@@ -153,7 +153,7 @@ ob_start()
 
                         <div class="form-group mb-3">
                             <label class="mt-2" for="picture">Photo de profil</label>
-                            <input type="file" class="form-control" id="picture" name="picture">
+                            <input type="file" class="form-control" id="picture" name="picture" accept=".jpg, .jpeg, .png, .gif">
                             <div class="invalid-feedback" id="pictureError"></div>
                         </div>
                     </form>
