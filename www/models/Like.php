@@ -135,15 +135,6 @@ class Like extends BaseModel
         return $stmt->execute();
     }
 
-    // récuperer l'ID d'une contribution en particulier 
-
-    //     SELECT 
-    //     COUNT(l.like_id) AS total_likes
-    // FROM 
-    //     likes l
-    // WHERE 
-    //     l.contribution_id = 5;
-
     public function hasUserLikedContribution($userId, $contributionId)
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM likes WHERE user_id = :user_id AND contribution_id = :contribution_id");

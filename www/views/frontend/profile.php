@@ -86,11 +86,17 @@ ob_start()
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-10 py-3">
-                                        <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank"><?= htmlspecialchars($contribution->link) ?></a>
+                                    <div class="col-6">
+                                        <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Lien vers le projet</a>
                                     </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-center">
-                                        <i class="fa-regular fa-heart fa-xl py-3"></i>
+                                    <div class="col-6">
+                                        <form action="" method="POST" class="d-flex justify-content-end align-items-center">
+                                            <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
+                                            <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
+                                                <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
+                                            </button>
+                                            <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -107,52 +113,54 @@ ob_start()
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editProfileModal">Mettre à jour mes informations</h1>
+                    <h1 class="modal-title fs-5 fw-bolder" id="editProfileModal">Mettre à jour mes informations</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="contributionForm" action="" method="POST" enctype="multipart/form-data">
+                        <div class="d-flex justify-content-end">
+                            <small> <span class="text-danger">*</span> : champs obligatoire </small>
+                        </div>
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="pseudo">Pseudo</label>
-                            <input type="text" class="form-control" id="pseudo" name="pseudo" value="<?= htmlspecialchars($_SESSION['user']->pseudo) ?>">
+                            <label class="mt-2 fw-semibold" for="pseudo">Pseudo <small class="text-danger">*</small></label>
+                            <input type="text" class="form-control" id="pseudo" placeholder="Codify" name="pseudo" value="<?= htmlspecialchars($_SESSION['user']->pseudo) ?>">
                             <div class="invalid-feedback" id="pseudoError"></div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="biography">Biographie</label>
+                            <label class="mt-2 fw-semibold" for="biography">Biographie</label>
                             <textarea class="form-control" id="biography" name="biography" rows="6"><?= htmlspecialchars(html_entity_decode($_SESSION['user']->biography)) ?></textarea>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="website">Website</label>
-                            <input type="text" class="form-control" id="website" name="website" value="<?= htmlspecialchars($_SESSION['user']->website) ?>">
+                            <label class="mt-2 fw-semibold" for="website">Website</label>
+                            <input type="text" class="form-control" id="website" placeholder="https://codify.fr/" name="website" value="<?= htmlspecialchars($_SESSION['user']->website) ?>">
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="github">Github</label>
-                            <input type="text" class="form-control" id="github" name="github" value="<?= htmlspecialchars($_SESSION['user']->github) ?>">
+                            <label class="mt-2 fw-semibold" for="github">Github</label>
+                            <input type="text" class="form-control" id="github" placeholder="https://github.com/codify" name="github" value="<?= htmlspecialchars($_SESSION['user']->github) ?>">
                             <div class="invalid-feedback" id="githubError"></div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="twitter">Twitter</label>
-                            <input type="text" class="form-control" id="twitter" name="twitter" value="<?= htmlspecialchars($_SESSION['user']->twitter) ?>">
+                            <label class="mt-2 fw-semibold" for="twitter">Twitter</label>
+                            <input type="text" class="form-control" id="twitter" placeholder="https://x.com/codify" name="twitter" value="<?= htmlspecialchars($_SESSION['user']->twitter) ?>">
                             <div class="invalid-feedback" id="twitterError"></div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="linkedin">LinkedIn</label>
-                            <input type="text" class="form-control" id="linkedin" name="linkedin" value="<?= htmlspecialchars($_SESSION['user']->linkedin) ?>">
+                            <label class="mt-2 fw-semibold" for="linkedin">LinkedIn</label>
+                            <input type="text" class="form-control" id="linkedin" placeholder="https://www.linkedin.com/codify" name="linkedin" value="<?= htmlspecialchars($_SESSION['user']->linkedin) ?>">
                             <div class="invalid-feedback" id="linkedinError"></div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="discord">Discord</label>
-                            <input type="text" class="form-control" id="discord" name="discord" value="<?= htmlspecialchars($_SESSION['user']->discord) ?>">
+                            <label class="mt-2 fw-semibold" for="discord">Discord</label>
+                            <input type="text" class="form-control" id="discord" placeholder="Codify#1234" name="discord" value="<?= htmlspecialchars($_SESSION['user']->discord) ?>">
                         </div>
-
                         <div class="form-group mb-3">
-                            <label class="mt-2" for="picture">Photo de profil</label>
+                            <label class="mt-2 fw-semibold" for="picture">Photo de profil</label>
                             <input type="file" class="form-control" id="picture" name="picture" accept=".jpg, .jpeg, .png, .gif">
                             <div class="invalid-feedback" id="pictureError"></div>
                         </div>
@@ -174,6 +182,8 @@ ob_start()
 ?>
 
 <script src="./public/assets/js/frontend/profileModal.js"></script>
+<script src="./public/assets/js/frontend/likes.js"></script>
+
 
 <?php
 $script = ob_get_clean();

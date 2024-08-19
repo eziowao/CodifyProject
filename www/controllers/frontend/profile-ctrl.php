@@ -6,6 +6,7 @@ try {
     // recupération des infos user pour l'affichage 
     $current_user = $_SESSION['user'];
     $user_id = $current_user->user_id;
+    $currentUserId = $current_user->user_id;
 
     // affichage des contributions
     $contribution = new Contribution();
@@ -130,6 +131,43 @@ try {
                 $errorMessage = "La mise à jour des informations a échoué.";
                 throw new Exception($errorMessage);
             }
+        }
+    }
+
+    // ajoute l'état du like pour chaque contribution
+    $likeModel = new Like();
+    foreach ($contributions as &$contribution) {
+        $contribution->liked = $likeModel->hasUserLikedContribution($currentUserId, $contribution->contribution_id);
+    }
+
+    // formulaire gestion de like
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contribution_id'])) {
+        if (isset($_SESSION['user'])) {
+            $userId = $_SESSION['user']->user_id;
+            $contributionId = $_POST['contribution_id'];
+
+            $likeModel = new Like();
+
+            $hasLiked = $likeModel->hasUserLikedContribution($userId, $contributionId);
+
+            if ($hasLiked) {
+                $likeModel->removeLike($userId, $contributionId);
+            } else {
+                $likeModel->addLike($userId, $contributionId);
+            }
+
+            $newLikeCount = $likeModel->countLikesForContribution($contributionId);
+
+            // Renvoi de la réponse JSON
+            echo json_encode([
+                'success' => true,
+                'new_like_count' => $newLikeCount,
+                'liked' => !$hasLiked // état inversé du like
+            ]);
+            exit();
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Vous devez être connecté pour liker une contribution.']);
+            exit();
         }
     }
 } catch (\PDOException $ex) {

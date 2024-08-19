@@ -155,7 +155,8 @@ class Contribution extends BaseModel
 
     public function getContributionsWithChallengeByUserId(int $user_id): array
     {
-        $sql = "SELECT contributions.*, challenges.picture AS challenge_picture
+        $sql = "SELECT contributions.*, challenges.picture AS challenge_picture,
+                       (SELECT COUNT(*) FROM likes WHERE likes.contribution_id = contributions.contribution_id) AS like_count
                 FROM contributions
                 JOIN challenges ON contributions.challenge_id = challenges.challenge_id
                 WHERE contributions.user_id = :user_id";
@@ -179,8 +180,6 @@ class Contribution extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
-
 
     public function isOwnedByUser(int $user_id): bool
     {
@@ -206,5 +205,20 @@ class Contribution extends BaseModel
         $count = $stmt->fetchColumn();
 
         return $count > 0;
+    }
+    public function getTopLikedContributionsByChallengeId(int $challenge_id, int $limit = 10): array
+    {
+        $sql = "SELECT c.*, u.pseudo, u.picture, 
+                   (SELECT COUNT(*) FROM likes l WHERE l.contribution_id = c.contribution_id) as like_count 
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            WHERE c.challenge_id = :challenge_id
+            ORDER BY like_count DESC
+            LIMIT :limit";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

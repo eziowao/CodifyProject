@@ -45,26 +45,33 @@ ob_start()
                                     <img src="<?= htmlspecialchars($contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png') ?>"
                                         alt="Photo de profil"
                                         class="rounded-circle"
-                                        width="50"
-                                        height="50">
+                                        width="60"
+                                        height="60">
                                 </a>
-                                <h5 class="text-light ms-3">
+                                <div class="text-light fw-bolder ms-3">
                                     <a href="<?= htmlspecialchars($userLink) ?>">
                                         <?= htmlspecialchars($contribution->pseudo) ?>
                                     </a>
-                                </h5>
-                                <p> <?= $contribution->created_at ?> <!-- Affiche la date de création -->
-                                </p>
+                                </div>
                             </div>
-                            <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Lien du projet</a>
+                            <div class="my-3">
+                                <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Voir la contribution</a>
+                            </div>
 
-                            <form action="" method="POST" class="d-flex justify-content-end align-items-center">
-                                <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
-                                <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
-                                    <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
-                                </button>
-                                <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
-                            </form>
+                            <div class=row>
+                                <div class="col-6">
+                                    <p> Publiée le <?= date('d-m-Y', strtotime($contribution->created_at)) ?></p>
+                                </div>
+                                <div class="col-6">
+                                    <form action="" method="POST" class="d-flex justify-content-end align-items-center">
+                                        <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
+                                        <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
+                                            <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
+                                        </button>
+                                        <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
+                                    </form>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -81,6 +88,46 @@ ob_start()
             <?php endif; ?>
         </div>
 
+        <div class="my-4">
+            <div class="row d-flex justify-content-center">
+                <h1 class="m-0 fs-4 py-4 text-center text-light">Contributions les plus aimées pour ce challenge</h1>
+            </div>
+        </div>
+
+        <div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 d-flex justify-content-center ranking-content py-4 mb-5 rounded-20">
+                    <div class="col-3 text-center text-light">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-6">
+                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Rank</h2>
+                            </div>
+                        </div>
+                        <?php for ($i = 1; $i <= count($topContributions); $i++): ?>
+                            <p><?= $i ?></p>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="col-6 text-light text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-3">
+                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Pseudo</h2>
+                            </div>
+                        </div>
+                        <?php foreach ($topContributions as $contribution): ?>
+                            <p><?= htmlspecialchars($contribution->pseudo) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="col-3 text-center text-light">
+                        <h2 class="fs-5">Likes</h2>
+                        <?php foreach ($topContributions as $contribution): ?>
+                            <p><?= $contribution->like_count ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -93,7 +140,7 @@ ob_start()
                         <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label class="mb-3" for="link">Lien de la contribution</label>
-                                <input type="text" class="form-control" id="link" name="link" required>
+                                <input type="text" class="form-control" id="link" placeholder="https://eziowao.github.io/MonProjet/" name="link" value="" required>
                                 <div class="invalid-feedback" id="linkError"></div>
                             </div>
                         </div>
@@ -106,7 +153,6 @@ ob_start()
             </div>
         </div>
     </div>
-
 </main>
 
 <?php

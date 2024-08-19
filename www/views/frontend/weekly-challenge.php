@@ -39,8 +39,8 @@ ob_start()
                                     <img src="<?= htmlspecialchars($contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png') ?>"
                                         alt="Photo de profil"
                                         class="rounded-circle"
-                                        width="50"
-                                        height="50">
+                                        width="60"
+                                        height="60">
                                 </a>
                                 <h5 class="text-light ms-3">
                                     <a href="?page=user&id=<?= $contribution->user_id ?>">
@@ -49,7 +49,13 @@ ob_start()
                                 </h5>
                             </div>
                             <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Lien du projet</a>
-                            <p class="card-text text-end"><img src="./public/assets/img/logo_like 2.png" alt=""></p>
+                            <form action="" method="POST" class="d-flex justify-content-end align-items-center">
+                                <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
+                                <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
+                                    <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
+                                </button>
+                                <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
+                            </form>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -81,7 +87,7 @@ ob_start()
                         <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label class="mb-3" for="link">Lien de la contribution</label>
-                                <input type="text" class="form-control" id="link" name="link" value="" required>
+                                <input type="text" class="form-control" id="link" placeholder="https://eziowao.github.io/MonProjet/" name="link" value="" required>
                                 <div class="invalid-feedback" id="linkError"></div>
                             </div>
                         </div>
@@ -103,6 +109,7 @@ ob_start()
 ?>
 
 <script src="./public/assets/js/frontend/linkModal.js"></script>
+<script src="./public/assets/js/frontend/likes.js"></script>
 
 <?php
 $script = ob_get_clean();
