@@ -26,10 +26,8 @@ try {
         $contributionModel = new Contribution();
         $contributions = $contributionModel->getContributionsByChallengeId($id);
 
-
         // gestion top contributions
         $topContributions = $contributionModel->getTopLikedContributionsByChallengeId($id, 10);
-
 
         // ajoute l'état du like pour chaque contribution
         $likeModel = new Like();
@@ -40,8 +38,6 @@ try {
         foreach ($topContributions as &$contribution) {
             $contribution->liked = $likeModel->hasUserLikedContribution($currentUserId, $contribution->contribution_id);
         }
-
-
 
         // formulaire pour l'ajout d'une contribution
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['link'])) {

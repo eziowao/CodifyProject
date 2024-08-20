@@ -14,7 +14,7 @@ ob_start()
                         <label for="pseudo" class="form-label mt-4">Pseudo</label>
                         <input type="text" name="pseudo" class="form-control" id="pseudo" placeholder="Enter pseudo" value="<?= htmlspecialchars($_POST['pseudo'] ?? '') ?>">
                         <?php if (isset($errors['pseudo'])): ?>
-                            <p class="text-danger"><?= $errors['pseudo'] ?></p>
+                            <p class="text-primary"><?= $errors['pseudo'] ?></p>
                         <?php endif; ?>
                     </div>
                     <div class="mb-3">

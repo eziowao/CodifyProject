@@ -22,9 +22,16 @@ try {
         $contributionModel = new Contribution();
         $contributions = $contributionModel->getContributionsByChallengeId($challenge['challenge_id']);
 
+        // gestion top contributions
+        $topContributions = $contributionModel->getTopLikedContributionsByChallengeId($challenge['challenge_id'], 10);
+
         // ajoute l'état du like pour chaque contribution
         $likeModel = new Like();
         foreach ($contributions as &$contribution) {
+            $contribution->liked = $likeModel->hasUserLikedContribution($currentUserId, $contribution->contribution_id);
+        }
+
+        foreach ($topContributions as &$contribution) {
             $contribution->liked = $likeModel->hasUserLikedContribution($currentUserId, $contribution->contribution_id);
         }
 

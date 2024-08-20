@@ -268,7 +268,7 @@ class User extends BaseModel
 
     public static function isAdmin(): bool
     {
-        if (isset($_SESSION['user']) && $_SESSION['user']->role === 1) {
+        if (isset($_SESSION['user']) && $_SESSION['user']->role === 2) {
             return true;
         } else {
             return false;
@@ -277,7 +277,7 @@ class User extends BaseModel
 
     public static function isUser(): bool
     {
-        if (isset($_SESSION['user']) && $_SESSION['user']->role === 2) {
+        if (isset($_SESSION['user']) && $_SESSION['user']->role === 1) {
             return true;
         } else {
             return false;

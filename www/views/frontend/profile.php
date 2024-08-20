@@ -21,8 +21,6 @@ ob_start()
                         <p class="text-justify py-3"><?= $_SESSION['user']->biography ?></p>
                     </div>
                 </div>
-
-
             </div>
             <div class="col-10 col-lg-5 px-5 ">
                 <div class="row d-flex justify-content-center">
@@ -123,41 +121,41 @@ ob_start()
                         </div>
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="pseudo">Pseudo <small class="text-danger">*</small></label>
-                            <input type="text" class="form-control" id="pseudo" placeholder="Codify" name="pseudo" value="<?= htmlspecialchars($_SESSION['user']->pseudo) ?>">
+                            <input type="text" class="form-control" id="pseudo" placeholder="Codify" name="pseudo" value="<?= ($_SESSION['user']->pseudo) ?>">
                             <div class="invalid-feedback" id="pseudoError"></div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="biography">Biographie</label>
-                            <textarea class="form-control" id="biography" name="biography" rows="6"><?= htmlspecialchars(html_entity_decode($_SESSION['user']->biography)) ?></textarea>
+                            <textarea class="form-control" id="biography" name="biography" rows="6"><?= $_SESSION['user']->biography ?></textarea>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="website">Website</label>
-                            <input type="text" class="form-control" id="website" placeholder="https://codify.fr/" name="website" value="<?= htmlspecialchars($_SESSION['user']->website) ?>">
+                            <input type="text" class="form-control" id="website" placeholder="https://codify.fr/" name="website" value="<?= $_SESSION['user']->website ?>">
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="github">Github</label>
-                            <input type="text" class="form-control" id="github" placeholder="https://github.com/codify" name="github" value="<?= htmlspecialchars($_SESSION['user']->github) ?>">
+                            <input type="text" class="form-control" id="github" placeholder="https://github.com/codify" name="github" value="<?= $_SESSION['user']->github ?>">
                             <div class="invalid-feedback" id="githubError"></div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="twitter">Twitter</label>
-                            <input type="text" class="form-control" id="twitter" placeholder="https://x.com/codify" name="twitter" value="<?= htmlspecialchars($_SESSION['user']->twitter) ?>">
+                            <input type="text" class="form-control" id="twitter" placeholder="https://x.com/codify" name="twitter" value="<?= $_SESSION['user']->twitter ?>">
                             <div class="invalid-feedback" id="twitterError"></div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="linkedin">LinkedIn</label>
-                            <input type="text" class="form-control" id="linkedin" placeholder="https://www.linkedin.com/codify" name="linkedin" value="<?= htmlspecialchars($_SESSION['user']->linkedin) ?>">
+                            <input type="text" class="form-control" id="linkedin" placeholder="https://www.linkedin.com/codify" name="linkedin" value="<?= $_SESSION['user']->linkedin ?>">
                             <div class="invalid-feedback" id="linkedinError"></div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="discord">Discord</label>
-                            <input type="text" class="form-control" id="discord" placeholder="Codify#1234" name="discord" value="<?= htmlspecialchars($_SESSION['user']->discord) ?>">
+                            <input type="text" class="form-control" id="discord" placeholder="Codify#1234" name="discord" value="<?= $_SESSION['user']->discord ?>">
                         </div>
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="picture">Photo de profil</label>

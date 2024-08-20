@@ -41,21 +41,21 @@ ob_start()
                     <div class="col-12 col-md-6 d-flex justify-content-center">
                         <div class="col-12 bg_test p-3 my-3">
                             <div class="d-flex align-items-center my-3">
-                                <a href="<?= htmlspecialchars($userLink = ($contribution->user_id == $currentUserId) ? '?page=profile' : "?page=user&id={$contribution->user_id}") ?>">
-                                    <img src="<?= htmlspecialchars($contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png') ?>"
+                                <a href="<?= $userLink = ($contribution->user_id == $currentUserId) ? '?page=profile' : "?page=user&id={$contribution->user_id}" ?>">
+                                    <img src="<?= $contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png' ?>"
                                         alt="Photo de profil"
                                         class="rounded-circle"
                                         width="60"
                                         height="60">
                                 </a>
                                 <div class="text-light fw-bolder ms-3">
-                                    <a href="<?= htmlspecialchars($userLink) ?>">
-                                        <?= htmlspecialchars($contribution->pseudo) ?>
+                                    <a href="<?= $userLink ?>">
+                                        <?= $contribution->pseudo ?>
                                     </a>
                                 </div>
                             </div>
                             <div class="my-3">
-                                <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Voir la contribution</a>
+                                <a href="<?= $contribution->link ?>" target="_blank">Voir la contribution</a>
                             </div>
 
                             <div class=row>
@@ -83,7 +83,7 @@ ob_start()
         <div class="d-flex justify-content-center">
             <?php if (isset($errors['contribution'])) : ?>
                 <div class="alert alert-danger col-8 text-center">
-                    <?= htmlspecialchars($errors['contribution']) ?>
+                    <?= $errors['contribution'] ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -114,7 +114,7 @@ ob_start()
                             </div>
                         </div>
                         <?php foreach ($topContributions as $contribution): ?>
-                            <p><?= htmlspecialchars($contribution->pseudo) ?></p>
+                            <p><a href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
                         <?php endforeach; ?>
                     </div>
                     <div class="col-3 text-center text-light">
@@ -126,7 +126,6 @@ ob_start()
                 </div>
             </div>
         </div>
-
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -140,7 +139,7 @@ ob_start()
                         <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label class="mb-3" for="link">Lien de la contribution</label>
-                                <input type="text" class="form-control" id="link" placeholder="https://eziowao.github.io/MonProjet/" name="link" value="" required>
+                                <input type="text" class="form-control" id="link" placeholder="https://username.github.io/monprojet/" name="link" value="" required>
                                 <div class="invalid-feedback" id="linkError"></div>
                             </div>
                         </div>
