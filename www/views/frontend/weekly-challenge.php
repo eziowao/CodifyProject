@@ -15,7 +15,7 @@ ob_start()
                     </div>
                 </div>
                 <div class="text-light">
-                    <p><?= $challenge['description'] ?></p>
+                    <p class="text-justify"><?= $challenge['description'] ?></p>
                 </div>
                 <div class="d-flex justify-content-center my-5">
                     <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
@@ -36,7 +36,7 @@ ob_start()
                         <div class="col-12 bg_test p-3 my-3">
                             <div class="d-flex align-items-center my-3">
                                 <a href="?page=user&id=<?= $contribution->user_id ?>">
-                                    <img src="<?= htmlspecialchars($contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png') ?>"
+                                    <img src="<?= $contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png' ?>"
                                         alt="Photo de profil"
                                         class="rounded-circle"
                                         width="60"
@@ -44,11 +44,11 @@ ob_start()
                                 </a>
                                 <h5 class="text-light ms-3">
                                     <a href="?page=user&id=<?= $contribution->user_id ?>">
-                                        <?= htmlspecialchars($contribution->pseudo) ?>
+                                        <?= $contribution->pseudo ?>
                                     </a>
                                 </h5>
                             </div>
-                            <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Lien du projet</a>
+                            <a href="<?= $contribution->link ?>" target="_blank">Lien du projet</a>
                             <form action="" method="POST" class="d-flex justify-content-end align-items-center">
                                 <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
                                 <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
@@ -70,9 +70,48 @@ ob_start()
         <div class="d-flex justify-content-center">
             <?php if (isset($errors['contribution'])) : ?>
                 <div class="alert alert-danger col-8 text-center">
-                    <?= htmlspecialchars($errors['contribution']) ?>
+                    <?= $errors['contribution'] ?>
                 </div>
             <?php endif; ?>
+        </div>
+
+        <div class="my-4">
+            <div class="row d-flex justify-content-center">
+                <h1 class="m-0 fs-4 py-4 text-center text-light">Contributions les plus aimées pour ce challenge</h1>
+            </div>
+        </div>
+
+        <div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 d-flex justify-content-center ranking-content py-4 mb-5 rounded-20">
+                    <div class="col-3 text-center text-light">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-6">
+                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Rank</h2>
+                            </div>
+                        </div>
+                        <?php for ($i = 1; $i <= count($topContributions); $i++): ?>
+                            <p><?= $i ?></p>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="col-6 text-light text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-3">
+                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Pseudo</h2>
+                            </div>
+                        </div>
+                        <?php foreach ($topContributions as $contribution): ?>
+                            <p><a href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="col-3 text-center text-light">
+                        <h2 class="fs-5">Likes</h2>
+                        <?php foreach ($topContributions as $contribution): ?>
+                            <p><?= $contribution->like_count ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Modal -->

@@ -102,4 +102,4 @@ try {
 
 $title = "Challenge de la semaine";
 
-renderView('frontend/weekly-challenge', compact('title', 'challenge', 'contributions', 'typesById', 'errors'), 'templateLogin');
+renderView('frontend/weekly-challenge', compact('title', 'challenge', 'contributions', 'typesById', 'errors', 'topContributions'), 'templateLogin');

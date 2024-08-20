@@ -12,7 +12,7 @@ ob_start()
                 <fieldset>
                     <div class="mb-3">
                         <label for="email" class="form-label mt-4">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
                         <p> <?= isset($errors['email']) && !empty($errors['email']) ? $errors['email'] : '' ?></p>
                     </div>
                     <div class="mb-3">

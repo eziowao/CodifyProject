@@ -16,7 +16,7 @@ ob_start()
                     </div>
                 </div>
                 <div class="text-light">
-                    <p><?= $challenge['description'] ?></p>
+                    <p class="text-justify "><?= $challenge['description'] ?></p>
                 </div>
                 <div class="d-flex justify-content-center my-5">
                     <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
@@ -72,10 +72,23 @@ ob_start()
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 <?php endforeach; ?>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                            <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=previous-challenges/challenge&id=<?= $challenge['challenge_id'] ?>&p=<?= $i ?>">
+                                    <?= $i ?>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                </nav>
+
             <?php else : ?>
                 <p class="text-light text-center">Aucune contribution pour le moment.</p>
             <?php endif; ?>

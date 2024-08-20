@@ -12,10 +12,6 @@ try {
         $challengeModel = new Challenge();
         $challenge = $challengeModel->getChallengeById($id);
 
-        if (!$challenge) {
-            throw new Exception('Challenge non trouvé');
-        }
-
         $typeModel = new Type();
         $types = $typeModel->getAllTypes();
         $typesById = [];
@@ -24,10 +20,22 @@ try {
         }
 
         $contributionModel = new Contribution();
-        $contributions = $contributionModel->getContributionsByChallengeId($id);
+
+        // Pagination setup
+        $limit = 6; // Number of contributions per page
+        $page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+        $offset = ($page - 1) * $limit;
+
+        // Get contributions with pagination
+        $contributions = $contributionModel->getContributionsByChallengeIdWithPagination($id, $limit, $offset);
+
+        // Get total number of contributions
+        $totalContributions = $contributionModel->countContributionsByChallengeId($id);
+        $totalPages = ceil($totalContributions / $limit);
 
         // gestion top contributions
         $topContributions = $contributionModel->getTopLikedContributionsByChallengeId($id, 10);
+
 
         // ajoute l'état du like pour chaque contribution
         $likeModel = new Like();
@@ -111,4 +119,4 @@ try {
 
 $title = "Challenge";
 
-renderView('frontend/challenge', compact('title', 'challenge', 'typesById', 'contributions', 'errors', 'currentUserId', 'topContributions'), 'templateLogin');
+renderView('frontend/challenge', compact('title', 'challenge', 'typesById', 'contributions', 'errors', 'currentUserId', 'topContributions', 'totalPages', 'page'), 'templateLogin');

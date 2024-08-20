@@ -221,4 +221,30 @@ class Contribution extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function getContributionsByChallengeIdWithPagination(int $challenge_id, int $limit, int $offset): array
+    {
+        $sql = "SELECT c.*, u.pseudo, u.picture, 
+                   (SELECT COUNT(*) FROM likes l WHERE l.contribution_id = c.contribution_id) as like_count 
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            WHERE c.challenge_id = :challenge_id
+            ORDER BY c.created_at DESC 
+            LIMIT :limit OFFSET :offset";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function countContributionsByChallengeId(int $challenge_id): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM contributions WHERE challenge_id = :challenge_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
+    }
 }
