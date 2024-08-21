@@ -60,12 +60,13 @@ class Type extends BaseModel
         return $this;
     }
 
-    public function getAllTypes(): array
+    public function getAllTypes(?string $orderBy = 'type_id', ?string $orderDirection = 'ASC'): array
     {
-        $sql = "SELECT * FROM `types`";
+        $sql = "SELECT * FROM `types` ORDER BY $orderBy $orderDirection";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
 
     public function addType(): bool
     {

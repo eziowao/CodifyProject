@@ -3,7 +3,6 @@
 $errors = [];
 $success = false;
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
 
@@ -15,9 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (empty($errors)) {
-            // instance du modèle
             $typeModel = new Type($type);
-            // Ajout du type
             $typeModel->addType();
             $success = true;
             redirectToRoute('/?page=admin/dashboard/types/list');

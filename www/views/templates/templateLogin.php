@@ -10,7 +10,10 @@
     <script src="https://kit.fontawesome.com/735b33aaa3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./public/assets/css/style.css">
     <link rel="icon" type="image/x-icon" href="./public/assets/img/logo_v2_large.png">
-
+    <meta name="description" content="Codify est la plateforme idéale pour les développeurs souhaitant se challenger en reproduisant des designs. Relevez des défis, améliorez vos compétences en frontend et montrez vos créations !">
+    <meta name="keywords" content="développeur, challenges, design, frontend, codage, HTML, CSS, JavaScript, challenges développeurs, Codify">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Codify">
 </head>
 
 <body>
@@ -50,6 +53,11 @@
                                     <li>
                                         <a class="dropdown-item text-light text-center" href="?page=profile">Mon profil</a>
                                     </li>
+                                    <?php if ($_SESSION['user']->role == 2) { ?>
+                                        <li>
+                                            <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/list">Admin</a>
+                                        </li>
+                                    <?php } ?>
                                     <li>
                                         <a class="dropdown-item text-light text-center" href="?page=logout">Déconnexion</a>
                                     </li>
@@ -80,9 +88,9 @@
                         text-light" href="./questions.php">Contact</a></p>
                 </div>
                 <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                    <a class="mx-3" href=""><i class="fa-brands fa-discord fa-2xl"></i></a>
-                    <a class="mx-3" href=""><i class="fa-brands fa-x-twitter fa-2xl"></i></a>
-                    <a class="mx-3" href=""><i class="fa-brands fa-instagram fa-2xl"></i></a>
+                    <a class="mx-3" href="https://discord.gg/UqRpFj92"><i class="fa-brands fa-discord fa-2xl"></i></a>
+                    <a class="mx-3" href="https://x.com/"><i class="fa-brands fa-x-twitter fa-2xl"></i></a>
+                    <a class="mx-3" href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-2xl"></i></a>
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <p class="mt-3 mb-0 text-center text-lg-end"><a class="text-decoration-none
@@ -100,19 +108,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <?= $script ?>
-
-    <!-- script Jquery  -->
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#inscriptionLink").click(function() {
-                $('#connexionModal').modal('hide');
-                $('#inscriptionModal').modal('show');
-            });
-        });
-    </script>
-
 
 </body>
 

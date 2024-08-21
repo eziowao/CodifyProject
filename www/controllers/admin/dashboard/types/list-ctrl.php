@@ -1,14 +1,15 @@
 <?php
 
 $types = [];
+$orderBy = $_GET['order_by'] ?? 'type_id';
+$direction = $_GET['direction'] ?? 'ASC';
 
 try {
     $typeModel = new Type();
-    $types = $typeModel->getAllTypes();
+    $types = $typeModel->getAllTypes($orderBy, $direction);
 } catch (\PDOException $ex) {
-    echo sprintf('la récupération des types a échoué avec le message %s', $ex->getMessage());
-    //throw $th;
+    echo sprintf('La récupération des types a échoué avec le message %s', $ex->getMessage());
 }
 
 $title = "Liste des types de challenges";
-renderView('admin/dashboard/types/list', compact('title', 'types'), 'templateAdminLogin');
+renderView('admin/dashboard/types/list', compact('title', 'types', 'orderBy', 'direction'), 'templateAdminLogin');

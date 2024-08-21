@@ -75,7 +75,7 @@ $pathPublic = match ($page) {
     'signUp' => 'users/signUp',
     'logout' => 'users/signOut',
 
-    default => 'home'
+    default => '404'
 };
 
 $pathUser = match ($page) {
@@ -95,7 +95,7 @@ $pathUser = match ($page) {
     'profile/update' => 'frontend/profile',
     'profile/contribution' => 'frontend/edit-contribution',
 
-    default => 'home'
+    default => '404'
 };
 
 $pathAdmin = match ($page) {
@@ -116,7 +116,6 @@ $pathAdmin = match ($page) {
     'logout' => 'users/signOut',
 
     // gestion membres
-    'admin/dashboard/users/add' => 'admin/dashboard/users/add',
     'admin/dashboard/users/list' => 'admin/dashboard/users/list',
     'admin/dashboard/users/update' => 'admin/dashboard/users/update',
     'admin/dashboard/users/delete' => 'admin/dashboard/users/delete',
@@ -140,7 +139,7 @@ $pathAdmin = match ($page) {
     'admin/dashboard/contributions/delete' => 'admin/dashboard/contributions/delete',
 
 
-    default => 'home'
+    default => '404'
 };
 
 if (User::isAdmin()) {

@@ -16,7 +16,7 @@ ob_start()
             <form action="" method="POST">
                 <div class="form-group my-5">
                     <label class="mb-3" for="type">Nom du type</label>
-                    <input type="text" class="form-control" id="type" name="type" value="" pattern="[a-zA-Z]{1-20}" required>
+                    <input type="text" class="form-control" id="type" name="type" placeholder="JavaScript" pattern="[a-zA-Z]{1-20}" required>
                     <?php if (isset($errors['type'])): ?>
                         <p class=" text-danger"><?= $errors['type'] ?></p>
                     <?php endif; ?>

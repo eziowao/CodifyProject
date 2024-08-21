@@ -16,7 +16,7 @@ class Database
             ];
 
             if (is_null(self::$db)) {
-                self::$db = new PDO('mysql:host=' . DATABASE_HOST . ';dbname=' . DATABASE_NAME . ';charset=utf8', DATABASE_USER, DATABASE_USER_PASSWORD, $options);
+                self::$db = new PDO('mysql:host=' . DATABASE_HOST . ';dbname=' . DATABASE_NAME . ';charset=utf8mb4', DATABASE_USER, DATABASE_USER_PASSWORD, $options);
             }
 
             return self::$db;

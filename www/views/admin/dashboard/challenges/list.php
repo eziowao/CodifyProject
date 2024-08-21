@@ -3,50 +3,51 @@
 ob_start()
 ?>
 
-
-<h1 class="text-center"> <?= $title ?> </h1>
+<h1 class="text-center text-light"> <?= $title ?> </h1>
 
 <div class="container mt-5">
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Description</th>
-                <th scope="col">Image</th>
-                <th scope="col">Url maquette</th>
-                <th scope="col">Type</th>
-                <th scope="col">Modifier</th>
-                <th scope="col">Supprimer</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($challenges) && is_array($challenges)): ?>
-                <?php foreach ($challenges as $challenge) : ?>
-                    <tr>
-                        <td><?= $challenge->challenge_id ?></td>
-                        <td><?= $challenge->name ?></td>
-                        <td><?= $challenge->description ?></td>
-                        <td> <img class="rounded-2" src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" height="50px" alt="Illustration">
-                        </td>
-                        <td> <a href="<?= $challenge->file_url ?>" target="_blank" class="text-black">Lien maquette</a> </td>
-                        <td> <?= $typesById[$challenge->type_id] ?? 'Type inconnu' ?> </td>
-                        <td>
-                            <a class="btn btn-warning" href="?page=admin/dashboard/challenges/update&id=<?= $challenge->challenge_id ?>"><i class="bi bi-pencil"></i></a>
-                        </td>
-                        <td>
-                            <form class="delete-form" action="?page=admin/dashboard/challenges/delete&id=<?= $challenge->challenge_id ?>" method="post">
-                                <input type="hidden" name="user_id" value="<?= 'test'  ?>">
-                                <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <option value="">Aucun challenge disponible</option>
-            <?php endif; ?>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Lien</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Modifier</th>
+                    <th scope="col">Date de publication</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($challenges) && is_array($challenges)): ?>
+                    <?php foreach ($challenges as $challenge) : ?>
+                        <tr>
+                            <td><?= $challenge->challenge_id ?></td>
+                            <td><?= $challenge->name ?></td>
+                            <td><?= $challenge->description ?></td>
+                            <td> <img class="rounded-2" src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" height="50px" alt="Illustration">
+                            </td>
+                            <td> <a href="<?= $challenge->file_url ?>" target="_blank" class="text-black">Lien maquette</a> </td>
+                            <td> <?= $typesById[$challenge->type_id] ?? 'Type inconnu' ?> </td>
+                            <td>
+                                <a class="btn btn-warning" href="?page=admin/dashboard/challenges/update&id=<?= $challenge->challenge_id ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+
+                                <form class="delete-form" action="?page=admin/dashboard/challenges/delete&id=<?= $challenge->challenge_id ?>" method="post">
+                                    <input type="hidden" name="user_id" value="<?= 'test'  ?>">
+                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </td>
+                            <td> <?= date('d-m-Y', strtotime($challenge->published_at)) ?> </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <option value="">Aucun challenge disponible</option>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 

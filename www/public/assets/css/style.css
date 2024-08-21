@@ -246,3 +246,7 @@ a {
 .like-icon {
     transition: color 0.3s ease;
 }
+
+.white-space {
+    white-space: pre-wrap;
+}

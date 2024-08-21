@@ -27,7 +27,7 @@
                     <ul class="navbar-nav text-center ml-auto justify-content-center justify-content-lg-end ms-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Gestion utilisateurs
+                                Utilisateurs
                             </a>
                             <ul class="dropdown-menu bg-dark-grey">
                                 <li>
@@ -41,7 +41,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Gestion challenges
+                                Challenges
                             </a>
                             <ul class="dropdown-menu bg-dark-grey">
                                 <li>
@@ -54,7 +54,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Gestion types
+                                Types
                             </a>
                             <ul class="dropdown-menu bg-dark-grey">
                                 <li>
@@ -67,7 +67,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Gestion contributions
+                                Contributions
                             </a>
                             <ul class="dropdown-menu bg-dark-grey">
                                 <li>

@@ -5,8 +5,8 @@ ob_start()
 
 <main class="my-5">
     <div class="container">
-        <div class="row my-5 p-4 bg_test">
-            <div class="col-md-6">
+        <div class="row my-5 p-4 bg_test d-flex">
+            <div class="col-md-12">
                 <div>
                     <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
                 </div>
@@ -15,18 +15,22 @@ ob_start()
                         <p class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></p>
                     </div>
                 </div>
-                <div class="text-light">
-                    <p class="text-justify "><?= $challenge['description'] ?></p>
+                <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center col-lg-6">
+                        <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
+                    </div>
                 </div>
-                <div class="d-flex justify-content-center my-5">
+                <div class="d-flex justify-content-center">
+                    <div class="text-light white-space">
+                        <p class="text-justify"><?= nl2br($challenge['description']) ?></p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mb-5">
                     <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
                         <button class="bg-green text-light border-0 rounded-5 p-2"> Accéder à la maquette
                         </button>
                     </form>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center col-md-6">
-                <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
             </div>
         </div>
 
@@ -34,7 +38,7 @@ ob_start()
             <button class="col-7 col-md-5 p-2 col-lg-3 bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
         </div>
 
-        <div class="row text-light">
+        <div class="row text-light" id="contributions-list">
             <h2 class="m-0 fs-4 pt-5 pb-4 text-center text-light">Contributions délivrées</h2>
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
@@ -72,6 +76,7 @@ ob_start()
                                     </form>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -93,6 +98,7 @@ ob_start()
                 <p class="text-light text-center">Aucune contribution pour le moment.</p>
             <?php endif; ?>
         </div>
+
         <div class="d-flex justify-content-center">
             <?php if (isset($errors['contribution'])) : ?>
                 <div class="alert alert-danger col-8 text-center">
@@ -101,44 +107,45 @@ ob_start()
             <?php endif; ?>
         </div>
 
-        <div class="my-4">
-            <div class="row d-flex justify-content-center">
-                <h1 class="m-0 fs-4 py-4 text-center text-light">Contributions les plus aimées pour ce challenge</h1>
+        <?php if (!empty($contributions)) : ?>
+            <div class="my-4">
+                <div class="row d-flex justify-content-center">
+                    <h1 class="m-0 fs-4 py-4 text-center text-light">Contributions les plus aimées pour ce challenge</h1>
+                </div>
             </div>
-        </div>
-
-        <div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-12 d-flex justify-content-center ranking-content py-4 mb-5 rounded-20">
-                    <div class="col-3 text-center text-light">
-                        <div class="d-flex justify-content-center">
-                            <div class="col-6">
-                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Rank</h2>
+            <div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12 d-flex justify-content-center ranking-content py-4 mb-5 rounded-20">
+                        <div class="col-3 text-center text-light">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-6">
+                                    <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Rank</h2>
+                                </div>
                             </div>
+                            <?php for ($i = 1; $i <= count($topContributions); $i++): ?>
+                                <p><?= $i ?></p>
+                            <?php endfor; ?>
                         </div>
-                        <?php for ($i = 1; $i <= count($topContributions); $i++): ?>
-                            <p><?= $i ?></p>
-                        <?php endfor; ?>
-                    </div>
-                    <div class="col-6 text-light text-center">
-                        <div class="d-flex justify-content-center">
-                            <div class="col-3">
-                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Pseudo</h2>
+                        <div class="col-6 text-light text-center">
+                            <div class="d-flex justify-content-center">
+                                <div class="col-3">
+                                    <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Pseudo</h2>
+                                </div>
                             </div>
+                            <?php foreach ($topContributions as $contribution): ?>
+                                <p><a href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
+                            <?php endforeach; ?>
                         </div>
-                        <?php foreach ($topContributions as $contribution): ?>
-                            <p><a href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="col-3 text-center text-light">
-                        <h2 class="fs-5">Likes</h2>
-                        <?php foreach ($topContributions as $contribution): ?>
-                            <p><?= $contribution->like_count ?></p>
-                        <?php endforeach; ?>
+                        <div class="col-3 text-center text-light">
+                            <h2 class="fs-5">Likes</h2>
+                            <?php foreach ($topContributions as $contribution): ?>
+                                <p><?= $contribution->like_count ?></p>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
