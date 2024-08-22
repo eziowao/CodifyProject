@@ -247,4 +247,38 @@ class Contribution extends BaseModel
         $stmt->execute();
         return (int) $stmt->fetchColumn();
     }
+
+    public function getAllContributionsSorted(string $sortField, string $sortOrder): array
+    {
+        $validSortFields = ['contribution_id', 'pseudo', 'name']; // Ajouter 'pseudo' et 'name'
+        $sortField = in_array($sortField, $validSortFields) ? $sortField : 'contribution_id';
+        $sortOrder = strtoupper($sortOrder) === 'DESC' ? 'DESC' : 'ASC';
+
+        $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN challenges ch ON c.challenge_id = ch.challenge_id
+            ORDER BY $sortField $sortOrder";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function searchContributions(string $searchTerm): array
+    {
+        $searchTerm = "%$searchTerm%";
+
+        $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN challenges ch ON c.challenge_id = ch.challenge_id
+            WHERE c.contribution_id LIKE :searchTerm
+            OR u.pseudo LIKE :searchTerm
+            OR ch.name LIKE :searchTerm";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':searchTerm', $searchTerm, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

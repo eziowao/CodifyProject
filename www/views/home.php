@@ -41,7 +41,7 @@ ob_start()
             <div class="col-lg-4 offset-lg-8">
                 <div class="card bg-dark-grey w-100">
                     <div class="card-body">
-                        <p class="card-text text-light text-center py-3"> 2. <span class="text-green">Téléchargez</span>
+                        <p class="card-text text-light text-center py-3"> 2. <span class="text-green">Découvrez</span>
                             le challenge de la
                             semaine </p>
                     </div>

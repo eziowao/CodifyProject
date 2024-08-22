@@ -3,21 +3,28 @@
 <h1 class="text-center text-light"> <?= $title ?> </h1>
 
 <div class="container mt-5">
+    <!-- Formulaire de recherche -->
+    <form method="get" action="">
+        <input type="hidden" name="page" value="admin/dashboard/contributions/list">
+        <div class="input-group mb-3">
+            <input type="text" name="search" class="form-control" placeholder="Rechercher une contribution par ID, pseudo ou challenge" value="<?= $_GET['search'] ?? '' ?>">
+            <button class="btn btn-primary" type="submit">Rechercher</button>
+        </div>
+    </form>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=contribution_id&order=<?= $sortField == 'contribution_id' && $sortOrder == 'ASC' ? 'DESC' : 'ASC' ?>">ID</a></th>
                     <th scope="col">Lien</th>
-                    <th scope="col">Nom de l'utilisateur</th>
-                    <th scope="col">Nom du challenge</th>
+                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=pseudo&order=<?= $sortField == 'pseudo' && $sortOrder == 'ASC' ? 'DESC' : 'ASC' ?>">Nom de l'utilisateur</a></th>
+                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=name&order=<?= $sortField == 'name' && $sortOrder == 'ASC' ? 'DESC' : 'ASC' ?>">Nom du challenge</a></th>
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (!empty($contributions) && is_array($contributions)): ?>
-
                     <?php foreach ($contributions as $contribution) : ?>
                         <tr>
                             <td><?= $contribution->contribution_id ?></td>
