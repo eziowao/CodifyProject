@@ -33,11 +33,7 @@
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/users/list">Liste des utilisateurs</a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/users/add">Ajouter un utilisateur</a>
-                                </li>
                             </ul>
-
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -1,12 +1,18 @@
 <?php
 
 $contributions = [];
+$search = $_GET['search'] ?? '';
 
 try {
     $contributionModel = new Contribution();
-    $contributions = $contributionModel->getAllContributions();
 
-    // recupération pseudo user
+    if (!empty($search)) {
+        $contributions = $contributionModel->searchContributions($search);
+    } else {
+        $contributions = $contributionModel->getAllContributions();
+    }
+
+    // Récupération pseudo user
     $userModel = new User();
     $users = $userModel->getAllUsers();
     $usersById = [];
@@ -14,8 +20,8 @@ try {
     foreach ($users as $user) {
         $usersById[$user->user_id] = $user->pseudo;
     }
-    // récupération nom challenges
 
+    // Récupération nom challenges
     $challengeModel = new Challenge();
     $challenges = $challengeModel->getAllChallenges();
     $challengesById = [];
@@ -23,20 +29,10 @@ try {
     foreach ($challenges as $challenge) {
         $challengesById[$challenge->challenge_id] = $challenge->name;
     }
-
-    // récupération nombres likes
-
-    $likeModel = new Like();
-    $likes = $likeModel->getAllLikes();
-    $likesById = [];
-
-    foreach ($likes as $like) {
-        $likesById[$like->like_id] = $like->like_count;
-    }
 } catch (\PDOException $ex) {
     echo sprintf('La récupération des catégories a échoué avec le message %s', $ex->getMessage());
     exit;
 }
 
 $title = "Liste des contributions";
-renderView('admin/dashboard/contributions/list', compact('title', 'contributions', 'usersById', 'challengesById', 'likesById'), 'templateAdminLogin');
+renderView('admin/dashboard/contributions/list', compact('title', 'contributions', 'usersById', 'challengesById', 'search'), 'templateAdminLogin');

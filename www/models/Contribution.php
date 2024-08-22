@@ -247,4 +247,39 @@ class Contribution extends BaseModel
         $stmt->execute();
         return (int) $stmt->fetchColumn();
     }
+
+    // pagination & search 
+    public function getContributionsCount(?string $search = null): int
+    {
+        if ($search) {
+            $stmt = $this->db->prepare("SELECT COUNT(*) FROM contributions 
+            WHERE contribution_id LIKE :search 
+               OR user_id LIKE :search 
+               OR challenge_id LIKE :search");
+            $stmt->execute(['search' => '%' . $search . '%']);
+        } else {
+            $stmt = $this->db->query("SELECT COUNT(*) FROM contributions");
+        }
+
+        return $stmt->fetchColumn();
+    }
+
+    public function searchContributions(string $search): array
+    {
+        $searchPattern = $search . '%';
+
+        $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN challenges ch ON c.challenge_id = ch.challenge_id
+            WHERE (c.contribution_id LIKE :search 
+                   OR u.pseudo LIKE :search)
+               OR (ch.name LIKE :search)";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':search', $searchPattern, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }
