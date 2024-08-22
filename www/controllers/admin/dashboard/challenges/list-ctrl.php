@@ -2,6 +2,10 @@
 
 $success = false;
 $challenge = [];
+$limit = 10;
+$page = isset($_GET['page_num']) ? (int)$_GET['page_num'] : 1;
+$offset = ($page - 1) * $limit;
+
 
 try {
     $search = $_GET['search'] ?? '';
@@ -10,12 +14,14 @@ try {
 
     $challengeModel = new Challenge();
 
-    // Si une recherche est effectuée, utilisez la méthode searchChallenges()
     if (!empty($search)) {
         $challenges = $challengeModel->searchChallenges($search);
     } else {
-        $challenges = $challengeModel->getChallengesSorted($orderBy, $direction);
+        $challenges = $challengeModel->getPaginatedChallenges($limit, $offset, $orderBy, $direction);
     }
+
+    $totalChallenges = $challengeModel->countChallenges();
+    $totalPages = ceil($totalChallenges / $limit);
 
     $typeModel = new Type();
     $types = $typeModel->getAllTypes();
@@ -28,4 +34,4 @@ try {
 }
 
 $title = "Liste des challenges";
-renderView('admin/dashboard/challenges/list', compact('title', 'challenges', 'typesById', 'orderBy', 'direction', 'search'), 'templateAdminLogin');
+renderView('admin/dashboard/challenges/list', compact('title', 'challenges', 'typesById', 'orderBy', 'direction', 'search', 'page', 'totalPages'), 'templateAdminLogin');

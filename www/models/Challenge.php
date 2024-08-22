@@ -206,22 +206,6 @@ class Challenge extends BaseModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getChallengesSorted(?string $orderBy = 'challenge_id', ?string $direction = 'ASC'): array
-    {
-        $validColumns = ['challenge_id', 'name', 'type_id', 'published_at'];
-
-        if (!in_array($orderBy, $validColumns)) {
-            $orderBy = 'challenge_id';
-        }
-
-        $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
-
-        $sql = "SELECT * FROM `challenges` ORDER BY $orderBy $direction";
-        $stmt = $this->db->query($sql);
-
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-
     public function searchChallenges(?string $search = ''): array
     {
         $sql = "SELECT * FROM `challenges` WHERE `name` LIKE :search OR `challenge_id` = :id";
@@ -231,5 +215,23 @@ class Challenge extends BaseModel
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getPaginatedChallenges(int $limit, int $offset, ?string $orderBy = 'challenge_id', ?string $orderDirection = 'ASC'): array
+    {
+        $sql = "SELECT * FROM `challenges` ORDER BY $orderBy $orderDirection LIMIT :limit OFFSET :offset";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function countChallenges(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM `challenges`";
+        $stmt = $this->db->query($sql);
+        return (int) $stmt->fetch(PDO::FETCH_OBJ)->total;
     }
 }

@@ -180,12 +180,10 @@ class User extends BaseModel
 
     public function getAllUsers(?string $orderBy = 'user_id', ?string $orderDirection = 'DESC', int $limit = 10, int $offset = 0): array
     {
-        // Valider les paramètres pour éviter les injections SQL
         $validColumns = ['user_id', 'created_at', 'updated_at', 'pseudo'];
         $orderBy = in_array($orderBy, $validColumns) ? $orderBy : 'user_id';
         $orderDirection = strtoupper($orderDirection) === 'ASC' ? 'ASC' : 'DESC';
 
-        // Assurez-vous que l'offset est toujours positif
         $offset = max(0, $offset);
 
         $sql = "SELECT * FROM `users` ORDER BY $orderBy $orderDirection LIMIT :limit OFFSET :offset";
@@ -196,8 +194,6 @@ class User extends BaseModel
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
-
 
     public function addUser(): bool
     {

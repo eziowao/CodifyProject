@@ -64,28 +64,27 @@ ob_start()
     </div>
 </div>
 
+<!-- Pagination -->
 <?php if ($totalPages > 1): ?>
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Pagination">
         <ul class="pagination justify-content-center">
             <?php if ($page > 1): ?>
                 <li class="page-item">
-                    <a href="?page=admin/dashboard/users/list&page_num=<?= $page - 1 ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Previous">
+                    <a class="page-link" href="??page=admin/dashboard/challenges/list&page_num=<?= $page - 1 ?>&orderBy=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Précédent">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="page-item <?= ($i === $page) ? 'active' : '' ?>">
-                    <a class="page-link" href="?page=admin/dashboard/users/list&page_num=<?= $i ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>">
-                        <?= $i ?>
-                    </a>
+                <li class="page-item <?= $i === $page ? 'active' : '' ?>">
+                    <a class="page-link" href="?page=admin/dashboard/challenges/list&page_num=<?= $i ?>&orderBy=<?= $orderBy ?>&direction=<?= $direction ?>"><?= $i ?></a>
                 </li>
             <?php endfor; ?>
 
             <?php if ($page < $totalPages): ?>
                 <li class="page-item">
-                    <a class="page-link" href="?page=admin/dashboard/users/list&page_num=<?= $page + 1 ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Next">
+                    <a class="page-link" href="?page=admin/dashboard/challenges/list&page_num=<?= $page + 1 ?>&orderBy=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Suivant">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -93,6 +92,7 @@ ob_start()
         </ul>
     </nav>
 <?php endif; ?>
+
 
 <div id="delete-modal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
