@@ -6,18 +6,33 @@ ob_start()
 <h1 class="text-center text-light"> <?= $title ?> </h1>
 
 <div class="container mt-5">
+
+    <form method="GET" class="mb-4">
+        <input type="hidden" name="page" value="admin/dashboard/challenges/list">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Rechercher par nom ou ID" value="<?= htmlentities($search) ?>">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+    </form>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Description</th>
+                    <th scope="col">
+                        <a href="?page=admin/dashboard/challenges/list&orderBy=challenge_id&direction=<?= $direction === 'ASC' ? 'DESC' : 'ASC' ?>">ID</a>
+                    </th>
+                    <th scope="col">
+                        <a href="?page=admin/dashboard/challenges/list&orderBy=name&direction=<?= $direction === 'ASC' ? 'DESC' : 'ASC' ?>">Nom</a>
+                    </th>
+                    <th scope="col">
+                        <a href="?page=admin/dashboard/challenges/list&orderBy=published_at&direction=<?= $direction === 'ASC' ? 'DESC' : 'ASC' ?>">Date de publication</a>
+                    </th>
                     <th scope="col">Image</th>
                     <th scope="col">Lien</th>
-                    <th scope="col">Type</th>
+                    <th scope="col">
+                        <a href="?page=admin/dashboard/challenges/list&orderBy=type_id&direction=<?= $direction === 'ASC' ? 'DESC' : 'ASC' ?>">Type</a>
+                    </th>
                     <th scope="col">Modifier</th>
-                    <th scope="col">Date de publication</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,10 +41,10 @@ ob_start()
                         <tr>
                             <td><?= $challenge->challenge_id ?></td>
                             <td><?= $challenge->name ?></td>
-                            <td><?= $challenge->description ?></td>
+                            <td> <?= date('d-m-Y', strtotime($challenge->published_at)) ?> </td>
                             <td> <img class="rounded-2" src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" height="50px" alt="Illustration">
                             </td>
-                            <td> <a href="<?= $challenge->file_url ?>" target="_blank" class="text-black">Lien maquette</a> </td>
+                            <td> <a href="<?= $challenge->file_url ?>" target="_blank" class="text-black">Lien</a> </td>
                             <td> <?= $typesById[$challenge->type_id] ?? 'Type inconnu' ?> </td>
                             <td>
                                 <a class="btn btn-warning" href="?page=admin/dashboard/challenges/update&id=<?= $challenge->challenge_id ?>"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -39,7 +54,6 @@ ob_start()
                                     <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
-                            <td> <?= date('d-m-Y', strtotime($challenge->published_at)) ?> </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -50,6 +64,35 @@ ob_start()
     </div>
 </div>
 
+<?php if ($totalPages > 1): ?>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <?php if ($page > 1): ?>
+                <li class="page-item">
+                    <a href="?page=admin/dashboard/users/list&page_num=<?= $page - 1 ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?= ($i === $page) ? 'active' : '' ?>">
+                    <a class="page-link" href="?page=admin/dashboard/users/list&page_num=<?= $i ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>">
+                        <?= $i ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+
+            <?php if ($page < $totalPages): ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=admin/dashboard/users/list&page_num=<?= $page + 1 ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+<?php endif; ?>
 
 <div id="delete-modal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">

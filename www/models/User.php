@@ -297,8 +297,8 @@ class User extends BaseModel
             return false;
         }
     }
-
     // pagination & search 
+
     public function getUsersCount(?string $search = null): int
     {
         if ($search) {

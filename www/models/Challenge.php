@@ -205,4 +205,31 @@ class Challenge extends BaseModel
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getChallengesSorted(?string $orderBy = 'challenge_id', ?string $direction = 'ASC'): array
+    {
+        $validColumns = ['challenge_id', 'name', 'type_id', 'published_at'];
+
+        if (!in_array($orderBy, $validColumns)) {
+            $orderBy = 'challenge_id';
+        }
+
+        $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
+
+        $sql = "SELECT * FROM `challenges` ORDER BY $orderBy $direction";
+        $stmt = $this->db->query($sql);
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function searchChallenges(?string $search = ''): array
+    {
+        $sql = "SELECT * FROM `challenges` WHERE `name` LIKE :search OR `challenge_id` = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':id', is_numeric($search) ? $search : null, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

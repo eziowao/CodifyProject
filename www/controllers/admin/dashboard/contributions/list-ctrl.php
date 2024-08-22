@@ -1,18 +1,12 @@
 <?php
 
 $contributions = [];
-$search = $_GET['search'] ?? '';
 
 try {
     $contributionModel = new Contribution();
+    $contributions = $contributionModel->getAllContributions();
 
-    if (!empty($search)) {
-        $contributions = $contributionModel->searchContributions($search);
-    } else {
-        $contributions = $contributionModel->getAllContributions();
-    }
-
-    // Récupération pseudo user
+    // recupération pseudo user
     $userModel = new User();
     $users = $userModel->getAllUsers();
     $usersById = [];
@@ -21,7 +15,7 @@ try {
         $usersById[$user->user_id] = $user->pseudo;
     }
 
-    // Récupération nom challenges
+    // récupération nom challenges
     $challengeModel = new Challenge();
     $challenges = $challengeModel->getAllChallenges();
     $challengesById = [];
@@ -35,4 +29,4 @@ try {
 }
 
 $title = "Liste des contributions";
-renderView('admin/dashboard/contributions/list', compact('title', 'contributions', 'usersById', 'challengesById', 'search'), 'templateAdminLogin');
+renderView('admin/dashboard/contributions/list', compact('title', 'contributions', 'usersById', 'challengesById'), 'templateAdminLogin');

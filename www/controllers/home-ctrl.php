@@ -7,7 +7,6 @@ try {
     $challengeModel = new Challenge();
     $challenge = $challengeModel->getCurrentChallenge();
 
-
     // affichage challenges précédents
 
     $challengeModel = new Challenge();

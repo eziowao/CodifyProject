@@ -50,9 +50,9 @@ ob_start()
                         <option value="">Type de challenge</option>
                         <?php if (!empty($types) && is_array($types)): ?>
                             <?php foreach ($types as $type): ?>
-                                <option value="<?= htmlspecialchars($type->type_id) ?>"
+                                <option value="<?= $type->type_id ?>"
                                     <?= ($_POST['type_id'] ?? '') == $type->type_id ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($type->type) ?>
+                                    <?= $type->type ?>
                                 </option>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -76,7 +76,6 @@ ob_start()
 ?>
 
 <!-- <script src="./../../public/assets/js/calendar.js"></script> -->
-
 
 <?php
 $script = ob_get_clean();
