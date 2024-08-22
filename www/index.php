@@ -94,6 +94,7 @@ $pathUser = match ($page) {
     'profile/delete' => 'frontend/profile',
     'profile/update' => 'frontend/profile',
     'profile/contribution' => 'frontend/edit-contribution',
+    'profile/deleteAccount' => 'frontend/delete-account',
 
     default => '404'
 };
@@ -111,6 +112,7 @@ $pathAdmin = match ($page) {
     'profile/delete' => 'frontend/profile',
     'profile/update' => 'frontend/profile',
     'profile/contribution' => 'frontend/edit-contribution',
+    'profile/deleteAccount' => 'frontend/delete-account',
 
     // logs
     'logout' => 'users/signOut',

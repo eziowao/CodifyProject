@@ -168,13 +168,12 @@ class Contribution extends BaseModel
 
     public function getContributionsByChallengeId(int $challenge_id): array
     {
-        // Requête SQL pour trier par date de création en ordre décroissant
         $sql = "SELECT c.*, u.pseudo, u.picture, 
                    (SELECT COUNT(*) FROM likes l WHERE l.contribution_id = c.contribution_id) as like_count 
             FROM contributions c
             JOIN users u ON c.user_id = u.user_id
             WHERE c.challenge_id = :challenge_id
-            ORDER BY c.created_at DESC"; // Tri par date de création en ordre décroissant
+            ORDER BY c.created_at DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -247,22 +246,6 @@ class Contribution extends BaseModel
         $stmt->execute();
         return (int) $stmt->fetchColumn();
     }
-
-    public function getAllContributionsSorted(string $orderBy, string $direction): array
-    {
-        $validorderBys = ['contribution_id'];
-        $orderBy = in_array($orderBy, $validorderBys) ? $orderBy : 'contribution_id';
-        $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
-
-        $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
-            FROM contributions c
-            JOIN users u ON c.user_id = u.user_id
-            JOIN challenges ch ON c.challenge_id = ch.challenge_id
-            ORDER BY $orderBy $direction";
-        $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-
 
     public function searchContributionsWithPagination(string $searchTerm, int $limit, int $offset, string $orderBy = 'contribution_id', string $direction = 'ASC'): array
     {

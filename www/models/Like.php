@@ -116,15 +116,6 @@ class Like extends BaseModel
         return $stmt->execute();
     }
 
-    public function updateLike($contributionId)
-    {
-        $sql = "UPDATE contributions SET like_count = like_count + 1 WHERE contribution_id = :contribution_id";
-        $stmt = $this->db->query($sql);
-
-        $stmt->bindParam(':contribution_id', $contributionId);
-        $stmt->execute();
-    }
-
     public function removeLike(int $userId, int $contributionId): bool
     {
         $sql = "DELETE FROM likes WHERE user_id = :user_id AND contribution_id = :contribution_id";

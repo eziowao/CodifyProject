@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user_id = $_POST['user_id'];
         $challenge_id = $_POST['challenge_id'];
 
-        // instance du modèle
         $contributionModel = new Contribution(
             link: $link,
             user_id: $user_id,

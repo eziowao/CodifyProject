@@ -6,6 +6,7 @@ class User extends BaseModel
 
     private ?string $created_at = null;
     private ?string $updated_at = null;
+    private ?string $deleted_at = null;
 
     public function __construct(
         private ?string $pseudo = null,
@@ -178,6 +179,24 @@ class User extends BaseModel
         return $this;
     }
 
+    /**
+     * Get the value of deleted_at
+     */
+    public function getDeletedAt(): ?string
+    {
+        return $this->deleted_at;
+    }
+
+    /**
+     * Set the value of deleted_at
+     */
+    public function setDeletedAt(?string $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
+
+        return $this;
+    }
+
     public function getAllUsers(?string $orderBy = 'user_id', ?string $orderDirection = 'DESC', int $limit = 10, int $offset = 0): array
     {
         $validColumns = ['user_id', 'created_at', 'updated_at', 'pseudo'];
@@ -186,7 +205,7 @@ class User extends BaseModel
 
         $offset = max(0, $offset);
 
-        $sql = "SELECT * FROM `users` ORDER BY $orderBy $orderDirection LIMIT :limit OFFSET :offset";
+        $sql = "SELECT * FROM `users` WHERE `deleted_at` IS NULL ORDER BY $orderBy $orderDirection LIMIT :limit OFFSET :offset";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -252,7 +271,9 @@ class User extends BaseModel
 
     public function deleteUser(): bool
     {
-        $sql = "DELETE FROM `users` WHERE `user_id` = :user_id;";
+        $sql = "UPDATE `users` 
+                SET `deleted_at` = NOW()
+                WHERE `user_id` = :user_id;";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':user_id', $this->getUserId(), PDO::PARAM_INT);
         return $stmt->execute();
@@ -260,7 +281,9 @@ class User extends BaseModel
 
     public static function isMailExist(string $email): bool
     {
-        $sql = 'SELECT `email` FROM `users` WHERE `email` = :email;';
+        $sql = 'SELECT `email` FROM `users` 
+            WHERE `email` = :email 
+              AND `deleted_at` IS NULL;';
         $stmt = Database::connect()->prepare($sql);
         $stmt->bindValue(':email', $email);
         $stmt->execute();
@@ -269,7 +292,9 @@ class User extends BaseModel
 
     public static function getUserByEmail(string $email): object|false
     {
-        $sql = 'SELECT * FROM `users` WHERE `email` = :email;';
+        $sql = 'SELECT * FROM `users` 
+            WHERE `email` = :email 
+              AND `deleted_at` IS NULL;';
         $stmt = Database::connect()->prepare($sql);
         $stmt->bindValue(':email', $email);
         $stmt->execute();
@@ -312,8 +337,9 @@ class User extends BaseModel
         $searchPattern = $search . '%';
 
         $sql = "SELECT * FROM users 
-            WHERE pseudo LIKE :search 
-               OR user_id LIKE :search 
+            WHERE (pseudo LIKE :search 
+               OR user_id LIKE :search)
+              AND deleted_at IS NULL
             ORDER BY $orderBy $direction 
             LIMIT :limit OFFSET :offset";
         $stmt = $this->db->prepare($sql);

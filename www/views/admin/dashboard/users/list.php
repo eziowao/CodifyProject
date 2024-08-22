@@ -59,7 +59,6 @@ ob_start()
                             <td><?= date('d-m-Y', strtotime($user->updated_at)) ?></td>
                             <td><?= $user->pseudo ?></td>
                             <td><?= $user->email ?></td>
-
                             <td>
                                 <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= $user->user_id ?>"><i class="bi bi-pencil"></i></a>
                             </td>
