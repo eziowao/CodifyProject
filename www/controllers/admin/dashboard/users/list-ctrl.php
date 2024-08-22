@@ -4,12 +4,12 @@ $usersPerPage = 10;
 $page = isset($_GET['page_num']) ? (int)$_GET['page_num'] : 1;
 $offset = ($page - 1) * $usersPerPage;
 
-$orderBy = $_GET['order_by'] ?? 'user_id';
-$direction = $_GET['direction'] ?? 'DESC';
-
-$search = $_GET['search'] ?? null;
-
 try {
+    $search = $_GET['search'] ?? null;
+    $search = $search !== null ? trim($search) : '';
+    $orderBy = $_GET['order_by'] ?? 'user_id';
+    $direction = $_GET['direction'] ?? 'DESC';
+
     $userModel = new User();
 
     if ($search) {

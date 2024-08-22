@@ -6,9 +6,9 @@ $limit = 10;
 $page = isset($_GET['page_num']) ? (int)$_GET['page_num'] : 1;
 $offset = ($page - 1) * $limit;
 
-
 try {
-    $search = $_GET['search'] ?? '';
+    $search = $_GET['search'] ?? null;
+    $search = $search !== null ? trim($search) : '';
     $orderBy = $_GET['orderBy'] ?? 'challenge_id';
     $direction = $_GET['direction'] ?? 'ASC';
 

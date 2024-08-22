@@ -1,10 +1,11 @@
 <?php
 
 $types = [];
-$orderBy = $_GET['order_by'] ?? 'type_id';
-$direction = $_GET['direction'] ?? 'ASC';
 
 try {
+    $orderBy = $_GET['order_by'] ?? 'type_id';
+    $direction = $_GET['direction'] ?? 'ASC';
+
     $typeModel = new Type();
     $types = $typeModel->getAllTypes($orderBy, $direction);
 } catch (\PDOException $ex) {

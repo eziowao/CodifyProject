@@ -248,37 +248,66 @@ class Contribution extends BaseModel
         return (int) $stmt->fetchColumn();
     }
 
-    public function getAllContributionsSorted(string $sortField, string $sortOrder): array
+    public function getAllContributionsSorted(string $orderBy, string $direction): array
     {
-        $validSortFields = ['contribution_id', 'pseudo', 'name']; // Ajouter 'pseudo' et 'name'
-        $sortField = in_array($sortField, $validSortFields) ? $sortField : 'contribution_id';
-        $sortOrder = strtoupper($sortOrder) === 'DESC' ? 'DESC' : 'ASC';
+        $validorderBys = ['contribution_id', 'pseudo', 'name']; // Ajouter 'pseudo' et 'name'
+        $orderBy = in_array($orderBy, $validorderBys) ? $orderBy : 'contribution_id';
+        $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
 
         $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
             FROM contributions c
             JOIN users u ON c.user_id = u.user_id
             JOIN challenges ch ON c.challenge_id = ch.challenge_id
-            ORDER BY $sortField $sortOrder";
+            ORDER BY $orderBy $direction";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function searchContributions(string $searchTerm): array
+
+    public function searchContributionsWithPagination(string $searchTerm, int $limit, int $offset, string $orderBy = 'contribution_id', string $direction = 'ASC'): array
     {
-        $searchTerm = "%$searchTerm%";
-
-        $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
-            FROM contributions c
-            JOIN users u ON c.user_id = u.user_id
-            JOIN challenges ch ON c.challenge_id = ch.challenge_id
-            WHERE c.contribution_id LIKE :searchTerm
-            OR u.pseudo LIKE :searchTerm
-            OR ch.name LIKE :searchTerm";
-
+        $sql = "SELECT * FROM contributions 
+            WHERE contribution_id LIKE :searchTerm
+            OR user_id IN (SELECT user_id FROM users WHERE pseudo LIKE :searchTerm)
+            OR challenge_id IN (SELECT challenge_id FROM challenges WHERE name LIKE :searchTerm)
+            ORDER BY {$orderBy} {$direction}
+            LIMIT :limit OFFSET :offset";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':searchTerm', $searchTerm, PDO::PARAM_STR);
+        $stmt->bindValue(':searchTerm', "%$searchTerm%", PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getContributionsWithPagination(int $limit, int $offset, string $orderBy = 'contribution_id', string $direction = 'ASC'): array
+    {
+        $sql = "SELECT * FROM contributions 
+            ORDER BY {$orderBy} {$direction}
+            LIMIT :limit OFFSET :offset";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function countAllContributions(): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM contributions";
+        $stmt = $this->db->query($sql);
+        return (int)$stmt->fetchColumn();
+    }
+
+    public function countSearchResults(string $searchTerm): int
+    {
+        $sql = "SELECT COUNT(*) as total FROM contributions 
+            WHERE contribution_id LIKE :searchTerm
+            OR user_id IN (SELECT user_id FROM users WHERE pseudo LIKE :searchTerm)
+            OR challenge_id IN (SELECT challenge_id FROM challenges WHERE name LIKE :searchTerm)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':searchTerm', "%$searchTerm%", PDO::PARAM_STR);
+        $stmt->execute();
+        return (int)$stmt->fetchColumn();
     }
 }

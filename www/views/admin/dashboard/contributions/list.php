@@ -15,10 +15,10 @@
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=contribution_id&order=<?= $sortField == 'contribution_id' && $sortOrder == 'ASC' ? 'DESC' : 'ASC' ?>">ID</a></th>
+                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=contribution_id&order=<?= $orderBy == 'contribution_id' && $direction == 'ASC' ? 'DESC' : 'ASC' ?>">ID</a></th>
                     <th scope="col">Lien</th>
-                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=pseudo&order=<?= $sortField == 'pseudo' && $sortOrder == 'ASC' ? 'DESC' : 'ASC' ?>">Nom de l'utilisateur</a></th>
-                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=name&order=<?= $sortField == 'name' && $sortOrder == 'ASC' ? 'DESC' : 'ASC' ?>">Nom du challenge</a></th>
+                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=pseudo&order=<?= $orderBy == 'pseudo' && $direction == 'ASC' ? 'DESC' : 'ASC' ?>">Nom de l'utilisateur</a></th>
+                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=name&order=<?= $orderBy == 'name' && $direction == 'ASC' ? 'DESC' : 'ASC' ?>">Nom du challenge</a></th>
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
                 </tr>
@@ -48,6 +48,20 @@
             </tbody>
         </table>
     </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            <?php if ($pageNum > 1): ?>
+                <li class="page-item"><a class="page-link" href="?page=admin/dashboard/contributions/list&page_num=<?= $pageNum - 1 ?>&sort=<?= $orderBy ?>&order=<?= $direction ?>">Précédent</a></li>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <li class="page-item <?= $i === $pageNum ? 'active' : '' ?>"><a class="page-link" href="?page=admin/dashboard/contributions/list&page_num=<?= $i ?>&sort=<?= $orderBy ?>&order=<?= $direction ?>"><?= $i ?></a></li>
+            <?php endfor; ?>
+            <?php if ($pageNum < $totalPages): ?>
+                <li class="page-item"><a class="page-link" href="?page=admin/dashboard/contributions/list&page_num=<?= $pageNum + 1 ?>&sort=<?= $orderBy ?>&order=<?= $direction ?>">Suivant</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
 </div>
 
 <div id="delete-modal" class="modal fade" tabindex="-1">

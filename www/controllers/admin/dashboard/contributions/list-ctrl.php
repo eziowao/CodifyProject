@@ -1,22 +1,27 @@
 <?php
 
 $contributions = [];
-$sortField = $_GET['sort'] ?? 'contribution_id';
-$sortOrder = $_GET['order'] ?? 'ASC';
+$orderBy = $_GET['sort'] ?? 'contribution_id';
+$direction = $_GET['order'] ?? 'ASC';
+$itemsPerPage = 10;
+$pageNum = isset($_GET['page_num']) ? (int)$_GET['page_num'] : 1;
+$offset = ($pageNum - 1) * $itemsPerPage;
 
 try {
     $contributionModel = new Contribution();
 
-    // Si une recherche est effectuée, on appelle la méthode de recherche
+    // Si une recherche est effectuée
     if (!empty($_GET['search'])) {
-        $searchTerm = $_GET['search'];
-        $contributions = $contributionModel->searchContributions($searchTerm);
+        $searchTerm = trim($_GET['search']);  // Trim du terme de recherche
+        $contributions = $contributionModel->searchContributionsWithPagination($searchTerm, $itemsPerPage, $offset, $orderBy, $direction);
+        $totalContributions = $contributionModel->countSearchResults($searchTerm); // Compter les résultats de recherche
     } else {
-        // Sinon, on récupère toutes les contributions avec le tri sélectionné
-        $contributions = $contributionModel->getAllContributionsSorted($sortField, $sortOrder);
+        // Récupérer les contributions avec pagination
+        $contributions = $contributionModel->getContributionsWithPagination($itemsPerPage, $offset, $orderBy, $direction);
+        $totalContributions = $contributionModel->countAllContributions(); // Compter toutes les contributions
     }
 
-    // récupération des utilisateurs et des challenges pour afficher leurs noms dans la vue
+    // Récupération des utilisateurs et des challenges pour afficher leurs noms dans la vue
     $userModel = new User();
     $users = $userModel->getAllUsers();
     $usersById = [];
@@ -32,10 +37,13 @@ try {
     foreach ($challenges as $challenge) {
         $challengesById[$challenge->challenge_id] = $challenge->name;
     }
+
+    // Calcul du nombre total de pages
+    $totalPages = ceil($totalContributions / $itemsPerPage);
 } catch (\PDOException $ex) {
     echo sprintf('La récupération des données a échoué avec le message : %s', $ex->getMessage());
     exit;
 }
 
 $title = "Liste des contributions";
-renderView('admin/dashboard/contributions/list', compact('title', 'contributions', 'usersById', 'challengesById', 'sortField', 'sortOrder'), 'templateAdminLogin');
+renderView('admin/dashboard/contributions/list', compact('title', 'contributions', 'usersById', 'challengesById', 'orderBy', 'direction', 'pageNum', 'totalPages'), 'templateAdminLogin');
