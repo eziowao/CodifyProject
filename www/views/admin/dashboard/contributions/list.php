@@ -18,7 +18,9 @@
                     <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=contribution_id&order=<?= $orderBy == 'contribution_id' && $direction == 'ASC' ? 'DESC' : 'ASC' ?>">ID</a></th>
                     <th scope="col">Lien</th>
                     <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=pseudo&order=<?= $orderBy == 'pseudo' && $direction == 'ASC' ? 'DESC' : 'ASC' ?>">Nom de l'utilisateur</a></th>
-                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=name&order=<?= $orderBy == 'name' && $direction == 'ASC' ? 'DESC' : 'ASC' ?>">Nom du challenge</a></th>
+
+                    <th scope="col"><a href="?page=admin/dashboard/contributions/list&sort=challenge_name&order=<?= $orderBy == 'challenge_name' && $direction == 'ASC' ? 'DESC' : 'ASC' ?>">Nom du challenge</a></th>
+
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
                 </tr>

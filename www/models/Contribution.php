@@ -250,7 +250,7 @@ class Contribution extends BaseModel
 
     public function getAllContributionsSorted(string $orderBy, string $direction): array
     {
-        $validorderBys = ['contribution_id', 'pseudo', 'name']; // Ajouter 'pseudo' et 'name'
+        $validorderBys = ['contribution_id'];
         $orderBy = in_array($orderBy, $validorderBys) ? $orderBy : 'contribution_id';
         $direction = strtoupper($direction) === 'DESC' ? 'DESC' : 'ASC';
 
@@ -266,11 +266,14 @@ class Contribution extends BaseModel
 
     public function searchContributionsWithPagination(string $searchTerm, int $limit, int $offset, string $orderBy = 'contribution_id', string $direction = 'ASC'): array
     {
-        $sql = "SELECT * FROM contributions 
-            WHERE contribution_id LIKE :searchTerm
-            OR user_id IN (SELECT user_id FROM users WHERE pseudo LIKE :searchTerm)
-            OR challenge_id IN (SELECT challenge_id FROM challenges WHERE name LIKE :searchTerm)
-            ORDER BY {$orderBy} {$direction}
+        $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN challenges ch ON c.challenge_id = ch.challenge_id
+            WHERE c.contribution_id LIKE :searchTerm
+            OR u.pseudo LIKE :searchTerm
+            OR ch.name LIKE :searchTerm
+            ORDER BY $orderBy $direction
             LIMIT :limit OFFSET :offset";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':searchTerm', "%$searchTerm%", PDO::PARAM_STR);
@@ -282,8 +285,11 @@ class Contribution extends BaseModel
 
     public function getContributionsWithPagination(int $limit, int $offset, string $orderBy = 'contribution_id', string $direction = 'ASC'): array
     {
-        $sql = "SELECT * FROM contributions 
-            ORDER BY {$orderBy} {$direction}
+        $sql = "SELECT c.*, u.pseudo, ch.name AS challenge_name
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN challenges ch ON c.challenge_id = ch.challenge_id
+            ORDER BY $orderBy $direction
             LIMIT :limit OFFSET :offset";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -301,10 +307,13 @@ class Contribution extends BaseModel
 
     public function countSearchResults(string $searchTerm): int
     {
-        $sql = "SELECT COUNT(*) as total FROM contributions 
-            WHERE contribution_id LIKE :searchTerm
-            OR user_id IN (SELECT user_id FROM users WHERE pseudo LIKE :searchTerm)
-            OR challenge_id IN (SELECT challenge_id FROM challenges WHERE name LIKE :searchTerm)";
+        $sql = "SELECT COUNT(*) as total
+            FROM contributions c
+            JOIN users u ON c.user_id = u.user_id
+            JOIN challenges ch ON c.challenge_id = ch.challenge_id
+            WHERE c.contribution_id LIKE :searchTerm
+            OR u.pseudo LIKE :searchTerm
+            OR ch.name LIKE :searchTerm";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':searchTerm', "%$searchTerm%", PDO::PARAM_STR);
         $stmt->execute();
