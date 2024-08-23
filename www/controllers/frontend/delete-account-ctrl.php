@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($_SESSION['user'])) {
-    header('Location: /?page=home');
+    redirectToRoute('/');
     exit();
 }
 

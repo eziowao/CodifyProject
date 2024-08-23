@@ -155,7 +155,7 @@ class Contribution extends BaseModel
 
     public function getContributionsWithChallengeByUserId(int $user_id): array
     {
-        $sql = "SELECT contributions.*, challenges.picture AS challenge_picture,
+        $sql = "SELECT contributions.*, challenges.picture AS challenge_picture, challenges.name AS challenge_name,
                        (SELECT COUNT(*) FROM likes WHERE likes.contribution_id = contributions.contribution_id) AS like_count
                 FROM contributions
                 JOIN challenges ON contributions.challenge_id = challenges.challenge_id

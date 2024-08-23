@@ -45,11 +45,13 @@ h6 {
     color: #96306A;
 }
 
-.fa-brands,
-.fa-solid,
-.fa-regular {
+/* .fa-globe,
+.fa-linkedin,
+.fa-x-twitter,
+.fa-discord,
+.fa-github {
     color: #96306A;
-}
+} */
 
 .bg-green {
     background-color: #7DA15A;
@@ -145,9 +147,13 @@ a {
 /* img  */
 
 .profile-img {
+    width: 12em;
+    height: 12em;
     border-radius: 50%;
-    height: 220px;
-    width: auto;
+    object-fit: cover;
+    object-position: center top;
+    border: 10px solid #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* rankings */
@@ -249,4 +255,93 @@ a {
 
 .white-space {
     white-space: pre-wrap;
+}
+
+.bg-font {
+    background: rgba(20, 20, 20, 1);
+}
+
+/* button  */
+
+.button-delete {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    border: none;
+    background-color: #F13E3D;
+    cursor: pointer;
+    box-shadow: 0 0 10px #333;
+    overflow: hidden;
+    transition: .3s;
+    color: white;
+}
+
+.button-delete:hover {
+    background-color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 4px #111;
+    transition: .3s;
+    color: #F13E3D;
+}
+
+.button-edit {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    border: none;
+    background-color: #FF9F00;
+    cursor: pointer;
+    box-shadow: 0 0 10px #333;
+    overflow: hidden;
+    transition: .3s;
+    color: white;
+}
+
+.button-edit:hover {
+    background-color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 4px #111;
+    transition: .3s;
+    color: #FF9F00;
+}
+
+/* img filter  */
+.img-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.img-container .overlay {
+    position: relative;
+}
+
+.img-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: 0.3s ease;
+}
+
+.img-container .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    pointer-events: none;
+}
+
+.img-container:hover img {
+    filter: brightness(50%);
+}
+
+.img-container:hover .text {
+    opacity: 1;
 }
