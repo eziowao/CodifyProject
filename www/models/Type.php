@@ -3,7 +3,6 @@
 class Type extends BaseModel
 {
     private ?int $type_id = null;
-
     private ?string $created_at = null;
     private ?string $updated_at = null;
 

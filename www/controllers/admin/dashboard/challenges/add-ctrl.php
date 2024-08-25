@@ -19,10 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
         // name
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        $nameRegex = '/^[a-zA-ZÀ-ÿ\s\-]{2,100}$/';
         if (empty($name)) {
             $errors['name'] = 'Le nom du challenge est requis.';
-        } elseif (strlen($name) > 100) {
-            $errors['type'] = 'Le nom du challenge ne doit pas dépasser 100 caractères.';
+        } elseif (!preg_match($nameRegex, $name)) {
+            $errors['name'] = 'Le nom du challenge ne peut contenir que des lettres, des tirets (-) et avoir entre 2 et 100 caractères.';
         }
 
         // description

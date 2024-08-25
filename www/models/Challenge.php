@@ -156,7 +156,7 @@ class Challenge extends BaseModel
         return $stmt->execute();
     }
 
-    public function getChallengeById(?int $challenge_id = null): ?array
+    public function getChallengeById(?int $challenge_id): ?array
     {
         if ($challenge_id !== null) {
             $this->setChallengeId($challenge_id);

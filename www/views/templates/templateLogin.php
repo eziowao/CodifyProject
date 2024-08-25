@@ -55,7 +55,7 @@
                                     </li>
                                     <?php if ($_SESSION['user']->role == 2) { ?>
                                         <li>
-                                            <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/list">Admin</a>
+                                            <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/list">Dashboard</a>
                                         </li>
                                     <?php } ?>
                                     <li>

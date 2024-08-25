@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // gestion pseudo 
         $pseudo = filter_input(INPUT_POST, 'pseudo', FILTER_SANITIZE_SPECIAL_CHARS);
         if (empty($pseudo)) {
-            $errors["pseudo"] = "Le pseudo est obligatoire!";
+            $errors["pseudo"] = "Le pseudo est obligatoire.";
         } elseif (!preg_match($pseudoPattern, $pseudo)) {
             $errors['pseudo'] = 'Pseudo invalide. Il doit contenir entre 3 et 20 caractères, et peut inclure des lettres, des chiffres, des tirets et underscores.';
         }
@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // gestion email 
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         if (empty($email)) {
-            $errors["email"] = "L'adresse mail est obligatoire!";
+            $errors["email"] = "L'adresse mail est obligatoire.";
         } else {
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors['email'] = 'Email invalide';
             } elseif (User::isMailExist($email)) {
-                $errors['email'] = 'Ce mail est déjà attribué';
+                $errors['email'] = 'Ce mail est déjà attribué.';
             }
         }
 
@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
         if (!$confirmPassword) {
-            $errors['password'] = 'Mot de passe requis';
+            $errors['password'] = 'Mot de passe requis.';
         }
 
         if ($password != $confirmPassword) {
-            $errors['password'] = 'Les mots de passe doivent être identiques';
+            $errors['password'] = 'Les mots de passe doivent être identiques.';
         }
 
         if (!$errors) {

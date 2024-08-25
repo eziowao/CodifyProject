@@ -11,13 +11,6 @@ class BaseModel
     {
         $this->db = Database::connect();
     }
-
-    // public function getLastRecordId(): int
-    // {
-    //     return $this->db->lastInsertId();
-    // }
-    // servait pour le booking 
-
     /**
      * Get the value of db
      */

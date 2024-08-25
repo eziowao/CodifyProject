@@ -158,11 +158,10 @@ try {
 
             $newLikeCount = $likeModel->countLikesForContribution($contributionId);
 
-            // Renvoi de la réponse JSON
             echo json_encode([
                 'success' => true,
                 'new_like_count' => $newLikeCount,
-                'liked' => !$hasLiked // état inversé du like
+                'liked' => !$hasLiked
             ]);
             exit();
         } else {

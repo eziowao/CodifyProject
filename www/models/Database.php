@@ -5,10 +5,8 @@ require_once __DIR__ . './../config/db-config.php';
 class Database
 {
     private static ?PDO $db = null;
-
     public static function connect(): \PDO
     {
-
         try {
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
