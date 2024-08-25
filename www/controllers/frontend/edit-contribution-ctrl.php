@@ -1,7 +1,6 @@
 <?php
 
 $errors = [];
-$success = false;
 
 $current_user = $_SESSION['user'];
 $currentUserId = $current_user->user_id;
@@ -34,7 +33,7 @@ if (isset($_GET['id'])) {
                         $contributionModel->setChallenge_id($contribution['challenge_id']);
 
                         if ($contributionModel->updateContribution()) {
-                            $success = true;
+                            addFlash('success', 'Contribution mise à jour avec succès !');
                             redirectToRoute('/?page=profile');
                         } else {
                             $errors[] = "Erreur lors de la mise à jour de la contribution.";
@@ -49,4 +48,4 @@ if (isset($_GET['id'])) {
 }
 
 $title = "Modifier une contribution";
-renderView('frontend/contribution', compact('title', 'contribution', 'errors', 'success'), 'templateLogin');
+renderView('frontend/contribution', compact('title', 'contribution', 'errors'), 'templateLogin');

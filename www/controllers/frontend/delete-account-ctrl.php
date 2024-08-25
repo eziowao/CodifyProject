@@ -18,6 +18,7 @@ if (isset($_GET['page']) && $_GET['page'] === 'profile/deleteAccount' && isset($
 
             if ($userModel->deleteUser()) {
                 session_destroy();
+                addFlash('success', 'Compte supprimé avec succès !');
                 redirectToRoute('/');
                 exit();
             }

@@ -8,16 +8,6 @@ ob_start();
             <h1 class="m-0 fs-4 py-4 text-center text-light"><?= htmlspecialchars($title) ?></h1>
         </div>
         <div class="row h-50 py-3">
-            <?php if (!empty($errors)): ?>
-                <div class="alert alert-danger">
-                    <?= implode('<br>', $errors) ?>
-                </div>
-            <?php endif; ?>
-            <?php if ($success): ?>
-                <div class="alert alert-success">
-                    La contribution a été mise à jour avec succès.
-                </div>
-            <?php endif; ?>
             <form action="" method="POST">
                 <div class="form-group">
                     <label for="link">Lien</label>

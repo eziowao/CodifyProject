@@ -50,6 +50,7 @@ try {
                             ->setChallenge_id($challenge['challenge_id'])
                             ->setLink($link)
                             ->addContribution();
+                        addFlash('success', 'Contribution ajoutée avec succès !');
                         redirectToRoute('?page=weekly-challenge');
                         exit;
                     }

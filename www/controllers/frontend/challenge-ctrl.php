@@ -69,7 +69,7 @@ try {
                                 ->setChallenge_id($challenge['challenge_id'])
                                 ->setLink($link)
                                 ->addContribution();
-
+                            addFlash('success', 'Contribution ajoutée avec succès !');
                             redirectToRoute('?page=previous-challenges/challenge&id=' . urlencode($id));
                             exit;
                         }
