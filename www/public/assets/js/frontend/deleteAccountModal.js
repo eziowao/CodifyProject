@@ -1,5 +1,3 @@
-console.log('test delete account');
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const accountDeleteForm = document.querySelector(".delete-account");
