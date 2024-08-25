@@ -86,7 +86,7 @@ ob_start()
                                     <div class="col-6">
                                         <div>
                                             <form class="delete-form" action="?page=profile/delete&id=<?= $contribution->contribution_id ?>" method="post">
-                                                <input type="hidden" name="user_id" value="<?= 'test' ?>">
+                                                <input type="hidden" name="user_id">
                                                 <button class="button-delete" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
                                             </form>
                                         </div>
@@ -113,6 +113,16 @@ ob_start()
         </div>
     </div>
 
+    <div class="d-flex justify-content-center">
+        <a href="?page=profile/deleteAccount&id=<?= $_SESSION['user']->user_id ?>">Supprimer mon compte</a>
+    </div>
+
+    <form class="delete-account" action="?page=profile/deleteAccount&id=<?= $_SESSION['user']->user_id ?>" method="post">
+        <input type="hidden" name="user_id">
+        <button class="button-delete" type="submit">Supprimer mon compte</button>
+    </form>
+
+    <!-- modal form profile -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editProfileModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -180,9 +190,49 @@ ob_start()
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center">
-        <a href="?page=profile/deleteAccount&id=<?= $_SESSION['user']->user_id ?>">Supprimer mon compte</a>
+
+    <!-- modal confirm delete contribution -->
+    <div id="delete-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-black">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Voulez vous vraiment supprimer votre contribution ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-valid="true" class="btn btn-primary">Valider</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- modal confirm delete account -->
+    <div id="delete-account-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-black">
+                <div class="modal-header">
+                    <h5 class="modal-title">Suppression du compte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Voulez vous vraiment supprimer votre compte ? Cette action est irréversible.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-valid="true" class="btn btn-primary">Valider</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <?php
@@ -192,7 +242,9 @@ ob_start()
 ?>
 
 <script src="./public/assets/js/frontend/profileModal.js"></script>
+<script src="./public/assets/js/frontend/deleteAccountModal.js"></script>
 <script src="./public/assets/js/frontend/likes.js"></script>
+<script src="./public/assets/js/modal.js"></script>
 
 
 <?php

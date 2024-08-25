@@ -265,7 +265,7 @@ a {
 
 .button-delete {
     position: relative;
-    width: 30px;
+    width: max-content;
     height: 30px;
     border-radius: 25px;
     border: none;

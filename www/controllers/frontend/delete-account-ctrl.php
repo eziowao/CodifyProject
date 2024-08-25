@@ -20,7 +20,6 @@ if (isset($_GET['page']) && $_GET['page'] === 'profile/deleteAccount' && isset($
                 session_destroy();
                 addFlash('success', 'Compte supprimé avec succès !');
                 redirectToRoute('/');
-                exit();
             }
         } catch (\Exception $ex) {
             sprintf('Une erreur est survenue : %s', $ex->getMessage());
