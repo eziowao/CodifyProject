@@ -127,8 +127,11 @@ ob_start()
                         </div>
                         <div class="form-group mb-3">
                             <label class="mt-2 fw-semibold" for="pseudo">Pseudo <small class="text-danger">*</small></label>
-                            <input type="text" class="form-control" id="pseudo" required placeholder="Codify" name="pseudo" value="<?= $_SESSION['user']->pseudo ?>">
+                            <input type="text" class="form-control" id="pseudo" placeholder="Codify" name="pseudo" value="<?= $_SESSION['user']->pseudo ?>">
                             <div class="invalid-feedback" id="pseudoError"></div>
+                            <?php if (isset($errors['pseudo'])): ?>
+                                <p class=" text-danger"><?= $errors['pseudo'] ?></p>
+                            <?php endif; ?>
                         </div>
 
                         <div class="form-group mb-3">

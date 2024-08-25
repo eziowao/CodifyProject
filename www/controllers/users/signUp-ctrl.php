@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['pseudo'] = 'Pseudo invalide. Il doit contenir entre 3 et 20 caractères, et peut inclure des lettres, des chiffres, des tirets et underscores.';
         }
 
+        if (User::isPseudoExist($pseudo)) {
+            $errors["pseudo"] = "Oups, ce pseudo existe déjà, choisis-en un autre !";
+        }
+
         // gestion email 
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         if (empty($email)) {

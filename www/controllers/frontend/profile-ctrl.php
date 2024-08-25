@@ -41,6 +41,8 @@ try {
             $errors['pseudo'] = "Le pseudo est obligatoire!";
         } elseif (!preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $pseudo)) {
             $errors['pseudo'] = 'Pseudo invalide. Il doit contenir entre 3 et 20 caractères, et peut inclure des lettres, des chiffres, des tirets et underscores.';
+        } elseif (User::isPseudoExist($pseudo)) {
+            $errors['pseudo'] = 'Oups, ce pseudo existe déjà, choisis-en un autre !';
         }
 
         $biography = filter_input(INPUT_POST, 'biography', FILTER_SANITIZE_SPECIAL_CHARS);

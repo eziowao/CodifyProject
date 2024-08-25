@@ -290,6 +290,17 @@ class User extends BaseModel
         return $stmt->fetch() ? true : false;
     }
 
+    public static function isPseudoExist(string $pseudo): bool
+    {
+        $sql = 'SELECT `pseudo` FROM `users` 
+            WHERE `pseudo` = :pseudo 
+              AND `deleted_at` IS NULL;';
+        $stmt = Database::connect()->prepare($sql);
+        $stmt->bindValue(':pseudo', $pseudo);
+        $stmt->execute();
+        return $stmt->fetch() ? true : false;
+    }
+
     public static function getUserByEmail(string $email): object|false
     {
         $sql = 'SELECT * FROM `users` 
