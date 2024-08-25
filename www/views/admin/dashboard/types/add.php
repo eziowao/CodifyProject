@@ -6,11 +6,6 @@ ob_start()
 <h1 class="text-center"> <?= $title ?> </h1>
 
 <div class="container mt-5">
-    <?php if ($success) : ?>
-        <div class="alert alert-success">
-            Le type de challenges a été ajoutée avec succès !
-        </div>
-    <?php endif; ?>
     <div class="d-flex justify-content-center">
         <div class="col-6 ">
             <form action="" method="POST">

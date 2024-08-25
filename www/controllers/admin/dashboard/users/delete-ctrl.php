@@ -15,6 +15,7 @@ if (isset($_GET['id'])) {
     }
 
     if ($userModel->deleteUser()) {
+        addFlash('success', 'Utilisateur banni avec succès !');
         redirectToRoute('/?page=admin/dashboard/users/list');
     }
 }

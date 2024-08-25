@@ -100,6 +100,7 @@ if (isset($_GET['id'])) {
                     ->setFile_url($file_url)
                     ->setPicture($picture);
                 $challengeModel->updateChallenge();
+                addFlash('success', 'Challenge mis à jour avec succès !');
                 redirectToRoute('/?page=admin/dashboard/challenges/list');
             }
         } catch (\PDOException $ex) {

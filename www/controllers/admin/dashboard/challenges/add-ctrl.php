@@ -89,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 picture: $fileName ?? null
             );
             $challengeModel->addChallenge();
+            addFlash('success', 'Challenge ajouté avec succès !');
             redirectToRoute('/?page=admin/dashboard/challenges/list');
         }
     } catch (\PDOException $ex) {

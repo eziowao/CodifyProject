@@ -7,6 +7,7 @@ if (isset($_GET['id'])) {
     $contributionModel->setContributionId($id);
 
     if ($contributionModel->deleteContribution()) {
+        addFlash('success', 'Contribution supprimée avec succès !');
         redirectToRoute('?page=admin/dashboard/contributions/list');
     }
 }

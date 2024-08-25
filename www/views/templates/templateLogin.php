@@ -73,6 +73,7 @@
     <div class="container flex-grow-1">
         <main>
             <?php include __DIR__ . './../partials/message.php'; ?>
+
             <!-- <h1 class="text-center my-2 font-cars"> <?= $title ?> </h1> -->
             <?= $main ?>
         </main>

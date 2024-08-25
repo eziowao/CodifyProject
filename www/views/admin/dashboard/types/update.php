@@ -8,13 +8,6 @@ ob_start()
 <div class="container mt-5">
     <div class="d-flex justify-content-center">
         <div class="col-6 ">
-
-            <?php if ($success) : ?>
-                <div class="alert alert-success">
-                    Le type a été mise à jour avec succès.
-                </div>
-            <?php endif; ?>
-
             <?php if ($type) : ?>
                 <form action="" method="post">
                     <div class="form-group my-5">

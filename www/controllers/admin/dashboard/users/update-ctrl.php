@@ -1,7 +1,6 @@
 <?php
 
 $errors = [];
-$success = false;
 
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
@@ -57,9 +56,8 @@ if (isset($_GET['id'])) {
             ->setPicture($picture);
 
         if ($userModel->updateUser()) {
-            $success = true;
-            header('Location: ?page=admin/dashboard/users/list'); // changer tous les header location en redirectoroute
-            exit;
+            addFlash('success', 'Utilisateur mis à jour avec succès !');
+            redirectToRoute('/?page=admin/dashboard/users/list');
         } else {
             $errors[] = "Erreur lors de la mise à jour de l'utilisateur.";
         }
@@ -67,4 +65,4 @@ if (isset($_GET['id'])) {
 }
 
 $title = "Modifier l'utilisateur";
-renderView('admin/dashboard/users/update', compact('title', 'user', 'success', 'errors'), 'templateAdminLogin');
+renderView('admin/dashboard/users/update', compact('title', 'user', 'errors'), 'templateAdminLogin');

@@ -15,6 +15,7 @@ if (isset($_GET['id'])) {
     }
 
     if ($challengeModel->deleteChallenge()) {
+        addFlash('success', 'Challenge supprimé avec succès !');
         redirectToRoute('?page=admin/dashboard/challenges/list');
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 $errors = [];
-$success = false;
 
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
@@ -26,7 +25,7 @@ if (isset($_GET['id'])) {
             $typeModel->setType($typeName);
 
             if ($typeModel->updateType()) {
-                $success = true;
+                addFlash('success', 'Catégorie modifiée avec succès !');
                 $type = $typeModel->getTypeById($id);
                 redirectToRoute('/?page=admin/dashboard/types/list');
             } else {
@@ -39,4 +38,4 @@ if (isset($_GET['id'])) {
 }
 
 $title = "Modifier le type de challenge";
-renderView('admin/dashboard/types/update', compact('title', 'type', 'success', 'errors'), 'templateAdminLogin');
+renderView('admin/dashboard/types/update', compact('title', 'type', 'errors'), 'templateAdminLogin');

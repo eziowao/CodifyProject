@@ -1,7 +1,6 @@
 <?php
 
 $errors = [];
-$success = false;
 
 $userModel = new User();
 $users = [];
@@ -34,11 +33,12 @@ if (isset($_GET['id'])) {
             ->setChallenge_id($challenge_id);
 
         if ($contributionModel->updateContribution()) {
-            $success = true;
+            addFlash('success', 'Contribution mise à jour avec succès !');
             $contribution = $contributionModel->getContributionById($id);
+            redirectToRoute('?page=admin/dashboard/contributions/list');
         }
     }
 }
 
 $title = "Modifier une contribution";
-renderView('admin/dashboard/contributions/update', compact('title', 'success', 'users', 'challenges', 'contribution'), 'templateAdminLogin');
+renderView('admin/dashboard/contributions/update', compact('title', 'users', 'challenges', 'contribution'), 'templateAdminLogin');

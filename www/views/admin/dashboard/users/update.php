@@ -26,8 +26,6 @@ ob_start()
                     <input type="text" class="form-control" id="linkedin" name="linkedin" value="<?= $user['linkedin']; ?>">
                     <label class="mt-2" for="discord">discord</label>
                     <input type="text" class="form-control" id="discord" name="discord" value="<?= $user['discord']; ?>">
-
-
                     <div class="mb-3">
                         <label for="picture" class="form-label mt-2">Photo</label>
                         <input type="file" class="form-control" name="picture" id="picture">

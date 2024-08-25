@@ -1,7 +1,6 @@
 <?php
 
 $errors = [];
-$success = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
@@ -16,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (empty($errors)) {
             $typeModel = new Type($type);
             $typeModel->addType();
-            $success = true;
+            addFlash('success', 'Catégorie ajoutée avec succès !');
             redirectToRoute('/?page=admin/dashboard/types/list');
         }
     } catch (\PDOException $ex) {
@@ -25,4 +24,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 $title = "Ajouter un type de challenges";
-renderView('admin/dashboard/types/add', compact('title', 'success', 'errors'), 'templateAdminLogin');
+renderView('admin/dashboard/types/add', compact('title', 'errors'), 'templateAdminLogin');

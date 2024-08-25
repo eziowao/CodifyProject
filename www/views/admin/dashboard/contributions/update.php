@@ -6,11 +6,6 @@ ob_start()
 <h1 class="text-center"> <?= $title ?> </h1>
 
 <div class="container mt-5">
-    <?php if ($success) : ?>
-        <div class="alert alert-success">
-            La contribution a été mise à jour avec succès !
-        </div>
-    <?php endif; ?>
     <div class="d-flex justify-content-center">
         <div class="col-6 text-light">
             <form action="" method="POST">

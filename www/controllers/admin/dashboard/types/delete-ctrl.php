@@ -6,6 +6,7 @@ if (isset($_GET['id'])) {
     $typeModel->setTypeId($id);
 
     if ($typeModel->deleteType()) {
+        addFlash('success', 'Catégorie supprimée avec succès !');
         redirectToRoute('?page=admin/dashboard/types/list');
     }
 }
