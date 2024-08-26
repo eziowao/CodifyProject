@@ -72,12 +72,4 @@ ob_start()
 
 <?php
 $main = ob_get_clean();
-
-ob_start()
-?>
-
-<!-- <script src="./../../public/assets/js/calendar.js"></script> -->
-
-<?php
-$script = ob_get_clean();
 ?>

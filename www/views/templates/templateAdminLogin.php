@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href="./public/assets/img/logo_v2_large.png">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light my-4">
             <div class="container">

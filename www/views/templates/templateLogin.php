@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codify - Accueil</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/5.0.2/typeit.min.js" integrity="sha512-izh01C0sD66AuIVp4kRaEsvCSEC5bgs3n8Bm8Db/GhqJWei47La76LGf8Lbm8UHdIOsn+I7SxbeVLKb1k2ExMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
     <script src="https://kit.fontawesome.com/735b33aaa3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./public/assets/css/libs/bootstrap.min.css">
     <link rel="stylesheet" href="./public/assets/css/style.css">
@@ -17,7 +16,7 @@
     <meta name="author" content="Codify">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light my-4">
             <div class="container">
@@ -72,7 +71,7 @@
     </header>
 
     <div class="container flex-grow-1">
-        <main>
+        <main class="flex-fill">
             <?php include __DIR__ . './../partials/message.php'; ?>
 
             <!-- <h1 class="text-center my-2 font-cars"> <?= $title ?> </h1> -->
@@ -80,7 +79,7 @@
         </main>
     </div>
 
-    <footer>
+    <footer class="mt-auto">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12">
@@ -105,10 +104,11 @@
                 <p class="col-12 text-center text-light">Copyright Codify 2024</p>
             </div>
         </div>
-
     </footer>
 
-    <?= $script ?>
+    <?php if (isset($script) && !empty($script)): ?>
+        <?= $script ?>
+    <?php endif; ?>
     <script src="./public/assets/js/libs/bootstrap.bundle.min.js"></script>
 
 </body>

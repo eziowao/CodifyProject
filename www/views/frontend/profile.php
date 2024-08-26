@@ -245,7 +245,6 @@ ob_start()
 <script src="./public/assets/js/frontend/likes.js"></script>
 <script src="./public/assets/js/modal.js"></script>
 
-
 <?php
 $script = ob_get_clean();
 ?>

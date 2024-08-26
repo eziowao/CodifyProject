@@ -50,11 +50,4 @@ ob_start()
 
 <?php
 $main = ob_get_clean();
-
-ob_start()
-?>
-
-
-<?php
-$script = ob_get_clean();
 ?>
