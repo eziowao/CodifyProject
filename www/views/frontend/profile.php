@@ -74,7 +74,7 @@ ob_start()
                             </div>
                             <div class="img-container">
                                 <div class="overlay">
-                                    <a target="_blank" href=""><img class="img-fluid rounded-2" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt=""></a>
+                                    <a target="_blank" href="<?= $contribution->link ?>"><img class="img-fluid rounded-2" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt=""></a>
                                     <div class="text">Voir la contribution</div>
                                 </div>
                                 <div class="row my-2">
@@ -114,13 +114,12 @@ ob_start()
     </div>
 
     <div class="d-flex justify-content-center">
-        <a href="?page=profile/deleteAccount&id=<?= $_SESSION['user']->user_id ?>">Supprimer mon compte</a>
+        <form class="delete-account" action="?page=profile/deleteAccount&id=<?= $_SESSION['user']->user_id ?>" method="post">
+            <input type="hidden" name="user_id">
+            <button class="button-delete" type="submit">Supprimer mon compte</button>
+        </form>
     </div>
 
-    <form class="delete-account" action="?page=profile/deleteAccount&id=<?= $_SESSION['user']->user_id ?>" method="post">
-        <input type="hidden" name="user_id">
-        <button class="button-delete" type="submit">Supprimer mon compte</button>
-    </form>
 
     <!-- modal form profile -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editProfileModal" aria-hidden="true">

@@ -5,32 +5,34 @@ ob_start()
 
 <main class="my-5">
     <div class="container">
-        <div class="row my-5 p-4 bg_test d-flex">
-            <div class="col-md-12">
-                <div>
-                    <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
+        <div class="row text-light">
+            <div>
+                <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="bg-types">
+                    <p class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></p>
                 </div>
-                <div class="d-flex justify-content-center mb-3">
-                    <div class="bg-types">
-                        <p class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></p>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <div class="d-flex justify-content-center col-lg-6">
+            </div>
+            <div class="col-5">
+                <div class="d-flex justify-content-center my-4">
+                    <div class="d-flex justify-content-center">
                         <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
                     </div>
                 </div>
+            </div>
+            <div class="col-7">
                 <div class="d-flex justify-content-center">
                     <div class="text-light white-space">
                         <p class="text-justify"><?= nl2br($challenge['description']) ?></p>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center mb-5">
-                    <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
-                        <button class="bg-green text-light border-0 rounded-5 p-2"> Accéder à la maquette
-                        </button>
-                    </form>
-                </div>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+                <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
+                    <button class="bg-green text-light border-0 rounded-5 p-2"> Accéder à la maquette
+                    </button>
+                </form>
             </div>
         </div>
 
