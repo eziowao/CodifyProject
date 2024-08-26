@@ -31,20 +31,16 @@ h6 {
     background-color: #1D1E22;
 }
 
-.bg_grey {
-    background-color: #202020;
-}
-
 .text-green {
     color: #7DA15A;
 }
 
-.text-purple {
-    color: #96306A;
+.bg-purple {
+    background-color: #402548;
 }
 
 .bg-green {
-    background-color: #7DA15A;
+    background-color: #536A3D;
 }
 
 .fs-16 {
@@ -92,7 +88,6 @@ textarea:focus {
 
 a {
     text-decoration: none;
-    color: white;
 }
 
 /* FAQ */
@@ -217,7 +212,7 @@ a {
 }
 
 .bg-types {
-    background-color: #08060F;
+    background-color: rgba(8, 8, 8, 0.2);
     border: 1px solid rgb(78, 78, 78);
     border-radius: 20px;
 }
@@ -340,4 +335,90 @@ a {
 
 .img-container:hover .text {
     opacity: 1;
+}
+
+.page-link {
+    color: #0B0A08;
+}
+
+.fa-heart {
+    color: white;
+}
+
+/* animation home */
+
+.marquee-wrapper {
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.marquee {
+    display: flex;
+    animation: marquee-animation 10s linear infinite;
+    margin: 0;
+    padding: 0;
+}
+
+.marquee-item {
+    flex: 0 0 auto;
+    width: 400px;
+    margin-right: 20px;
+    padding: 0;
+}
+
+.marquee-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+@keyframes marquee-animation {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.marquee-wrapper:hover .marquee {
+    animation-play-state: paused;
+}
+
+/* tables  */
+
+.table-responsive {
+    margin: 20px 0;
+}
+
+.table {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #333333;
+}
+
+.table th,
+.table td {
+    border: 1px solid #444444;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.table th a:hover {
+    text-decoration: underline;
 }

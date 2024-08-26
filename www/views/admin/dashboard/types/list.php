@@ -37,12 +37,12 @@ ob_start()
                             <td><?= $type->type_id ?></td>
                             <td><?= $type->type ?></td>
                             <td>
-                                <a class="btn btn-warning" href="?page=admin/dashboard/types/update&id=<?= $type->type_id ?>"><i class="bi bi-pencil"></i></a>
+                                <a href="?page=admin/dashboard/types/update&id=<?= $type->type_id ?>"><button class="button-edit"><i class="fa-solid fa-pen-to-square fa-sm"></i></button></a>
                             </td>
                             <td>
                                 <form class="delete-form" action="?page=admin/dashboard/types/delete&id=<?= $type->type_id ?>" method="post">
                                     <input type="hidden" name="user_id" value="<?= $type->type_id  ?>">
-                                    <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                                    <button class="button-delete" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
                                 </form>
                             </td>
                         </tr>

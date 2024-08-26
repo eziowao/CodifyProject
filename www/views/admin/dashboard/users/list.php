@@ -60,12 +60,12 @@ ob_start()
                             <td><?= $user->pseudo ?></td>
                             <td><?= $user->email ?></td>
                             <td>
-                                <a class="btn btn-warning" href="?page=admin/dashboard/users/update&id=<?= $user->user_id ?>"><i class="bi bi-pencil"></i></a>
+                                <a href="?page=admin/dashboard/users/update&id=<?= $user->user_id ?>"><button class="button-edit"><i class="fa-solid fa-pen-to-square fa-sm"></i></button></a>
                             </td>
                             <td>
                                 <form class="delete-form" action="?page=admin/dashboard/users/delete&id=<?= $user->user_id ?>" method="post">
                                     <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
-                                    <button class="btn btn-danger" type="submit"><i class="bi bi-trash"></i></button>
+                                    <button class="button-delete" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
                                 </form>
                             </td>
                         </tr>

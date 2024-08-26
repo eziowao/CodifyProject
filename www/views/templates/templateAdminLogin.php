@@ -116,7 +116,9 @@
 
     </footer>
 
-    <?= $script ?>
+    <?php if (isset($script) && !empty($script)): ?>
+        <?= $script ?>
+    <?php endif; ?>
     <script src="./public/assets/js/libs/bootstrap.bundle.min.js"></script>
 
 </body>

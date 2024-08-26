@@ -6,7 +6,6 @@ ob_start()
 <h1 class="text-center text-light"> <?= $title ?> </h1>
 
 <div class="container mt-5">
-
     <form method="GET" class="mb-4">
         <input type="hidden" name="page" value="admin/dashboard/challenges/list">
         <div class="input-group">
@@ -47,11 +46,11 @@ ob_start()
                             <td> <a href="<?= $challenge->file_url ?>" target="_blank" class="text-black">Lien</a> </td>
                             <td> <?= $typesById[$challenge->type_id] ?? 'Type inconnu' ?> </td>
                             <td>
-                                <a class="btn btn-warning" href="?page=admin/dashboard/challenges/update&id=<?= $challenge->challenge_id ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="?page=admin/dashboard/challenges/update&id=<?= $challenge->challenge_id ?>"><button class="button-edit"><i class="fa-solid fa-pen-to-square fa-sm"></i></button></a>
 
                                 <form class="delete-form" action="?page=admin/dashboard/challenges/delete&id=<?= $challenge->challenge_id ?>" method="post">
                                     <input type="hidden" name="user_id" value="<?= 'test'  ?>">
-                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
+                                    <button class="button-delete" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -93,7 +92,6 @@ ob_start()
     </nav>
 <?php endif; ?>
 
-
 <div id="delete-modal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content text-black">
@@ -121,7 +119,6 @@ ob_start()
 ?>
 
 <script src="./../../public/assets/js/modal.js"></script>
-<script src="./../../public/assets/js/cookie.js"></script>
 
 <?php
 $script = ob_get_clean();

@@ -3,45 +3,43 @@
 ob_start()
 ?>
 
-<main class="my-5">
+<main class="my-2">
     <div class="container">
-        <div class="row text-light">
+        <div class="row text-light bg_test py-2">
             <div>
                 <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
             </div>
             <div class="d-flex justify-content-center">
                 <div class="bg-types">
-                    <p class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></p>
+                    <small class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></>
+
+                    </small>
                 </div>
             </div>
-            <div class="col-5">
+            <div class="col-lg-5 d-flex align-items-center">
                 <div class="d-flex justify-content-center my-4">
                     <div class="d-flex justify-content-center">
                         <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
                     </div>
                 </div>
             </div>
-            <div class="col-7">
-                <div class="d-flex justify-content-center">
-                    <div class="text-light white-space">
-                        <p class="text-justify"><?= nl2br($challenge['description']) ?></p>
-                    </div>
+            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+                <div class="text-light white-space">
+                    <p class="text-justify my-auto"><?= nl2br($challenge['description']) ?></p>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mb-5">
+            <div class="d-flex justify-content-center">
                 <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
-                    <button class="bg-green text-light border-0 rounded-5 p-2"> Accéder à la maquette
-                    </button>
+                    <button class="bg-purple text-light border-0 rounded-5 p-2"> <i class="fa-solid fa-link"></i> Accéder à la maquette </button>
                 </form>
             </div>
         </div>
 
-        <div class="row py-4 d-flex justify-content-center">
-            <button class="col-7 col-md-5 p-2 col-lg-3 bg-green text-light border-0 rounded-5" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
-        </div>
-
         <div class="row text-light" id="contributions-list">
             <h2 class="m-0 fs-4 pt-5 pb-4 text-center text-light">Contributions délivrées</h2>
+            <div class="d-flex justify-content-center">
+                <button class="bg-green text-light border-0 rounded-5 p-2" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
+            </div>
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
                     <div class="col-12 col-md-6 d-flex justify-content-center">
@@ -88,7 +86,7 @@ ob_start()
                     <ul class="pagination justify-content-center">
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                             <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=previous-challenges/challenge&id=<?= $challenge['challenge_id'] ?>&p=<?= $i ?>">
+                                <a class="" href="?page=previous-challenges/challenge&id=<?= $challenge['challenge_id'] ?>&p=<?= $i ?>">
                                     <?= $i ?>
                                 </a>
                             </li>

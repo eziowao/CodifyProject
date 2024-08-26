@@ -81,7 +81,7 @@ ob_start()
 
     <div class="container">
         <div class="row">
-            <div class="container col-12 col-md-5 my-5 d-flex align-items-center justify-content-center justify-content-lg-start">
+            <div class="container col-12 col-lg-5 my-5 d-flex align-items-center justify-content-center justify-content-lg-start">
                 <div class="d-flex flex-column align-items-center">
                     <h2 class="col-12 text-light fs-4 text-center mb-4">Prochain challenge</h2>
                     <div class="row">
@@ -114,18 +114,22 @@ ob_start()
                     </div>
                 </div>
             </div>
-            <div class="container col-12 col-md-7 my-5">
+            <div class="container col-12 col-lg-7 my-5">
                 <h2 class="text-light fs-4 text-center mb-4 pb-4">Challenge de la semaine : <?= $challenge['name']; ?></h2>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-center">
                     <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
-                        <a href="?page=signUp">
-                            <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" halt="">
-                        </a>
+                        <div class="col-8">
+                            <a href="?page=signUp">
+                                <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" alt="<?= $challenge['name']; ?>" class="img-fluid" halt="">
+                            </a>
+                        </div>
                     <?php } ?>
                     <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
-                        <a href="?page=weekly-challenge">
-                            <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" halt="">
-                        </a>
+                        <div class="col-8 d-flex">
+                            <a href="?page=signUp">
+                                <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" alt="<?= $challenge['name']; ?>" class="img-fluid" halt="">
+                            </a>
+                        </div>
                     <?php } ?>
 
                 </div>
@@ -135,32 +139,34 @@ ob_start()
 
     <!-- -------------------------------- previous challenges -------------------------------- -->
 
-    <div class="container">
-        <div class="row">
-            <div class="mt-5">
-                <h2 class="text-light fs-4 text-center mb-4 pb-4"><a href="?page=previous-challenges">Challenges précédents</a></h2>
-            </div>
-            <?php if (isset($filteredChallenges) && count($filteredChallenges) > 0) : ?>
-                <?php foreach ($filteredChallenges as $challenge) : ?>
-                    <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
-                        <div class="d-flex justify-content-center col-12 col-md-6 mb-5">
-                            <a href="?page=signUp" class="d-flex justify-content-center">
-                                <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" class="img-fluid" alt="<?= $challenge->name ?>">
-                            </a>
-                        </div>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
-                        <div class="d-flex justify-content-center col-12 col-md-6 mb-5">
-                            <a href="?page=previous-challenges/challenge&id=<?= $challenge->challenge_id ?>" class="d-flex justify-content-center">
-                                <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" class="img-fluid" alt="<?= $challenge->name ?>">
-                            </a>
-                        </div>
-                    <?php } ?>
-                <?php endforeach; ?>
-            <?php else : ?>
-                <p class="text-center text-light">Aucun challenge précédent trouvé.</p>
-            <?php endif; ?>
+    <div>
+        <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
+            <h2 class="col-12 text-light fs-4 text-center mb-4">Inscrivez-vous ou connectez-vous pour découvrir tous les challenges disponibles</h2>
+        <?php } else { ?>
+            <h2 class="col-12 text-light fs-4 text-center mb-4">Tous les challenges disponibles</h2>
+        <?php } ?>
 
+        <div class="marquee-wrapper">
+            <div class="marquee">
+                <?php if (isset($filteredChallenges) && count($filteredChallenges) > 0) : ?>
+                    <!-- Première boucle : Génération des challenges -->
+                    <?php foreach ($filteredChallenges as $challenge) : ?>
+                        <div class="marquee-item">
+                            <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
+                                <a href="?page=signUp">
+                                    <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" alt="<?= $challenge->name ?>">
+                                </a>
+                            <?php } else { ?>
+                                <a href="?page=previous-challenges/challenge&id=<?= $challenge->challenge_id ?>">
+                                    <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" alt="<?= $challenge->name ?>">
+                                </a>x
+                            <?php } ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p class="text-center text-light">Aucun challenge précédent trouvé.</p>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 

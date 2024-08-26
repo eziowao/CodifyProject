@@ -70,7 +70,7 @@
         </nav>
     </header>
 
-    <div class="container flex-grow-1">
+    <div class="flex-grow-1">
         <main class="flex-fill">
             <?php include __DIR__ . './../partials/message.php'; ?>
 
