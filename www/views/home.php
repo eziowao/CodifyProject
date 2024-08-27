@@ -143,13 +143,12 @@ ob_start()
         <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
             <h2 class="col-12 text-light fs-4 text-center mb-4">Inscrivez-vous ou connectez-vous pour découvrir tous les challenges disponibles</h2>
         <?php } else { ?>
-            <h2 class="col-12 text-light fs-4 text-center mb-4">Tous les challenges disponibles</h2>
+            <h2 class="col-12 text-light fs-4 text-center my-4">Tous les challenges disponibles</h2>
         <?php } ?>
 
         <div class="marquee-wrapper">
             <div class="marquee">
                 <?php if (isset($filteredChallenges) && count($filteredChallenges) > 0) : ?>
-                    <!-- Première boucle : Génération des challenges -->
                     <?php foreach ($filteredChallenges as $challenge) : ?>
                         <div class="marquee-item">
                             <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
@@ -159,7 +158,7 @@ ob_start()
                             <?php } else { ?>
                                 <a href="?page=previous-challenges/challenge&id=<?= $challenge->challenge_id ?>">
                                     <img src="./../../../../public/uploads/challenges/<?= $challenge->picture ?>" alt="<?= $challenge->name ?>">
-                                </a>x
+                                </a>
                             <?php } ?>
                         </div>
                     <?php endforeach; ?>

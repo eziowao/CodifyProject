@@ -356,7 +356,7 @@ a {
 
 .marquee {
     display: flex;
-    animation: marquee-animation 10s linear infinite;
+    animation: marquee-animation 7s linear infinite;
     margin: 0;
     padding: 0;
 }
@@ -421,4 +421,30 @@ a {
 
 .table th a:hover {
     text-decoration: underline;
+}
+
+.fa-discord,
+.fa-x-twitter,
+.fa-instagram {
+    color: white;
+}
+
+/* pagination  */
+
+.paginationContainer .pagination li {
+    list-style-type: none;
+    display: inline-block;
+}
+
+.paginationContainer .pagination li a {
+    position: relative;
+    padding: 20px 25px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+}
+
+.paginationContainer .pagination li a:hover,
+.paginationContainer .pagination li.active a {
+    background: rgba(255, 255, 255, 0.2);
 }

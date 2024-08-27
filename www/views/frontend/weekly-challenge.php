@@ -43,7 +43,7 @@ ob_start()
                                         height="60">
                                 </a>
                                 <h5 class="text-light ms-3">
-                                    <a href="?page=user&id=<?= $contribution->user_id ?>">
+                                    <a class="text-light" href="?page=user&id=<?= $contribution->user_id ?>">
                                         <?= $contribution->pseudo ?>
                                     </a>
                                 </h5>
@@ -87,7 +87,7 @@ ob_start()
                     <div class="col-3 text-center text-light">
                         <div class="d-flex justify-content-center">
                             <div class="col-6">
-                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Rank</h2>
+                                <h2 class="fs-5 fw-semibold py-1 rounded-20">Rank</h2>
                             </div>
                         </div>
                         <?php for ($i = 1; $i <= count($topContributions); $i++): ?>
@@ -97,15 +97,15 @@ ob_start()
                     <div class="col-6 text-light text-center">
                         <div class="d-flex justify-content-center">
                             <div class="col-3">
-                                <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Pseudo</h2>
+                                <h2 class="fs-5 fw-semibold py-1 rounded-20">Pseudo</h2>
                             </div>
                         </div>
                         <?php foreach ($topContributions as $contribution): ?>
-                            <p><a href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
+                            <p><a class="text-light" href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
                         <?php endforeach; ?>
                     </div>
                     <div class="col-3 text-center text-light">
-                        <h2 class="fs-5">Likes</h2>
+                        <h2 class="fs-5 fw-semibold">Likes</h2>
                         <?php foreach ($topContributions as $contribution): ?>
                             <p><?= $contribution->like_count ?></p>
                         <?php endforeach; ?>

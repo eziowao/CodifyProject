@@ -5,7 +5,7 @@ ob_start()
 
 <main class="my-2">
     <div class="container">
-        <div class="row text-light bg_test py-2">
+        <div class="row text-light bg_test p-3">
             <div>
                 <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
             </div>
@@ -35,9 +35,9 @@ ob_start()
             </div>
         </div>
 
-        <div class="row text-light" id="contributions-list">
+        <div class="row text-light my-5" id="contributions-list">
             <h2 class="m-0 fs-4 pt-5 pb-4 text-center text-light">Contributions délivrées</h2>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center my-3">
                 <button class="bg-green text-light border-0 rounded-5 p-2" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter ma contribution</button>
             </div>
             <?php if (!empty($contributions)) : ?>
@@ -53,13 +53,13 @@ ob_start()
                                         height="60">
                                 </a>
                                 <div class="text-light fw-bolder ms-3">
-                                    <a href="<?= $userLink ?>">
+                                    <a class="text-light" href="<?= $userLink ?>">
                                         <?= $contribution->pseudo ?>
                                     </a>
                                 </div>
                             </div>
                             <div class="my-3">
-                                <a href="<?= $contribution->link ?>" target="_blank">Voir la contribution</a>
+                                <a class="text-light" href="<?= $contribution->link ?>" target="_blank">Voir la contribution</a>
                             </div>
 
                             <div class=row>
@@ -72,17 +72,16 @@ ob_start()
                                         <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
                                             <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
                                         </button>
-                                        <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
+                                        <span class="ms-3 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 <?php endforeach; ?>
 
                 <!-- Pagination -->
-                <nav aria-label="Page navigation">
+                <nav class="paginationContainer my-3" aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                             <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
@@ -108,7 +107,7 @@ ob_start()
         </div>
 
         <?php if (!empty($contributions)) : ?>
-            <div class="my-4">
+            <div class="mb-4">
                 <div class="row d-flex justify-content-center">
                     <h1 class="m-0 fs-4 py-4 text-center text-light">Contributions les plus aimées pour ce challenge</h1>
                 </div>
@@ -119,7 +118,7 @@ ob_start()
                         <div class="col-3 text-center text-light">
                             <div class="d-flex justify-content-center">
                                 <div class="col-6">
-                                    <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Rank</h2>
+                                    <h2 class="fs-5 fw-semibold py-1 rounded-20">Rank</h2>
                                 </div>
                             </div>
                             <?php for ($i = 1; $i <= count($topContributions); $i++): ?>
@@ -129,15 +128,15 @@ ob_start()
                         <div class="col-6 text-light text-center">
                             <div class="d-flex justify-content-center">
                                 <div class="col-3">
-                                    <h2 class="fs-5 bg-dark-ranking py-1 rounded-20">Pseudo</h2>
+                                    <h2 class="fs-5 fw-semibold py-1 rounded-20">Pseudo</h2>
                                 </div>
                             </div>
                             <?php foreach ($topContributions as $contribution): ?>
-                                <p><a href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
+                                <p><a class="text-light" href="?page=user&id=<?= $contribution->user_id ?>"><?= $contribution->pseudo ?> </a></p>
                             <?php endforeach; ?>
                         </div>
                         <div class="col-3 text-center text-light">
-                            <h2 class="fs-5">Likes</h2>
+                            <h2 class="fs-5 fw-semibold">Likes</h2>
                             <?php foreach ($topContributions as $contribution): ?>
                                 <p><?= $contribution->like_count ?></p>
                             <?php endforeach; ?>

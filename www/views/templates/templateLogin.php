@@ -83,10 +83,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12">
-                    <p class="text-light mt-3 mb-0 text-center text-lg-start"><a class="text-decoration-none
-                        text-light" href="./questions.php">F.A.Q</a></p>
-                    <p class="text-light mb-0 text-center text-lg-start"><a class="text-decoration-none
-                        text-light" href="./questions.php">Contact</a></p>
+                    <p class="text-light my-3 text-center text-lg-start"><a class="text-decoration-none
+                        text-light" href="./questions.php">Mentions légales</a></p>
                 </div>
                 <div class="col-lg-4 d-flex justify-content-center align-items-center">
                     <a class="mx-3" href="https://discord.gg/UqRpFj92"><i class="fa-brands fa-discord fa-2xl"></i></a>
@@ -94,10 +92,8 @@
                     <a class="mx-3" href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-2xl"></i></a>
                 </div>
                 <div class="col-lg-4 col-md-12">
-                    <p class="mt-3 mb-0 text-center text-lg-end"><a class="text-decoration-none
-                        text-light" href="./aboutus.php">Mentions légales</a></p>
-                    <p class="mb-0 text-center text-lg-end"> <a class="text-decoration-none
-                        text-light" href="./questions.php">CGU</a></p>
+                    <p class="mt-3 my-3 text-center text-lg-end"><a class="text-decoration-none
+                        text-light" href="./aboutus.php">CGU</a></p>
                 </div>
             </div>
             <div class="row">
