@@ -2,32 +2,38 @@
 ob_start()
 ?>
 
-<main class="my-5">
+<main class="my-4">
     <div class="container">
-        <div class="row my-5 p-4 bg_test">
-            <div class="col-md-6">
-                <div>
-                    <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
+        <div class="row text-light bg_test p-3">
+            <div>
+                <h1 class="fs-4 py-2 text-center text-light"> Challenge de la semaine : <?= $challenge['name']; ?></h1>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="bg-types">
+                    <small class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></>
+
+                    </small>
                 </div>
-                <div class="d-flex justify-content-center mb-3">
-                    <div class="bg-types">
-                        <p class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></p>
+            </div>
+            <div class="col-lg-5 d-flex align-items-center">
+                <div class="d-flex justify-content-center my-4">
+                    <div class="d-flex justify-content-center">
+                        <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
                     </div>
                 </div>
-                <div class="text-light">
-                    <p class="text-justify"><?= $challenge['description'] ?></p>
-                </div>
-                <div class="d-flex justify-content-center my-5">
-                    <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
-                        <button class="bg-green text-light border-0 rounded-5 p-2"> Accéder à la maquette
-                        </button>
-                    </form>
+            </div>
+            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+                <div class="text-light white-space">
+                    <p class="text-justify my-auto"><?= nl2br($challenge['description']) ?></p>
                 </div>
             </div>
-            <div class="d-flex justify-content-center col-md-6">
-                <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
+            <div class="d-flex justify-content-center">
+                <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
+                    <button class="bg-purple text-light border-0 rounded-5 p-2"> <i class="fa-solid fa-link"></i> Accéder à la maquette </button>
+                </form>
             </div>
         </div>
+
         <div class="row text-light">
             <h2 class="m-0 fs-4 pt-5 pb-4 text-center text-light">Contributions délivrées</h2>
             <?php if (!empty($contributions)) : ?>
@@ -35,30 +41,59 @@ ob_start()
                     <div class="col-12 col-md-6 d-flex justify-content-center">
                         <div class="col-12 bg_test p-3 my-3">
                             <div class="d-flex align-items-center my-3">
-                                <a href="?page=user&id=<?= $contribution->user_id ?>">
+                                <a href="<?= $userLink = ($contribution->user_id == $currentUserId) ? '?page=profile' : "?page=user&id={$contribution->user_id}" ?>">
                                     <img src="<?= $contribution->picture ? "./public/uploads/users/{$contribution->picture}" : './public/assets/img/default_profile_icon.png' ?>"
                                         alt="Photo de profil"
                                         class="rounded-circle"
                                         width="60"
                                         height="60">
                                 </a>
-                                <h5 class="text-light ms-3">
-                                    <a class="text-light" href="?page=user&id=<?= $contribution->user_id ?>">
+                                <div class="text-light fw-bolder ms-3">
+                                    <a class="text-light" href="<?= $userLink ?>">
                                         <?= $contribution->pseudo ?>
                                     </a>
-                                </h5>
+                                </div>
                             </div>
-                            <a href="<?= $contribution->link ?>" target="_blank">Lien du projet</a>
-                            <form action="" method="POST" class="d-flex justify-content-end align-items-center">
-                                <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
-                                <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
-                                    <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
-                                </button>
-                                <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
-                            </form>
+                            <div class="my-3">
+                                <a class="text-light" href="<?= $contribution->link ?>" target="_blank">Voir la contribution</a>
+                            </div>
+
+                            <div class=row>
+                                <div class="col-6">
+                                    <p> Publiée le <?= date('d-m-Y', strtotime($contribution->created_at)) ?></p>
+                                </div>
+                                <div class="col-6">
+                                    <form action="" method="POST" class="d-flex justify-content-end align-items-center">
+                                        <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
+                                        <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
+                                            <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
+                                        </button>
+                                        <span class="ms-3 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
+
+                <!-- Pagination -->
+                <?php
+
+                if ($totalPages > 1) { ?>
+                    <nav class="paginationContainer my-3" aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                    <a class="" href="?page=previous-challenges/challenge&id=<?= $challenge['challenge_id'] ?>&p=<?= $i ?>">
+                                        <?= $i ?>
+                                    </a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
+                    </nav>
+                <?php }
+
+                ?>
             <?php else : ?>
                 <p class="text-light text-center">Aucune contribution pour le moment.</p>
             <?php endif; ?>

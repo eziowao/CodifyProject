@@ -3,7 +3,7 @@
 ob_start()
 ?>
 
-<main class="my-2">
+<main class="my-4">
     <div class="container">
         <div class="row text-light bg_test p-3">
             <div>
@@ -81,17 +81,22 @@ ob_start()
                 <?php endforeach; ?>
 
                 <!-- Pagination -->
-                <nav class="paginationContainer my-3" aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                            <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                                <a class="" href="?page=previous-challenges/challenge&id=<?= $challenge['challenge_id'] ?>&p=<?= $i ?>">
-                                    <?= $i ?>
-                                </a>
-                            </li>
-                        <?php endfor; ?>
-                    </ul>
-                </nav>
+                <?php
+
+                if ($totalPages > 1) { ?>
+                    <nav class="paginationContainer my-3" aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                    <a class="" href="?page=previous-challenges/challenge&id=<?= $challenge['challenge_id'] ?>&p=<?= $i ?>">
+                                        <?= $i ?>
+                                    </a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
+                    </nav>
+                <?php }
+                ?>
 
             <?php else : ?>
                 <p class="text-light text-center">Aucune contribution pour le moment.</p>

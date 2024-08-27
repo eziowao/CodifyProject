@@ -5,6 +5,7 @@ $errors = [];
 try {
     $current_user = $_SESSION['user'];
     $currentUserId = $current_user->user_id;
+
     // Récupérer le challenge de la semaine
     $challengeModel = new Challenge();
     $challenge = $challengeModel->getCurrentChallenge();
@@ -20,7 +21,16 @@ try {
 
         // Récupérer les contributions pour ce challenge
         $contributionModel = new Contribution();
-        $contributions = $contributionModel->getContributionsByChallengeId($challenge['challenge_id']);
+
+        $limit = 6; // Number of contributions per page
+        $page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+        $offset = ($page - 1) * $limit;
+
+        $contributions = $contributionModel->getContributionsByChallengeIdWithPagination($challenge['challenge_id'], $limit, $offset);
+
+        // Get total number of contributions
+        $totalContributions = $contributionModel->countContributionsByChallengeId($challenge['challenge_id']);
+        $totalPages = ceil($totalContributions / $limit);
 
         // gestion top contributions
         $topContributions = $contributionModel->getTopLikedContributionsByChallengeId($challenge['challenge_id'], 10);
@@ -99,4 +109,4 @@ try {
 
 $title = "Challenge de la semaine";
 
-renderView('frontend/weekly-challenge', compact('title', 'challenge', 'contributions', 'typesById', 'errors', 'topContributions'), 'templateLogin');
+renderView('frontend/weekly-challenge', compact('title', 'challenge', 'contributions', 'typesById', 'errors', 'topContributions', 'currentUserId', 'totalPages', 'page'), 'templateLogin');
