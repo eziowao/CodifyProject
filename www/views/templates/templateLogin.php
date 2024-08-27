@@ -18,56 +18,58 @@
 
 <body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light my-4">
-            <div class="container">
-                <a class="navbar-brand" href="?page=home">
-                    <img src="./public/assets/img/logo_v2.png" alt="Logo" height="40">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon custom-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav text-center ml-auto justify-content-center justify-content-lg-end ms-auto">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light my-4">
+                <div class="container">
+                    <a class="navbar-brand" href="?page=home">
+                        <img src="./public/assets/img/logo_v2.png" alt="Logo" height="40">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon custom-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav text-center ml-auto justify-content-center justify-content-lg-end ms-auto">
 
-                        <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="/?page=signUp">Inscription</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="/?page=signIn">Connexion</a>
-                            </li>
-                        <?php } ?>
+                            <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="/?page=signUp">Inscription</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="/?page=signIn">Connexion</a>
+                                </li>
+                            <?php } ?>
 
-                        <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="?page=weekly-challenge">Challenge de la semaine</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="?page=previous-challenges">Challenges précédents</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <?= $_SESSION['user']->pseudo ?>
-                                </a>
-                                <ul class="dropdown-menu bg-dark-grey">
-                                    <li>
-                                        <a class="dropdown-item text-light text-center" href="?page=profile">Mon profil</a>
-                                    </li>
-                                    <?php if ($_SESSION['user']->role == 2) { ?>
+                            <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="?page=weekly-challenge">Challenge de la semaine</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="?page=previous-challenges">Challenges précédents</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <?= $_SESSION['user']->pseudo ?>
+                                    </a>
+                                    <ul class="dropdown-menu bg-dark-grey">
                                         <li>
-                                            <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/list">Dashboard</a>
+                                            <a class="dropdown-item text-light text-center" href="?page=profile">Mon profil</a>
                                         </li>
-                                    <?php } ?>
-                                    <li>
-                                        <a class="dropdown-item text-light text-center" href="?page=logout">Déconnexion</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        <?php } ?>
-                    </ul>
+                                        <?php if ($_SESSION['user']->role == 2) { ?>
+                                            <li>
+                                                <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/list">Dashboard</a>
+                                            </li>
+                                        <?php } ?>
+                                        <li>
+                                            <a class="dropdown-item text-light text-center" href="?page=logout">Déconnexion</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
 
     <div class="flex-grow-1">
