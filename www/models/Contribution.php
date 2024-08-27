@@ -166,20 +166,6 @@ class Contribution extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getContributionsByChallengeId(int $challenge_id): array
-    {
-        $sql = "SELECT c.*, u.pseudo, u.picture, 
-                   (SELECT COUNT(*) FROM likes l WHERE l.contribution_id = c.contribution_id) as like_count 
-            FROM contributions c
-            JOIN users u ON c.user_id = u.user_id
-            WHERE c.challenge_id = :challenge_id
-            ORDER BY c.created_at DESC";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':challenge_id', $challenge_id, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-
     public function isOwnedByUser(int $user_id): bool
     {
         $sql = "SELECT COUNT(*) FROM contributions WHERE contribution_id = :contribution_id AND user_id = :user_id";

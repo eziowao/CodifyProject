@@ -99,13 +99,6 @@ class Like extends BaseModel
         return $this;
     }
 
-    public function getAllLikes(): array
-    {
-        $sql = "SELECT * FROM `likes`";
-        $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-
     public function addLike(int $userId, int $contributionId): bool
     {
         $sql = "INSERT INTO likes (user_id, contribution_id) VALUES (:user_id, :contribution_id)";

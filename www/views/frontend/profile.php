@@ -4,73 +4,95 @@ ob_start()
 ?>
 
 <main class="container my-5">
-    <h1 class="fs-2 text-light text-center"> Mon profil </h1>
-    <div class="bg_test rounded-5 my-4">
-        <div class="row text-light d-flex justify-content-center p-4">
-            <div class="col-md-6 col-lg-5">
-                <div class="bg-font p-4 rounded-5 shadow">
-                    <div class="d-flex justify-content-center">
-                        <img class="profile-img my-3" src="<?= $_SESSION['user']->picture ? "./public/uploads/users/{$_SESSION['user']->picture}" : './public/assets/img/default_profile_icon.png' ?>">
-                    </div>
-                    <div class="d-flex justify-content-center my-3">
-                        <p class="fs-4"><?= $_SESSION['user']->pseudo ?></p>
-                    </div>
-                    <div>
-                        <div class="row justify-content-center">
-                            <?php if (!empty($_SESSION['user']->website)) : ?>
-                                <div class="col-2 col-lg-2 text-center">
-                                    <a target="_blank" href="<?= htmlspecialchars($_SESSION['user']->website) ?>"><i class="fa-solid fa-globe fa-2xl"></i></a>
+    <div class="row">
+        <div class="col-md-8 text-light">
+            <div class="my-3">
+                <h1>
+                    <?= $_SESSION['user']->pseudo ?>
+                </h1>
+            </div>
+            <div class="">
+                <p class="text-justify py-5 py-md-3 py-lg-5"><?= $_SESSION['user']->biography ?></p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="row wrapper mb-4">
+                    <?php if (!empty($_SESSION['user']->website)) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= htmlspecialchars($_SESSION['user']->website) ?>" class="icon website">
+                                <div class="tooltip">
+                                    Site
                                 </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($_SESSION['user']->github)) : ?>
-                                <div class="col-2 col-lg-2 text-center">
-                                    <a target="_blank" href="<?= $_SESSION['user']->github ?>"><i class="fa-brands fa-github fa-2xl"></i></a>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($_SESSION['user']->twitter)) : ?>
-                                <div class="col-2 col-lg-2 text-center">
-                                    <a target="_blank" href="<?= $_SESSION['user']->twitter ?>"><i class="fa-brands fa-x-twitter fa-2xl"></i></a>
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($_SESSION['user']->linkedin)) : ?>
-                                <div class="col-2 col-lg-2 text-center">
-                                    <a target="_blank" href="<?= $_SESSION['user']->linkedin ?>"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
-                                </div>
-                            <?php endif; ?>
+                                <span><i class="fa-solid fa-globe fa-2xl"></i></span>
+                            </a>
                         </div>
-                    </div>
-                    <div class="my-4">
-                        <?php if (!empty($_SESSION['user']->discord)) : ?>
-                            <div class="text-center">
-                                <p> <i class="fa-brands fa-discord fa-2xl"></i> <?= $_SESSION['user']->discord ?> </p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button class="bg-green text-light border-0 rounded-5 py-2" data-bs-toggle="modal" data-bs-target="#editModal"> Editer mon profil
-                        </button>
-                    </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($_SESSION['user']->github)) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= $_SESSION['user']->github ?>" class="icon github">
+                                <div class="tooltip">
+                                    GitHub
+                                </div>
+                                <span><i class="fa-brands fa-github fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($_SESSION['user']->discord)) : ?>
+                        <div class="col-2">
+                            <a href="#" class="icon discord">
+                                <div class="tooltip">
+                                    <?= $_SESSION['user']->discord ?>
+                                </div>
+                                <span><i class="fa-brands fa-discord fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($_SESSION['user']->linkedin)) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= $_SESSION['user']->linkedin ?>" class="icon linkedin">
+                                <div class="tooltip">
+                                    Linkedin
+                                </div>
+                                <span><i class="fa-brands fa-linkedin fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($_SESSION['user']->twitter)) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= $_SESSION['user']->twitter ?>" class="icon twitter">
+                                <div class="tooltip">
+                                    X
+                                </div>
+                                <span><i class="fa-brands fa-x-twitter fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-7 d-flex justify-content-center align-items-center">
-                <p class="text-justify py-5 py-md-3 py-lg-5"><?= $_SESSION['user']->biography ?></p>
+        </div>
+        <div class="col-md-4">
+            <div class="d-flex justify-content-center">
+                <img class="profile-img my-3" src="<?= $_SESSION['user']->picture ? "./public/uploads/users/{$_SESSION['user']->picture}" : './public/assets/img/default_profile_icon.png' ?>">
+            </div>
+            <div class="d-flex justify-content-center">
+                <button class="button-edit p-2" data-bs-toggle="modal" data-bs-target="#editModal"> Editer mon profil
+                </button>
             </div>
         </div>
     </div>
 
-    <h2 class="text-light fs-3 text-center pt-5">Challenges réalisés</h2>
-    <div class="bg_test rounded-5 my-4">
+    <h2 class="text-light fs-3 text-center mt-5 pt-5">Mes challenges réalisés</h2>
+    <div class="rounded-5 my-4">
         <div class="row d-flex justify-content-center my-4 p-4">
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
-                    <div class="col-md-6 col-lg-6 p-4">
+                    <div class="col-md-6 col-lg-4 p-4 bg_test">
                         <div class="row d-flex">
                             <div>
-                                <a href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>"></a>
-                                <p class="text-light fw-bold"><a href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>"><?= $contribution->challenge_name ?></a></p>
+                                <p class="fw-bold"><a class="text-light" href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>"><?= $contribution->challenge_name ?></a></p>
                             </div>
                             <div class="img-container">
                                 <div class="overlay">
@@ -116,7 +138,7 @@ ob_start()
     <div class="d-flex justify-content-center">
         <form class="delete-account" action="?page=profile/deleteAccount&id=<?= $_SESSION['user']->user_id ?>" method="post">
             <input type="hidden" name="user_id">
-            <button class="button-delete" type="submit">Supprimer mon compte</button>
+            <button class="button-delete p-2" type="submit">Supprimer mon compte</button>
         </form>
     </div>
 

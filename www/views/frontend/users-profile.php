@@ -53,7 +53,7 @@ ob_start()
             </div>
         </div>
         <div class="row d-flex justify-content-center mb-5 pb-5">
-            <h2 class="text-light fs-5 text-center my-5">Mes contributions (<?= htmlspecialchars($contributionCount) ?>)</h2>
+            <h2 class="text-light fs-5 text-center my-5">Mes contributions (<?= $contributionCount ?>)</h2>
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
                     <div class="col-md-6 px-2 d-flex justify-content-center">
@@ -61,13 +61,13 @@ ob_start()
                             <div class="row my-3">
                                 <div>
                                     <a href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>">
-                                        <img class="img-fluid" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt="">
+                                        <img class="img-fluid" src="./public/uploads/challenges/<?= $contribution->challenge_picture ?>" alt="">
                                     </a>
                                 </div>
 
                                 <div class="row my">
                                     <div class="col-6">
-                                        <a href="<?= htmlspecialchars($contribution->link) ?>" target="_blank">Lien vers le projet</a>
+                                        <a href="<?= $contribution->link ?>" target="_blank">Lien vers le projet</a>
                                     </div>
                                     <div class="col-6">
                                         <form action="" method="POST" class="d-flex justify-content-end align-items-center">

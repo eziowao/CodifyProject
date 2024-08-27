@@ -69,7 +69,7 @@ ob_start()
         <ul class="pagination justify-content-center">
             <?php if ($page > 1): ?>
                 <li class="page-item">
-                    <a class="page-link" href="??page=admin/dashboard/challenges/list&page_num=<?= $page - 1 ?>&orderBy=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Précédent">
+                    <a class="page-link" href="?page=admin/dashboard/challenges/list&page_num=<?= $page - 1 ?>&orderBy=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Précédent">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>

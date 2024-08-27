@@ -50,7 +50,7 @@
                                     <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <?= $_SESSION['user']->pseudo ?>
                                     </a>
-                                    <ul class="dropdown-menu bg-dark-grey">
+                                    <ul class="dropdown-menu bg_test">
                                         <li>
                                             <a class="dropdown-item text-light text-center" href="?page=profile">Mon profil</a>
                                         </li>
@@ -89,9 +89,9 @@
                         text-light" href="./questions.php">Mentions légales</a></p>
                 </div>
                 <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                    <a class="mx-3" href="https://discord.gg/UqRpFj92"><i class="fa-brands fa-discord fa-2xl"></i></a>
-                    <a class="mx-3" href="https://x.com/"><i class="fa-brands fa-x-twitter fa-2xl"></i></a>
-                    <a class="mx-3" href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-2xl"></i></a>
+                    <a class="mx-3" href="https://discord.gg/UqRpFj92"><i class="fa-brands fa-discord fa-2xl social-footer"></i></a>
+                    <a class="mx-3" href="https://x.com/"><i class="fa-brands fa-x-twitter fa-2xl social-footer"></i></a>
+                    <a class="mx-3" href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-2xl social-footer"></i></a>
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <p class="mt-3 my-3 text-center text-lg-end"><a class="text-decoration-none

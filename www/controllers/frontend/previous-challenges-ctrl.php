@@ -2,12 +2,19 @@
 
 $filteredChallenges = [];
 
+$limit = 10;
+$page = isset($_GET['page_num']) ? (int)$_GET['page_num'] : 1;
+$offset = ($page - 1) * $limit;
+
 try {
 
     $challengeModel = new Challenge();
     $currentChallenge = $challengeModel->getCurrentChallenge();
 
-    $allChallenges = $challengeModel->getAllChallenges();
+    $allChallenges = $challengeModel->getPaginatedChallenges($limit, $offset);
+
+    $totalChallenges = $challengeModel->countChallenges();
+    $totalPages = ceil($totalChallenges / $limit);
 
     $now = new DateTime();
 
@@ -16,10 +23,15 @@ try {
         return $challenge->challenge_id !== $currentChallenge['challenge_id'] && $publishedAt <= $now;
     });
 
-    $filteredChallenges = array_values($filteredChallenges);
+    $typeModel = new Type();
+    $types = $typeModel->getAllTypes();
+    $typesById = [];
+    foreach ($types as $type) {
+        $typesById[$type->type_id] = $type->type;
+    }
 } catch (\PDOException $ex) {
     echo sprintf('La récupération des données a échoué avec le message : %s', $ex->getMessage());
 }
 
 $title = "Challenges Précédents";
-renderView('frontend/previous-challenges', compact('title', 'filteredChallenges'), 'templateLogin');
+renderView('frontend/previous-challenges', compact('title', 'typesById', 'filteredChallenges', 'page', 'totalPages'), 'templateLogin');

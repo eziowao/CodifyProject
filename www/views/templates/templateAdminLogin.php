@@ -28,7 +28,7 @@
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Utilisateurs
                             </a>
-                            <ul class="dropdown-menu bg-dark-grey">
+                            <ul class="dropdown-menu bg_test">
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/users/list">Liste des utilisateurs</a>
                                 </li>
@@ -38,7 +38,7 @@
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Challenges
                             </a>
-                            <ul class="dropdown-menu bg-dark-grey">
+                            <ul class="dropdown-menu bg_test">
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/challenges/list">Liste des challenges</a>
                                 </li>
@@ -51,7 +51,7 @@
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Types
                             </a>
-                            <ul class="dropdown-menu bg-dark-grey">
+                            <ul class="dropdown-menu bg_test">
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/types/list">Liste des types</a>
                                 </li>
@@ -64,7 +64,7 @@
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Contributions
                             </a>
-                            <ul class="dropdown-menu bg-dark-grey">
+                            <ul class="dropdown-menu bg_test">
                                 <li>
                                     <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/contributions/list">Liste des contributions</a>
                                 </li>

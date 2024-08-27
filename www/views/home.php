@@ -22,12 +22,12 @@ ob_start()
     <div class="container my-5">
         <div class="row">
             <div>
-                <img src="./public/assets/img/chevron-gauche.png" alt="">
+                <img src="./public/assets/img/left_chevron.png" height="70px" alt="">
             </div>
         </div>
         <div class="row my-3">
             <div class="col-lg-4 offset-lg-3">
-                <div class="card bg-dark-grey w-100">
+                <div class="card bg_test w-100">
                     <div class="card-body">
                         <p class="card-text text-light text-center py-3"> 1. <span class="text-green">Inscrivez</span>
                             vous ou
@@ -39,7 +39,7 @@ ob_start()
         </div>
         <div class="row my-3">
             <div class="col-lg-4 offset-lg-8">
-                <div class="card bg-dark-grey w-100">
+                <div class="card bg_test w-100">
                     <div class="card-body">
                         <p class="card-text text-light text-center py-3"> 2. <span class="text-green">Découvrez</span>
                             le challenge de la
@@ -50,7 +50,7 @@ ob_start()
         </div>
         <div class="row my-3">
             <div class="col-lg-4">
-                <div class="card bg-dark-grey w-100">
+                <div class="card bg_test w-100">
                     <div class="card-body">
                         <p class="card-text text-light text-center py-3"> 3. <span class="text-green">Réalisez</span> le
                             challenge </p>
@@ -60,7 +60,7 @@ ob_start()
         </div>
         <div class="row my-3">
             <div class="col-lg-4 offset-lg-5">
-                <div class="card bg-dark-grey w-100">
+                <div class="card bg_test w-100">
                     <div class="card-body">
                         <p class="card-text text-light text-center py-3"> 4. <span class="text-green">Partagez</span>
                             votre réalisation avec
@@ -72,7 +72,7 @@ ob_start()
         </div>
         <div class="row">
             <div class="d-flex justify-content-end">
-                <img src="./public/assets/img/chevron-droit.png" alt="">
+                <img src="./public/assets/img/right_chevron.png" height="100px" alt="">
             </div>
         </div>
     </div>

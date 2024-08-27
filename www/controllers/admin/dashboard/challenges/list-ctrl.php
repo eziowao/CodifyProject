@@ -2,6 +2,7 @@
 
 $success = false;
 $challenge = [];
+
 $limit = 10;
 $page = isset($_GET['page_num']) ? (int)$_GET['page_num'] : 1;
 $offset = ($page - 1) * $limit;
