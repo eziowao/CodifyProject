@@ -13,9 +13,14 @@ try {
 }
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     $challengeModel = new Challenge();
     $challenge = $challengeModel->getChallengeById($id);
+
+    if ($id === false) {
+        echo 'ID invalide.';
+        exit;
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

@@ -3,7 +3,7 @@
 $errors = [];
 
 if (isset($_GET['id'])) {
-    $id = (int)$_GET['id'];
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     $userModel = new User();
     $userModel->setUserId($id);
     $user = $userModel->getUserById($id);

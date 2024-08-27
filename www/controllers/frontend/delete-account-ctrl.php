@@ -9,7 +9,7 @@ $current_user = $_SESSION['user'];
 $user_id = $current_user->user_id;
 
 if (isset($_GET['page']) && $_GET['page'] === 'profile/deleteAccount' && isset($_GET['id'])) {
-    $id = (int) $_GET['id'];
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
     if ($id === $user_id) {
         try {

@@ -18,7 +18,7 @@ try {
 $contribution = null;
 
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     $contributionModel = new Contribution();
     $contributionModel->setContributionId($id);
     $contribution = $contributionModel->getContributionById($id);

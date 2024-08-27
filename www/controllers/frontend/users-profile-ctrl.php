@@ -6,7 +6,7 @@ try {
     $currentUserId = $current_user->user_id;
 
     if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
         $userModel = new User();
         $user = $userModel->getUserById($id);
