@@ -3,15 +3,17 @@
 ob_start()
 ?>
 
-<h1 class="text-center"> <?= $title ?> </h1>
-
-<div class="container mt-5">
+<div class="container my-5">
+    <div class="mb-3">
+        <a class="text-light" href="?page=admin/dashboard/contributions/list"><i class="fa-solid fa-arrow-left text-light px-2"></i>Revenir à la liste des contributions</a>
+    </div>
+    <h1 class="text-center mb-5 text-light"> <?= $title ?> </h1>
     <div class="d-flex justify-content-center">
         <div class="col-6 text-light">
             <form action="" method="POST">
-                <div class="form-group my-5">
+                <div class="form-group">
                     <label class="mb-3" for="link">Lien de la contribution</label>
-                    <input type="text" class="form-control" id="link" name="link" value="<?= htmlspecialchars($contribution['link'] ?? '') ?>" required>
+                    <input type="text" class="form-control" id="link" name="link" placeholder="https://eziowao.github.io/JeuDuPendu/" value="<?= htmlspecialchars($contribution['link'] ?? '') ?>" required>
                 </div>
                 <div class="form-group my-5">
                     <label for="challenge_id">Type de challenge</label>
@@ -44,7 +46,7 @@ ob_start()
                     </select>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="button-27">Mettre à jour</button>
+                    <button type="submit" class="button-edit">Mettre à jour</button>
                 </div>
                 <?= $errors['type'] ?? '' ?>
             </form>

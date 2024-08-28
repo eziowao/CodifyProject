@@ -4,9 +4,13 @@ ob_start();
 
 <main class="my-5">
     <div class="container">
+        <div>
+            <a class="text-light" href="?page=profile"><i class="fa-solid fa-arrow-left text-light px-2"></i>Revenir à mon profil</a>
+        </div>
         <div class="row">
             <h1 class="m-0 fs-4 py-4 text-center text-light"><?= $title ?></h1>
         </div>
+
         <div class="row h-50 py-3 d-flex justify-content-center">
             <div class="col-10 col-md-8 col-lg-6">
                 <form action="" method="POST">

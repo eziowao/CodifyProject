@@ -24,15 +24,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav text-center ml-auto justify-content-center justify-content-lg-end ms-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Utilisateurs
-                            </a>
-                            <ul class="dropdown-menu bg_test">
-                                <li>
-                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/users/list">Liste des utilisateurs</a>
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="?page=admin/dashboard/users/list">Utilisateurs</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,18 +53,26 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="?page=admin/dashboard/contributions/list">Contributions</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Contributions
+                                <?= $_SESSION['user']->pseudo ?>
                             </a>
                             <ul class="dropdown-menu bg_test">
                                 <li>
-                                    <a class="dropdown-item text-light text-center" href="?page=admin/dashboard/contributions/list">Liste des contributions</a>
+                                    <a class="dropdown-item text-light text-center" href="?page=profile">Mon profil</a>
+                                </li>
+                                <?php if ($_SESSION['user']->role == 2) { ?>
+                                    <li>
+                                        <a class="dropdown-item text-light text-center" href="?page=home">Retour au site</a>
+                                    </li>
+                                <?php } ?>
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="?page=logout">Déconnexion</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="?page=logout">Se deconnecter</a>
                         </li>
                     </ul>
                 </div>
@@ -88,32 +89,27 @@
         </main>
     </div>
 
-    <footer>
+    <footer class="mt-auto">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12">
-                    <p class="text-light mt-3 mb-0 text-center text-lg-start"><a class="text-decoration-none
-                        text-light" href="./questions.php">F.A.Q</a></p>
-                    <p class="text-light mb-0 text-center text-lg-start"><a class="text-decoration-none
-                        text-light" href="./questions.php">Contact</a></p>
+                    <p class="text-light my-3 text-center text-lg-start"><a class="text-decoration-none
+                        text-light" href="./questions.php">Mentions légales</a></p>
                 </div>
                 <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                    <a class="mx-3" href=""><i class="fa-brands fa-discord fa-2xl"></i></a>
-                    <a class="mx-3" href=""><i class="fa-brands fa-x-twitter fa-2xl"></i></a>
-                    <a class="mx-3" href=""><i class="fa-brands fa-instagram fa-2xl"></i></a>
+                    <a class="mx-3" href="https://discord.gg/UqRpFj92"><i class="fa-brands fa-discord fa-2xl social-footer"></i></a>
+                    <a class="mx-3" href="https://x.com/"><i class="fa-brands fa-x-twitter fa-2xl social-footer"></i></a>
+                    <a class="mx-3" href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-2xl social-footer"></i></a>
                 </div>
                 <div class="col-lg-4 col-md-12">
-                    <p class="mt-3 mb-0 text-center text-lg-end"><a class="text-decoration-none
-                        text-light" href="./aboutus.php">Mentions légales</a></p>
-                    <p class="mb-0 text-center text-lg-end"> <a class="text-decoration-none
-                        text-light" href="./questions.php">CGU</a></p>
+                    <p class="mt-3 my-3 text-center text-lg-end"><a class="text-decoration-none
+                        text-light" href="./aboutus.php">CGU</a></p>
                 </div>
             </div>
             <div class="row">
                 <p class="col-12 text-center text-light">Copyright Codify 2024</p>
             </div>
         </div>
-
     </footer>
 
     <?php if (isset($script) && !empty($script)): ?>

@@ -129,7 +129,7 @@ ob_start()
                                 <div>
                                     <form class="delete-form" action="?page=profile/delete&id=<?= $contribution->contribution_id ?>" method="post">
                                         <input type="hidden" name="user_id">
-                                        <button class="button-delete" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
+                                        <button class="button-delete-admin" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -233,11 +233,11 @@ ob_start()
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-light">Voulez vous vraiment supprimer votre contribution ?</p>
+                    <p class="text-light text-center">Voulez vous vraiment supprimer cette contribution ?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-valid="true" class="button-edit p-2">Valider</button>
                     <button type="button" class="button-delete p-2" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" data-valid="true" class="button-edit p-2">Valider</button>
                 </div>
             </div>
         </div>
@@ -248,7 +248,7 @@ ob_start()
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content text-black">
                 <div class="modal-header">
-                    <h5 class="modal-title">Suppression du compte</h5>
+                    <h5 class="modal-title text-light">Suppression du compte</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -257,8 +257,8 @@ ob_start()
                     <p class="text-light">Voulez vous vraiment supprimer votre compte ? Cette action est irréversible.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-valid="true" class="button-edit p-2">Valider</button>
                     <button type="button" class="button-delete p-2" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" data-valid="true" class="button-edit p-2">Valider</button>
                 </div>
             </div>
         </div>
