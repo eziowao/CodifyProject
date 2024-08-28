@@ -118,15 +118,15 @@ ob_start()
                 <h2 class="text-light fs-4 text-center mb-4 pb-4">Challenge de la semaine : <?= $challenge['name']; ?></h2>
                 <div class="d-flex justify-content-center">
                     <?php if (!isset($_SESSION['user']) || !$_SESSION['user']) { ?>
-                        <div class="col-8">
+                        <div class="col-11">
                             <a href="?page=signUp">
                                 <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" alt="<?= $challenge['name']; ?>" class="img-fluid" halt="">
                             </a>
                         </div>
                     <?php } ?>
                     <?php if (isset($_SESSION['user']) && $_SESSION['user']) { ?>
-                        <div class="col-8 d-flex">
-                            <a href="?page=signUp">
+                        <div class="col-11">
+                            <a href="?page=weekly-challenge">
                                 <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" alt="<?= $challenge['name']; ?>" class="img-fluid" halt="">
                             </a>
                         </div>
@@ -170,7 +170,7 @@ ob_start()
     </div>
 
     <div class="container">
-        <section class="text-light py-5">
+        <section class="text-light pt-5">
             <div class="container bg-ultra-dark">
                 <div class="row">
                     <div class="col-12 col-md-5">

@@ -3,73 +3,107 @@
 ob_start()
 ?>
 
-<main class="my-5">
-    <div class="container">
-        <div class="row text-light mt-5 pt-5 d-flex justify-content-center">
-            <div class="col-11 col-lg-7">
-                <div class="row">
-                    <div class="col-10">
-                        <h1 class="fs-4"><?= $user['pseudo'] ?></h1>
-                    </div>
-                    <p class="text-justify py-3"><?= $user['biography'] ?></p>
-                </div>
+<main class="container my-5">
+
+    <div class="row">
+        <div class="col-md-8 text-light">
+            <div class="my-3">
+                <h1 class="text-center text-md-start">
+                    <?= $user['pseudo'] ?>
+                </h1>
             </div>
-            <div class="col-10 col-lg-5 px-5 ">
-                <div class="row d-flex justify-content-center">
-                    <img class="profile-img" src="<?= $user['picture'] ? "./public/uploads/users/{$user['picture']}" : './public/assets/img/default_profile_icon.png' ?>"
-                        alt="Photo de profil de l'utilisateur <?= $user['pseudo'] ?>">
-                </div>
-                <div class="container py-4">
-                    <div class="row justify-content-center">
-                        <?php if (!empty($user->website)) : ?>
-                            <div class="col-3 col-lg-2 text-center">
-                                <a target="_blank" href="<?= $user['website'] ?>"><i class="fa-solid fa-globe fa-2xl"></i></a>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($user->github)) : ?>
-                            <div class="col-3 col-lg-2 text-center">
-                                <a target="_blank" href="<?= $user['github'] ?>"><i class="fa-brands fa-github fa-2xl"></i></a>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($user->twitter)) : ?>
-                            <div class="col-3 col-lg-2 text-center">
-                                <a target="_blank" href="<?= $user['twitter'] ?>"><i class="fa-brands fa-x-twitter fa-2xl"></i></a>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (!empty($user->linkedin)) : ?>
-                            <div class="col-3 col-lg-2 text-center">
-                                <a target="_blank" href="<?= $user['linkedin'] ?>"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (!empty($user->discord)) : ?>
-                            <div class="col-3 col-lg-2 text-center">
-                                <a target="_blank" href="<?= $user['discord'] ?>"><i class="fa-brands fa-discord fa-2xl"></i></a>
-                            </div>
-                        <?php endif; ?>
+            <div class="d-flex justify-content-center">
+                <?php if (!empty($user['biography'])) : ?>
+                    <div class="col-11 col-md-12">
+                        <p class="text-justify py-5 py-md-3 py-lg-5"><?= $user['biography'] ?></p>
                     </div>
+                <?php endif; ?>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="row wrapper mb-4">
+                    <?php if (!empty($user['website'])) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= $user['website'] ?>" class="icon website">
+                                <div class="tooltip">
+                                    Site
+                                </div>
+                                <span><i class="fa-solid fa-globe fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($user['github'])) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= $user['github'] ?>" class="icon github">
+                                <div class="tooltip">
+                                    GitHub
+                                </div>
+                                <span><i class="fa-brands fa-github fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($user['discord'])) : ?>
+                        <div class="col-2">
+                            <a href="#" class="icon discord">
+                                <div class="tooltip">
+                                    <?= $user['discord'] ?>
+                                </div>
+                                <span><i class="fa-brands fa-discord fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($user['linkedin'])) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= $user['linkedin'] ?>" class="icon linkedin">
+                                <div class="tooltip">
+                                    Linkedin
+                                </div>
+                                <span><i class="fa-brands fa-linkedin fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($user['discord'])) : ?>
+                        <div class="col-2">
+                            <a target="_blank" href="<?= $user['discord'] ?>" class="icon twitter">
+                                <div class="tooltip">
+                                    X
+                                </div>
+                                <span><i class="fa-brands fa-x-twitter fa-2xl"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center mb-5 pb-5">
-            <h2 class="text-light fs-5 text-center my-5">Mes contributions (<?= $contributionCount ?>)</h2>
+        <div class="col-md-4">
+            <div class="d-flex justify-content-center">
+                <img class="profile-img my-3" src="<?= $_SESSION['user']->picture ? "./public/uploads/users/{$_SESSION['user']->picture}" : './public/assets/img/default_profile_icon.png' ?>">
+            </div>
+        </div>
+    </div>
+
+    <h2 class="text-light fs-3 text-center mt-5 pt-5">Mes challenges réalisés</h2>
+    <div class="rounded-5 my-4">
+        <div class="row d-flex justify-content-center my-4">
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
-                    <div class="col-md-6 px-2 d-flex justify-content-center">
-                        <div class="col-10 d-flex justify-content-center">
-                            <div class="row my-3">
-                                <div>
-                                    <a href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>">
-                                        <img class="img-fluid" src="./public/uploads/challenges/<?= $contribution->challenge_picture ?>" alt="">
-                                    </a>
-                                </div>
-
-                                <div class="row my">
-                                    <div class="col-6">
-                                        <a href="<?= $contribution->link ?>" target="_blank">Lien vers le projet</a>
+                    <div class="col-lg-6 p-3">
+                        <div class="challenge-card bg_test my-2 px-3 py-4 rounded-20 text-light">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="img-container">
+                                        <div class="overlay">
+                                            <a target="_blank" href="<?= $contribution->link ?>"><img class="img-fluid rounded-2" src="./public/uploads/challenges/<?= $contribution->challenge_picture ?>" alt=""></a>
+                                            <div class="text">Voir la contribution</div>
+                                        </div>
                                     </div>
-                                    <div class="col-6">
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="mb-2"> <a class="text-light" href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>"><?= $contribution->challenge_name ?></a></h5>
+                                    <div class="h-50 d-flex align-items-end justify-content-end">
                                         <form action="" method="POST" class="d-flex justify-content-end align-items-center">
                                             <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
                                             <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
@@ -82,10 +116,9 @@ ob_start()
                             </div>
                         </div>
                     </div>
-
                 <?php endforeach; ?>
             <?php else : ?>
-                <p class="text-light text-center">Vous n'avez pas encore de contributions.</p>
+                <p class="text-light text-center">Aucune contribution pour le moment.</p>
             <?php endif; ?>
         </div>
     </div>

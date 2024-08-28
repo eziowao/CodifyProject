@@ -3,37 +3,38 @@ ob_start()
 ?>
 
 <main class="my-4 container">
-    <div class="row text-light bg_test p-3">
-        <div>
-            <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
-        </div>
-        <div class="d-flex justify-content-center">
-            <div class="bg-types">
-                <small class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></> </small>
+    <div class="d-flex justify-content-center">
+        <div class="row col-11 col-md-12 text-light bg_test p-3">
+            <div>
+                <h1 class="fs-4 py-2 text-center text-light"><?= $challenge['name']; ?></h1>
             </div>
-        </div>
-        <div class="col-lg-5 d-flex align-items-center">
-            <div class="d-flex justify-content-center my-4">
-                <div class="d-flex justify-content-center">
-                    <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
+            <div class="d-flex justify-content-center">
+                <div class="bg-types">
+                    <small class="text-light text-center my-auto p-2"><?= $typesById[$challenge['type_id']] ?? '' ?></> </small>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-7 d-flex justify-content-center align-items-center">
-            <div class="text-light white-space">
-                <p class="text-justify my-auto"><?= nl2br($challenge['description']) ?></p>
+            <div class="col-lg-5 d-flex align-items-center">
+                <div class="d-flex justify-content-center my-4">
+                    <div class="d-flex justify-content-center">
+                        <img src="./../../../../public/uploads/challenges/<?= $challenge['picture'] ?>" class="img-fluid" alt="">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
-                <button class="bg-purple text-light border-0 rounded-5 p-2"> <i class="fa-solid fa-link"></i> Accéder à la maquette </button>
-            </form>
+            <div class="col-lg-7 d-flex justify-content-center align-items-center">
+                <div class="text-light white-space">
+                    <p class="text-justify my-auto"><?= nl2br($challenge['description']) ?></p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <form action="<?= $challenge['file_url'] ?>" target="_blank" class="col-7 col-md-9 col-lg-7 d-flex justify-content-center">
+                    <button class="bg-purple text-light border-0 rounded-5 p-2"> <i class="fa-solid fa-link"></i> Accéder à la maquette </button>
+                </form>
+            </div>
         </div>
     </div>
 
     <div class="row text-light" id="contributions-list">
         <h2 class="m-0 fs-4 pt-5 pb-4 text-center text-light">Contributions délivrées</h2>
-
         <?php if (!empty($contributions)) : ?>
             <?php foreach ($contributions as $contribution) : ?>
                 <div class="col-12 col-md-6 d-flex justify-content-center">
@@ -115,9 +116,9 @@ ob_start()
                 <h1 class="m-0 fs-4 py-4 text-center text-light">Contributions les plus aimées pour ce challenge</h1>
             </div>
         </div>
-        <div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-12 d-flex justify-content-center ranking-content py-4 mb-5 rounded-20">
+        <div class="d-flex justify-content-center">
+            <div class="row col-11 col-md-12 d-flex justify-content-center">
+                <div class="col-11 col-md-12 d-flex justify-content-center ranking-content py-4 mb-5 rounded-20">
                     <div class="col-3 text-center text-light">
                         <div class="d-flex justify-content-center">
                             <div class="col-6">
@@ -149,18 +150,20 @@ ob_start()
         </div>
     <?php endif; ?>
 
-    <div class="row bg-purple rounded-20 p-4 text-light">
-        <div class="col-md-10">
-            <p class="fw-semibold fs-2">Besoin d'aide ? 🚀</p>
-            <p class="text-justify">N'hésite pas à rejoindre notre communauté sur Discord ! 🌟 C'est l'endroit idéal pour échanger avec d'autres développeurs, poser des questions, obtenir des conseils, et partager tes idées. Ensemble, nous pourrons surmonter tous les défis du développement frontend et avancer plus loin ! 💪</p>
-            <a href="https://discord.gg/4xcTPZCR" target="_blank" class="no-underline">
-                <button class="bg-white p-2 rounded-20 border-0">
-                    Rejoindre notre Discord
-                </button>
-            </a>
-        </div>
-        <div class="col-md-2 d-flex justify-content-end">
-            <img src="./../../../../public/assets/img/discord-white-icon.svg" height="60px" alt="">
+    <div class="d-flex justify-content-center">
+        <div class="row col-11 col-md-12 bg-purple rounded-20 p-4 text-light">
+            <div class="col-md-10">
+                <p class="fw-semibold fs-2">Besoin d'aide ? 🚀</p>
+                <p class="text-justify">N'hésite pas à rejoindre notre communauté sur Discord ! 🌟 C'est l'endroit idéal pour échanger avec d'autres développeurs, poser des questions, obtenir des conseils, et partager tes idées. Ensemble, nous pourrons surmonter tous les défis du développement frontend et avancer plus loin ! 💪</p>
+                <a href="https://discord.gg/4xcTPZCR" target="_blank" class="no-underline">
+                    <button class="bg-white p-2 rounded-20 border-0">
+                        Rejoindre notre Discord
+                    </button>
+                </a>
+            </div>
+            <div class="col-md-2 py-3 d-flex justify-content-end">
+                <img src="./../../../../public/assets/img/discord-white-icon.svg" height="60px" alt="">
+            </div>
         </div>
     </div>
 

@@ -7,18 +7,22 @@ ob_start()
     <div class="row">
         <div class="col-md-8 text-light">
             <div class="my-3">
-                <h1>
+                <h1 class="text-center text-md-start">
                     <?= $_SESSION['user']->pseudo ?>
                 </h1>
             </div>
-            <div class="">
-                <p class="text-justify py-5 py-md-3 py-lg-5"><?= $_SESSION['user']->biography ?></p>
+            <div class="d-flex justify-content-center">
+                <?php if (!empty($_SESSION['user']->biography)) : ?>
+                    <div class="col-11 col-md-12">
+                        <p class="text-justify py-5 py-md-3 py-lg-5"><?= $_SESSION['user']->biography ?></p>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="d-flex justify-content-center">
                 <div class="row wrapper mb-4">
                     <?php if (!empty($_SESSION['user']->website)) : ?>
                         <div class="col-2">
-                            <a target="_blank" href="<?= htmlspecialchars($_SESSION['user']->website) ?>" class="icon website">
+                            <a target="_blank" href="<?= $_SESSION['user']->website ?>" class="icon website">
                                 <div class="tooltip">
                                     Site
                                 </div>
@@ -86,45 +90,48 @@ ob_start()
 
     <h2 class="text-light fs-3 text-center mt-5 pt-5">Mes challenges réalisés</h2>
     <div class="rounded-5 my-4">
-        <div class="row d-flex justify-content-center my-4 p-4">
+        <div class="row d-flex justify-content-center my-4">
             <?php if (!empty($contributions)) : ?>
                 <?php foreach ($contributions as $contribution) : ?>
-                    <div class="col-md-6 col-lg-4 p-4 bg_test">
-                        <div class="row d-flex">
-                            <div>
-                                <p class="fw-bold"><a class="text-light" href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>"><?= $contribution->challenge_name ?></a></p>
-                            </div>
-                            <div class="img-container">
-                                <div class="overlay">
-                                    <a target="_blank" href="<?= $contribution->link ?>"><img class="img-fluid rounded-2" src="./public/uploads/challenges/<?= htmlspecialchars($contribution->challenge_picture) ?>" alt=""></a>
-                                    <div class="text">Voir la contribution</div>
-                                </div>
-                                <div class="row my-2">
-                                    <div class="col-6">
-                                        <div class="d-flex justify-content-end">
-                                            <a href="?page=profile/contribution&id=<?= $contribution->contribution_id ?>"><button class="button-edit"><i class="fa-solid fa-pen-to-square fa-sm"></i></button></a>
+                    <div class="col-lg-6 p-3">
+                        <div class="challenge-card bg_test my-2 px-3 py-4 rounded-20 text-light">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="img-container">
+                                        <div class="overlay">
+                                            <a target="_blank" href="<?= $contribution->link ?>"><img class="img-fluid rounded-2" src="./public/uploads/challenges/<?= $contribution->challenge_picture ?>" alt=""></a>
+                                            <div class="text">Voir la contribution</div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
-                                        <div>
-                                            <form class="delete-form" action="?page=profile/delete&id=<?= $contribution->contribution_id ?>" method="post">
-                                                <input type="hidden" name="user_id">
-                                                <button class="button-delete" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
-                                            </form>
-                                        </div>
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="mb-2"> <a class="text-light" href="?page=previous-challenges/challenge&id=<?= $contribution->challenge_id ?>"><?= $contribution->challenge_name ?></a></h5>
+                                    <div class="h-50 d-flex align-items-end justify-content-end">
+                                        <form action="" method="POST" class="d-flex justify-content-end align-items-center">
+                                            <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
+                                            <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
+                                                <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
+                                            </button>
+                                            <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row my-2">
-                            <div class="d-flex justify-content-end">
-                                <form action="" method="POST" class="d-flex justify-content-end align-items-center">
-                                    <input type="hidden" name="contribution_id" value="<?= $contribution->contribution_id ?>">
-                                    <button class="like-button bg-transparent border-0 p-0" data-contribution-id="<?= $contribution->contribution_id ?>">
-                                        <i class="<?= $contribution->liked ? 'fa-solid fa-heart' : 'fa-regular fa-heart' ?>" id="like-icon-<?= $contribution->contribution_id ?>"></i>
-                                    </button>
-                                    <span class="ms-2 text-light" id="like-count-<?= $contribution->contribution_id ?>"><?= $contribution->like_count ?></span>
-                                </form>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-end">
+                                    <a href="?page=profile/contribution&id=<?= $contribution->contribution_id ?>"><button class="button-edit"><i class="fa-solid fa-pen-to-square fa-sm"></i></button></a>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <form class="delete-form" action="?page=profile/delete&id=<?= $contribution->contribution_id ?>" method="post">
+                                        <input type="hidden" name="user_id">
+                                        <button class="button-delete" type="submit"><i class="fa-solid fa-trash fa-sm"></i></button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -141,7 +148,6 @@ ob_start()
             <button class="button-delete p-2" type="submit">Supprimer mon compte</button>
         </form>
     </div>
-
 
     <!-- modal form profile -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editProfileModal" aria-hidden="true">
@@ -198,15 +204,19 @@ ob_start()
                             <input type="text" class="form-control" id="discord" placeholder="Codify#1234" name="discord" value="<?= $_SESSION['user']->discord ?>">
                         </div>
                         <div class="form-group mb-3">
-                            <label class="mt-2 fw-semibold" for="picture">Photo de profil</label>
-                            <input type="file" class="form-control" id="picture" name="picture" accept=".jpg, .jpeg, .png, .gif">
-                            <div class="invalid-feedback" id="pictureError"></div>
+                            <div class="custom-file-input">
+                                <p class="fw-semibold">Photo de profil</p>
+                                <label for="picture" class="custom-file-label">Choisir un fichier</label>
+
+                                <input type="file" class="form-control" id="picture" name="picture" accept=".jpg, .jpeg, .png, .gif">
+                                <div class="invalid-feedback" id="pictureError"></div>
+                            </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn bg-green text-light" form="contributionForm">Mettre à jour</button>
+                    <button type="button" class="button-delete p-2" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="button-edit p-2" form="contributionForm">Mettre à jour</button>
                 </div>
             </div>
         </div>
@@ -217,17 +227,17 @@ ob_start()
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content text-black">
                 <div class="modal-header">
-                    <h5 class="modal-title">Suppression</h5>
+                    <h5 class="modal-title text-light">Suppression</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Voulez vous vraiment supprimer votre contribution ?</p>
+                    <p class="text-light">Voulez vous vraiment supprimer votre contribution ?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-valid="true" class="btn btn-primary">Valider</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" data-valid="true" class="button-edit p-2">Valider</button>
+                    <button type="button" class="button-delete p-2" data-bs-dismiss="modal">Annuler</button>
                 </div>
             </div>
         </div>
@@ -244,11 +254,11 @@ ob_start()
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Voulez vous vraiment supprimer votre compte ? Cette action est irréversible.</p>
+                    <p class="text-light">Voulez vous vraiment supprimer votre compte ? Cette action est irréversible.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-valid="true" class="btn btn-primary">Valider</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" data-valid="true" class="button-edit p-2">Valider</button>
+                    <button type="button" class="button-delete p-2" data-bs-dismiss="modal">Annuler</button>
                 </div>
             </div>
         </div>

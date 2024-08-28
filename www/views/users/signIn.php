@@ -11,19 +11,19 @@ ob_start()
                 <fieldset>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="email@example.com">
+                        <input type="email" name="email" class="form-control rounded-20" id="email" placeholder="email@example.com">
                         <p> <?= isset($errors['email']) && !empty($errors['email']) ? $errors['email'] : '' ?></p>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Votre mot de passe</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Entrez votre mot de passe">
+                        <input type="password" name="password" class="form-control rounded-20" id="password" placeholder="Entrez votre mot de passe">
                         <p> <?= isset($errors['password']) && !empty($errors['password']) ? $errors['password'] : '' ?></p>
                         <p> <?= isset($errors['auth']) && !empty($errors['auth']) ? $errors['auth'] : '' ?></p>
 
                     </div>
                 </fieldset>
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="bg-green text-light border-0 rounded-5 p-2">Se connecter</button>
+                    <button type="submit" class="button-edit p-2">Se connecter</button>
                 </div>
             </form>
         </div>

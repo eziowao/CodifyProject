@@ -220,7 +220,7 @@ a {
     height: max-content;
     border-radius: 25px;
     border: none;
-    background-color: #F13E3D;
+    background-color: #2c2c2c;
     cursor: pointer;
     box-shadow: 0 0 10px #333;
     overflow: hidden;
@@ -233,7 +233,7 @@ a {
     transform: scale(1.1);
     box-shadow: 0 0 4px #111;
     transition: .3s;
-    color: #F13E3D;
+    color: #2c2c2c;
 }
 
 .button-edit {
@@ -531,4 +531,66 @@ a .challenge-card:hover {
 .wrapper .discord:hover span,
 .wrapper .discord:hover .tooltip {
     background: #4E63EF;
+}
+
+/* modal  */
+
+.modal-content {
+    background-color: #080808;
+    color: #fff;
+}
+
+.modal-header {
+    border-bottom: 1px solid #080808;
+}
+
+.modal-footer {
+    border-top: 1px solid #080808;
+}
+
+.form-control {
+    background-color: #141414;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+.form-control::placeholder {
+    color: #bbb;
+}
+
+.custom-file-input {
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-file-input input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* Style pour le bouton personnalisé */
+.custom-file-label {
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    text-align: center;
+}
+
+.custom-file-label:hover {
+    background-color: #444;
+    /* Changement de couleur au survol */
 }
