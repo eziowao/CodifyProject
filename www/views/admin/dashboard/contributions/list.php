@@ -1,10 +1,12 @@
-<?php ob_start() ?>
+<?php
 
+ob_start()
+?>
 
 <div class="container my-5">
     <h1 class="text-center text-light mb-5"> <?= $title ?> </h1>
-    <form method="get" class="mb-4>
-        <input type=" hidden" name="page" value="admin/dashboard/contributions/list">
+    <form method="GET" action="" class="mb-4">
+        <input type="hidden" name="page" value="admin/dashboard/contributions/list">
         <div class="input-group mb-3">
             <input type="text" name="search" class="form-control rounded-20" placeholder="Rechercher une contribution par ID, pseudo ou challenge" value="<?= $_GET['search'] ?? '' ?>">
             <button class="btn bg-green text-light rounded-20" type="submit">Rechercher</button>
@@ -50,17 +52,23 @@
         </table>
     </div>
 
+    <!-- pagination  -->
     <nav>
         <ul class="pagination justify-content-center">
-            <?php if ($pageNum > 1): ?>
-                <li class="page-item"><a class="page-link" href="?page=admin/dashboard/contributions/list&page_num=<?= $pageNum - 1 ?>&sort=<?= $orderBy ?>&order=<?= $direction ?>">Précédent</a></li>
-            <?php endif; ?>
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="page-item <?= $i === $pageNum ? 'active' : '' ?>"><a class="page-link" href="?page=admin/dashboard/contributions/list&page_num=<?= $i ?>&sort=<?= $orderBy ?>&order=<?= $direction ?>"><?= $i ?></a></li>
-            <?php endfor; ?>
-            <?php if ($pageNum < $totalPages): ?>
-                <li class="page-item"><a class="page-link" href="?page=admin/dashboard/contributions/list&page_num=<?= $pageNum + 1 ?>&sort=<?= $orderBy ?>&order=<?= $direction ?>">Suivant</a></li>
-            <?php endif; ?>
+            <?php
+            if ($pageNum) { ?>
+                <nav class="paginationContainer my-3" aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                            <li class="page-item <?= ($i == $pageNum) ? 'active' : '' ?>">
+                                <a class="page-item" href="?page=admin/dashboard/contributions/list&page_num=<?= $i ?>&sort=<?= $orderBy ?>&order=<?= $direction ?>"><?= $i ?></a>
+                            </li>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                </nav>
+            <?php }
+            ?>
         </ul>
     </nav>
 </div>

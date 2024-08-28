@@ -3,8 +3,7 @@
 ob_start()
 ?>
 
-
-<div class="container mt-5">
+<div class="container my-5">
     <h1 class="text-center text-light mb-5"> <?= $title ?> </h1>
     <form method="GET" action="">
         <input type="hidden" name="page" value="admin/dashboard/users/list">
@@ -74,37 +73,27 @@ ob_start()
                 <?php endif; ?>
             </tbody>
         </table>
-        <?php if ($totalPages > 1): ?>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <?php if ($page > 1): ?>
-                        <li class="page-item">
-                            <a href="?page=admin/dashboard/users/list&page_num=<?= $page - 1 ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-
-                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <li class="page-item <?= ($i === $page) ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=admin/dashboard/users/list&page_num=<?= $i ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>">
-                                <?= $i ?>
-                            </a>
-                        </li>
-                    <?php endfor; ?>
-
-                    <?php if ($page < $totalPages): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=admin/dashboard/users/list&page_num=<?= $page + 1 ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
-        <?php endif; ?>
+        <nav>
+            <ul class="pagination justify-content-center">
+                <?php
+                if ($totalPages > 0) { ?>
+                    <nav class="paginationContainer my-3" aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                    <a class="page-item" href="?page=admin/dashboard/users/list&page_num=<?= $i ?>&order_by=<?= $orderBy ?>&direction=<?= $direction ?>">
+                                        <?= $i ?>
+                                    </a>
+                                </li>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
+                    </nav>
+                <?php }
+                ?>
+            </ul>
+        </nav>
     </div>
-
 
     <div id="delete-modal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered" role="document">

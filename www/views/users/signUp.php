@@ -6,7 +6,7 @@ ob_start()
 <div class="container my-5">
     <h1 class="text-light text-center"><?= $title ?></h1>
     <div class="d-flex justify-content-center">
-        <div class="col-5">
+        <div class="col-10 col-md-8 col-lg-5">
             <form method="post" class="text-light">
                 <fieldset>
                     <div class="mb-3">
